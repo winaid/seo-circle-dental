@@ -20,7 +20,6 @@ export const metadata: Metadata = {
     ...(GOOGLE_SITE_VERIFICATION ? { google: GOOGLE_SITE_VERIFICATION } : {}),
     ...(NAVER_SITE_VERIFICATION ? { other: { 'naver-site-verification': [NAVER_SITE_VERIFICATION] } } : {}),
   },
-  icons: { icon: '/img/20210927_36acb8c3e0ae7.png' },
   other: { 'format-detection': 'telephone=yes' },
 };
 

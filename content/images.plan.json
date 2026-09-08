@@ -1,0 +1,1795 @@
+{
+ "/symptom/toothache-night": {
+  "scene": "A small periapical x-ray film is clipped to a compact light viewer on a white dental counter, with a cotton roll and a capped explorer placed to the side. The camera looks down at a slight angle so the root area on the film is visible without any markings.",
+  "alt": "흰 치과 카운터 위의 작은 라이트 뷰어에 치근 엑스레이 필름이 꽂혀 있고 옆에 솜롤과 캡이 씌워진 탐침이 놓여 있다.",
+  "props": [
+   "periapical x-ray film",
+   "light viewer",
+   "cotton roll",
+   "explorer"
+  ]
+ },
+ "/symptom/cold-sensitivity": {
+  "scene": "An enlarged premolar enamel-wear model sits near an unmarked air-water syringe tip and a small metal tray. The exposed yellow dentin area faces the camera in a close front view.",
+  "alt": "확대된 소구치 마모 모형의 노란 상아질 부분이 앞을 향하고 옆에 표시 없는 에어워터 시린지 팁과 작은 금속 트레이가 놓여 있다.",
+  "props": [
+   "enamel-wear model",
+   "air-water syringe tip",
+   "metal tray"
+  ]
+ },
+ "/symptom/bleeding-gums": {
+  "scene": "A soft adult toothbrush lies diagonally across a white tray beside a clear rinse cup with faint red-tinted water at the bottom. The scene is photographed from directly above.",
+  "alt": "흰 트레이 위에 성인용 부드러운 칫솔이 대각선으로 놓여 있고 옆의 투명 컵 바닥에는 옅은 붉은 물이 담겨 있다.",
+  "props": [
+   "adult toothbrush",
+   "rinse cup",
+   "white tray"
+  ]
+ },
+ "/symptom/missing-tooth": {
+  "scene": "A lower jaw arch model with one empty molar space is placed alone on the counter, with the adjacent teeth angled slightly toward the gap. The camera views the arch from a low three-quarter angle.",
+  "alt": "아래턱 치열 모형에 어금니 한 자리가 비어 있고 양옆 치아가 빈 공간 쪽으로 약간 기울어진 채 놓여 있다.",
+  "props": [
+   "edentulous jaw model",
+   "empty socket",
+   "adjacent teeth"
+  ]
+ },
+ "/symptom/wisdom-tooth-pain": {
+  "scene": "A back-corner gum model shows a partially erupted third molar under a raised gum flap, with a small irrigation syringe resting behind it. The view is a tight side close-up of the flap and tooth crown.",
+  "alt": "뒤쪽 잇몸 모형에서 잇몸 덮개 아래로 사랑니 머리 일부가 나와 있고 뒤에는 작은 세척 주사기가 놓여 있다.",
+  "props": [
+   "third molar model",
+   "gum flap",
+   "irrigation syringe"
+  ]
+ },
+ "/symptom/bad-breath": {
+  "scene": "A U-shaped stainless tongue scraper is centered on a white counter, with an interdental brush and a floss spool set behind it. The camera looks straight down, keeping the scraper as the largest object.",
+  "alt": "흰 카운터 중앙에 U자형 금속 혀 클리너가 놓여 있고 뒤쪽에 치간칫솔과 치실 통이 함께 놓여 있다.",
+  "props": [
+   "tongue scraper",
+   "interdental brush",
+   "floss spool"
+  ]
+ },
+ "/symptom/cracked-tooth": {
+  "scene": "A bite test wedge rests on a small blue dental tray beside a single premolar practice tooth. The camera is close and level with the tray edge, emphasizing the pointed wedge tip.",
+  "alt": "작은 파란 치과 트레이 위에 교합 검사 쐐기와 소구치 연습 치아 하나가 나란히 놓여 있다.",
+  "props": [
+   "bite test wedge",
+   "premolar tooth",
+   "dental tray"
+  ]
+ },
+ "/symptom/loose-tooth": {
+  "scene": "A single resin tooth stands loosely in an oversized socket block with a visible gap around the root. The counter is viewed from the front at tooth height.",
+  "alt": "큰 치조와 블록 안에 레진 치아 하나가 헐겁게 서 있고 뿌리 주위로 틈이 보인다.",
+  "props": [
+   "mobility tooth model",
+   "socket block",
+   "resin tooth"
+  ]
+ },
+ "/symptom/receding-gums": {
+  "scene": "A gingival recession teaching model is placed at a diagonal, showing long exposed root surfaces above a lowered red gumline. A small unmarked dental mirror lies off to one corner.",
+  "alt": "잇몸 퇴축 교육 모형이 대각선으로 놓여 있고 내려간 붉은 잇몸선 위로 긴 치아 뿌리 부분이 드러나 있다.",
+  "props": [
+   "recession model",
+   "exposed roots",
+   "dental mirror"
+  ]
+ },
+ "/symptom/food-impaction": {
+  "scene": "Two adjacent molar replicas with an open contact are mounted in a small block, with a tan wax pellet lodged between them. A floss pick is placed horizontally in front, and the camera looks down from the chewing surface.",
+  "alt": "작은 블록에 고정된 두 어금니 모형 사이가 벌어져 있고 그 틈에 황갈색 왁스 알갱이가 끼어 있으며 앞에는 치실 픽이 놓여 있다.",
+  "props": [
+   "open-contact model",
+   "wax pellet",
+   "floss pick"
+  ]
+ },
+ "/symptom/gum-boil": {
+  "scene": "A gum abscess model shows a tiny raised pale bump on the gum above a root outline, with a small gauze square placed nearby. The camera is angled close to the gum surface.",
+  "alt": "치아 뿌리 선 위의 잇몸 모형에 작은 옅은 돌기가 솟아 있고 옆에 작은 거즈 조각이 놓여 있다.",
+  "props": [
+   "gum abscess model",
+   "gauze square",
+   "root outline"
+  ]
+ },
+ "/symptom/chewing-difficulty": {
+  "scene": "A dental articulator holds upper and lower stone casts slightly open, with a strip of colored bite paper caught on only one side. The camera views the articulator from the side.",
+  "alt": "치과용 교합기에 위아래 석고 치열 모형이 약간 벌어진 채 물려 있고 한쪽에만 색 교합지가 끼워져 있다.",
+  "props": [
+   "dental articulator",
+   "stone casts",
+   "bite paper"
+  ]
+ },
+ "/symptom/dark-spot": {
+  "scene": "An enlarged molar chewing-surface model sits flat on the counter with a small dark point inside one deep groove. A mouth mirror is placed behind it, out of the main line of view.",
+  "alt": "확대된 어금니 씹는 면 모형이 카운터에 평평하게 놓여 있고 깊은 홈 하나 안에 작은 검은 점이 보인다.",
+  "props": [
+   "molar surface model",
+   "dark fissure",
+   "mouth mirror"
+  ]
+ },
+ "/symptom/kids-cavity": {
+  "scene": "A primary molar model is placed on a small pediatric impression tray, showing a small dark cavity on the side surface. The camera looks down from the upper right corner of the tray.",
+  "alt": "유치 어금니 모형이 작은 소아용 인상 트레이 위에 놓여 있고 옆면에 작은 검은 충치 모양이 보인다.",
+  "props": [
+   "primary molar model",
+   "impression tray",
+   "dark cavity"
+  ]
+ },
+ "/symptom/tooth-eruption": {
+  "scene": "A mixed-dentition jaw model shows two permanent incisors emerging behind retained baby teeth. The model is photographed from the front with the incisor area closest to the camera.",
+  "alt": "혼합치열 턱 모형에서 빠지지 않은 유치 뒤쪽으로 영구치 앞니 두 개가 올라와 있고 앞니 부분이 카메라 쪽을 향한다.",
+  "props": [
+   "mixed-dentition model",
+   "permanent incisors",
+   "baby teeth"
+  ]
+ },
+ "/symptom/loose-denture": {
+  "scene": "An upper complete denture is tilted above a matching gum cast, leaving a visible uneven gap between the pink base and the ridge. The camera views it from a low front angle.",
+  "alt": "윗틀니가 맞는 잇몸 모형 위에서 비스듬히 들려 있고 분홍색 바닥과 잇몸 능선 사이에 고르지 않은 틈이 보인다.",
+  "props": [
+   "complete denture",
+   "gum cast",
+   "denture base"
+  ]
+ },
+ "/symptom/jaw-swelling": {
+  "scene": "A mandible infection-spread model is set on the counter with a translucent red bulge attached outside the lower jaw. A pair of cotton pliers rests parallel to the model in the background.",
+  "alt": "아래턱 감염 확산 모형의 턱 바깥쪽에 반투명한 붉은 돌출 부위가 붙어 있고 뒤에는 치과용 핀셋이 평행하게 놓여 있다.",
+  "props": [
+   "mandible model",
+   "red swelling",
+   "cotton pliers"
+  ]
+ },
+ "/symptom/gum-swelling": {
+  "scene": "A localized swollen-gum model surrounds a back molar with a raised red gum edge and a narrow pocket opening. The camera looks from above and slightly behind the molar.",
+  "alt": "뒤어금니를 둘러싼 잇몸 모형에서 붉게 솟은 잇몸 가장자리와 좁은 주머니 입구가 보인다.",
+  "props": [
+   "swollen-gum model",
+   "back molar",
+   "gum pocket"
+  ]
+ },
+ "/symptom/jaw-click": {
+  "scene": "A temporomandibular joint teaching model is placed alone with the small disc component visible between the joint surfaces. The camera frames it from the side on the white counter.",
+  "alt": "턱관절 교육 모형이 단독으로 놓여 있고 관절면 사이의 작은 디스크 부품이 옆에서 보인다.",
+  "props": [
+   "TMJ model",
+   "disc component",
+   "joint surfaces"
+  ]
+ },
+ "/symptom/teeth-grinding": {
+  "scene": "A clear occlusal splint sits on a plaster upper arch cast, with flat worn contact areas visible along the canine and molar regions. The camera looks down at a shallow diagonal angle.",
+  "alt": "투명 교합 스플린트가 윗니 석고 모형 위에 끼워져 있고 송곳니와 어금니 부위에 납작한 마모 접촉면이 보인다.",
+  "props": [
+   "occlusal splint",
+   "plaster cast",
+   "wear facets"
+  ]
+ },
+ "/symptom/mouth-ulcer": {
+  "scene": "A strip of orthodontic wax is rolled beside a sharp-cusp tooth model on a small stainless tray. The camera is close from the front, showing the wax positioned near the pointed cusp.",
+  "alt": "작은 스테인리스 트레이 위에 뾰족한 교두가 있는 치아 모형과 말린 교정용 왁스 조각이 나란히 놓여 있다.",
+  "props": [
+   "orthodontic wax",
+   "sharp-cusp model",
+   "stainless tray"
+  ]
+ },
+ "/symptom/dry-mouth": {
+  "scene": "A blank saliva collection vial stands upright beside dry cotton rolls and an unmarked squeeze bottle. The objects are arranged in a small triangle and photographed from above.",
+  "alt": "표시 없는 침 채취 바이알이 세워져 있고 마른 솜롤과 표시 없는 짜는 병이 삼각형으로 배치되어 있다.",
+  "props": [
+   "saliva vial",
+   "cotton rolls",
+   "squeeze bottle"
+  ]
+ },
+ "/symptom/tooth-discoloration": {
+  "scene": "A single darkened incisor model is mounted between two lighter incisor replicas on a narrow base. The camera faces the row straight on so the color difference is centered.",
+  "alt": "좁은 받침대 위에 어두운 앞니 모형 하나가 밝은 앞니 모형 두 개 사이에 세워져 있다.",
+  "props": [
+   "darkened incisor",
+   "incisor replicas",
+   "narrow base"
+  ]
+ },
+ "/symptom/crown-fell-out": {
+  "scene": "A dental cement spatula lies beside small dried cement fragments on a white tray, with an inverted prosthetic crown shell set farther back. The camera looks down from the left so the hollow inside of the crown is visible in the background.",
+  "alt": "흰 트레이 위에 치과용 시멘트 스패출러와 굳은 시멘트 조각들이 놓여 있고 뒤쪽에는 뒤집힌 보철 크라운 껍질이 있다.",
+  "props": [
+   "cement spatula",
+   "cement fragments",
+   "crown shell"
+  ]
+ },
+ "/symptom/tongue-coating": {
+  "scene": "A silicone tongue-surface training pad lies flat with a white coating spread across the rear textured area. A small tongue brush is placed beside it at a right angle.",
+  "alt": "실리콘 혀 표면 연습 패드가 평평하게 놓여 있고 뒤쪽 거친 부분에 흰 코팅이 발라져 있으며 옆에는 혀 브러시가 직각으로 놓여 있다.",
+  "props": [
+   "tongue pad",
+   "white coating",
+   "tongue brush"
+  ]
+ },
+ "/symptom/tooth-gap": {
+  "scene": "A front-teeth diastema model stands upright on a small base, showing a clear space between the two central incisors. The camera is centered at the level of the incisal edges.",
+  "alt": "앞니 벌어짐 모형이 작은 받침대 위에 세워져 있고 가운데 앞니 두 개 사이에 뚜렷한 틈이 보인다.",
+  "props": [
+   "diastema model",
+   "central incisors",
+   "small base"
+  ]
+ },
+ "/condition/dental-caries": {
+  "scene": "An enamel decay progression block is set on the counter, showing a chalky white spot on one side and a small cavity on the other. A spoon excavator rests diagonally behind the block.",
+  "alt": "법랑질 우식 진행 블록이 카운터 위에 놓여 있고 한쪽에는 흰 반점, 다른 쪽에는 작은 구멍이 보이며 뒤에는 스푼 익스카베이터가 대각선으로 놓여 있다.",
+  "props": [
+   "decay block",
+   "white spot",
+   "spoon excavator"
+  ]
+ },
+ "/condition/pulpitis": {
+  "scene": "A longitudinal incisor canal model is opened to reveal a red canal insert running through the center of the tooth. The model is placed vertically in a clear stand and viewed from a front three-quarter angle.",
+  "alt": "세로로 열린 앞니 신경관 모형이 투명 받침대에 세워져 있고 치아 중앙을 지나는 붉은 관 모양 부품이 보인다.",
+  "props": [
+   "incisor canal model",
+   "red canal insert",
+   "clear stand"
+  ]
+ },
+ "/condition/gingivitis": {
+  "scene": "An inflamed gum-margin arch model is arranged in a semicircle, with red swollen gum edges around otherwise intact teeth. A blank periodontal chart sheet lies folded underneath without any visible writing.",
+  "alt": "반원 모양으로 놓인 잇몸 염증 치열 모형에서 치아 주변의 붉게 부은 잇몸 가장자리가 보이고 아래에는 글자 없는 종이가 접혀 있다.",
+  "props": [
+   "gingivitis model",
+   "gum margins",
+   "blank sheet"
+  ]
+ },
+ "/condition/periodontitis": {
+  "scene": "A vertical bone-loss model shows several tooth roots exposed above a lowered alveolar bone level, with the removable bone piece placed beside it. The camera views the model from above at a rear diagonal angle.",
+  "alt": "수직 잇몸뼈 소실 모형에서 낮아진 뼈 높이 위로 여러 치아 뿌리가 드러나 있고 분리된 뼈 조각이 옆에 놓여 있다.",
+  "props": [
+   "bone-loss model",
+   "exposed roots",
+   "bone piece"
+  ]
+ },
+ "/condition/pericoronitis": {
+  "scene": "A silicone gum-hood model covers the back half of a partially erupted rear molar, with a small curved irrigating tip resting beside it on the white counter. The camera looks down at a three-quarter angle so the pocket under the gum hood is visible.",
+  "alt": "흰 카운터 위에 뒤쪽 어금니 일부를 덮은 실리콘 잇몸 덮개 모형과 작은 굽은 세척 팁이 놓여 있다.",
+  "props": [
+   "operculum model",
+   "rear molar model",
+   "irrigating tip"
+  ]
+ },
+ "/condition/dry-socket": {
+  "scene": "A resin dry-alveolus model sits alone near the counter edge, showing a hollow extraction recess with a pale bone-textured base and raised gum rim. The shot is a tight overhead close-up with the recess centered.",
+  "alt": "흰 카운터 가장자리 근처에 잇몸 테두리와 옅은 뼈 질감의 움푹한 발치 자리 모형이 놓여 있다.",
+  "props": [
+   "dry alveolus model",
+   "gum rim",
+   "bone-textured base"
+  ]
+ },
+ "/condition/cracked-tooth-syndrome": {
+  "scene": "A slim fiber-optic transilluminator lies diagonally beside an intact molar teaching model, with its narrow tip pointing toward the cusp grooves. The camera is low from the side so the instrument tip and tooth surface line up.",
+  "alt": "온전한 어금니 교육 모형 옆에 가느다란 광섬유 투조기가 대각선으로 놓여 있고 끝이 교두 홈을 향한다.",
+  "props": [
+   "transilluminator",
+   "molar model",
+   "light tip"
+  ]
+ },
+ "/condition/dentin-hypersensitivity": {
+  "scene": "A circular dentin-tubule demonstration disk is propped upright in a small clear holder, showing rows of tiny open channels on a yellow surface. A capped desensitizing applicator pen lies horizontally in front of it.",
+  "alt": "작은 투명 받침에 노란 표면의 미세한 관이 보이는 상아질 세관 원형 모형이 세워져 있고 앞에는 뚜껑 닫힌 도포 펜이 놓여 있다.",
+  "props": [
+   "dentin tubule disk",
+   "clear holder",
+   "applicator pen"
+  ]
+ },
+ "/condition/tmd": {
+  "scene": "A dental facebow is spread in a shallow arc on the counter, with its ear pieces facing the camera and the bite fork set off to one side. The view is from above at a wide angle to show the hinge-like arrangement.",
+  "alt": "흰 카운터 위에 치과용 페이스보우가 얕은 호 모양으로 펼쳐져 있고 귀 지지부가 앞쪽을 향하며 바이트 포크가 한쪽에 놓여 있다.",
+  "props": [
+   "dental facebow",
+   "ear pieces",
+   "bite fork"
+  ]
+ },
+ "/condition/bruxism": {
+  "scene": "A clear silicone bite-registration wafer with deep opposing tooth grooves is placed between two small acrylic supports. The camera is close and level with the wafer edge so the pressed groove depth is visible.",
+  "alt": "깊게 눌린 치아 자국이 있는 투명 실리콘 바이트 기록판이 두 작은 아크릴 지지대 사이에 놓여 있다.",
+  "props": [
+   "bite wafer",
+   "acrylic supports",
+   "tooth grooves"
+  ]
+ },
+ "/condition/peri-implantitis": {
+  "scene": "A peri-implant mucosa collar model surrounds a short threaded abutment, with a red silicone ring pulled slightly lower on one side to reveal the thread pattern. It is photographed from the front at counter height.",
+  "alt": "짧은 나사형 지대주 주위에 임플란트 주위 점막 모형이 있고 한쪽의 붉은 실리콘 링이 낮아져 나사선이 보인다.",
+  "props": [
+   "mucosa collar",
+   "threaded abutment",
+   "silicone ring"
+  ]
+ },
+ "/condition/impacted-tooth": {
+  "scene": "A clear acrylic jaw segment contains a sideways unerupted canine embedded below the gum line, with the crown visible through the transparent block. The object is angled diagonally across the counter and photographed from above.",
+  "alt": "투명 아크릴 턱뼈 조각 안에 옆으로 누운 매복 송곳니가 들어 있고 치관이 블록을 통해 보인다.",
+  "props": [
+   "acrylic jaw segment",
+   "embedded canine",
+   "gum line"
+  ]
+ },
+ "/condition/xerostomia": {
+  "scene": "A blank white oral-moisturizing gel tube lies uncapped beside a small smooth ceramic palette with a pea-sized clear gel bead on it. The shot is a close overhead view with the tube placed vertically in frame.",
+  "alt": "글자가 없는 흰 구강 보습 젤 튜브가 뚜껑이 열린 채 놓여 있고 옆의 작은 세라믹 팔레트 위에 투명한 젤 방울이 있다.",
+  "props": [
+   "gel tube",
+   "ceramic palette",
+   "gel bead"
+  ]
+ },
+ "/condition/halitosis": {
+  "scene": "A sealed transparent breath-collection bag rests folded in a crescent shape, with a disposable mouthpiece connector placed separately beside the valve. The camera looks from the upper left so the bag outline and valve are clear.",
+  "alt": "투명한 호흡 채취백이 초승달 모양으로 접혀 있고 밸브 옆에 일회용 마우스피스 연결부가 따로 놓여 있다.",
+  "props": [
+   "breath bag",
+   "valve",
+   "mouthpiece connector"
+  ]
+ },
+ "/condition/edentulism": {
+  "scene": "A resorbed maxillary ridge model with smooth toothless gum contours is set on a low oval base, with a removable reference arch standing behind it. The camera is a frontal medium shot showing the shortened ridge height.",
+  "alt": "낮은 타원형 받침 위에 매끈한 무치악 잇몸 윤곽의 위턱 잇몸뼈 흡수 모형이 놓이고 뒤에 분리형 기준 아치가 서 있다.",
+  "props": [
+   "maxillary ridge model",
+   "oval base",
+   "reference arch"
+  ]
+ },
+ "/journey/implant": {
+  "scene": "Several implant healing caps are arranged in a gentle curve from left to right on a matte acrylic organizer, each seated in a separate round well. The view is a high oblique shot that reads like a step-by-step sequence without markings.",
+  "alt": "무광 아크릴 정리대의 둥근 홈마다 임플란트 힐링 캡들이 왼쪽에서 오른쪽으로 완만한 곡선을 이루며 놓여 있다.",
+  "props": [
+   "healing caps",
+   "acrylic organizer",
+   "round wells"
+  ]
+ },
+ "/journey/endodontic": {
+  "scene": "A rubber dam clamp rests open on a square blue rubber dam sample, with a small plastic tooth block positioned just behind the clamp bow. The camera is close from the front corner, emphasizing the clamp jaws.",
+  "alt": "파란 러버댐 조각 위에 러버댐 클램프가 열린 상태로 놓여 있고 뒤에는 작은 플라스틱 치아 블록이 있다.",
+  "props": [
+   "rubber dam clamp",
+   "rubber dam",
+   "tooth block"
+  ]
+ },
+ "/journey/periodontal": {
+  "scene": "A Gracey curette with a rounded working end is laid parallel to a segmented quadrant gum model showing four separated sections. The shot is taken directly overhead, with the instrument forming a straight line below the model.",
+  "alt": "네 구역으로 나뉜 잇몸 구역 모형 아래에 둥근 작업부가 있는 그레이시 큐렛이 나란히 놓여 있다.",
+  "props": [
+   "Gracey curette",
+   "quadrant gum model",
+   "section markers"
+  ]
+ },
+ "/journey/wisdom-tooth": {
+  "scene": "A blank sealed suture packet lies partly tucked under a small pair of suture scissors, with a curved suture needle replica set above them. The composition is a diagonal close-up across the right side of the counter.",
+  "alt": "글자가 없는 봉합사 포장이 작은 봉합가위 아래에 일부 들어가 있고 위쪽에는 굽은 봉합침 모형이 놓여 있다.",
+  "props": [
+   "suture packet",
+   "suture scissors",
+   "needle replica"
+  ]
+ },
+ "/journey/cavity": {
+  "scene": "A composite resin compule gun is placed nose-down toward a small dimpled mixing pad, with two capped resin capsules beside the handle. The camera is a side close-up showing the plunger and capsule slot.",
+  "alt": "복합레진 컴퓰 건이 작은 홈 있는 믹싱 패드를 향해 놓여 있고 손잡이 옆에는 뚜껑 닫힌 레진 캡슐 두 개가 있다.",
+  "props": [
+   "compule gun",
+   "resin capsules",
+   "mixing pad"
+  ]
+ },
+ "/journey/crown-prosthesis": {
+  "scene": "A silicone putty index molded around a short row of tooth shapes is opened like a hinge on the counter, exposing the negative impression inside. The camera looks down from the back edge so both halves of the index are visible.",
+  "alt": "짧은 치열 모양을 본뜬 실리콘 퍼티 인덱스가 경첩처럼 열려 있고 안쪽의 음형 인상이 보인다.",
+  "props": [
+   "putty index",
+   "tooth impressions",
+   "silicone halves"
+  ]
+ },
+ "/journey/aesthetic": {
+  "scene": "A fan of thin porcelain polishing discs is spread around a small mandrel on the counter, with a smooth front-tooth sample tile placed slightly above the fan. The view is a close overhead shot with the discs radiating outward.",
+  "alt": "얇은 도재 연마 디스크들이 작은 맨드릴 주위에 부채꼴로 펼쳐져 있고 위쪽에는 매끈한 앞니 샘플 타일이 놓여 있다.",
+  "props": [
+   "polishing discs",
+   "mandrel",
+   "tooth sample tile"
+  ]
+ },
+ "/journey/save-natural-tooth": {
+  "scene": "Three fine dye microbrushes rest on a white ceramic tile next to a single dark blue dye droplet, with a small intact tooth model set farther back. The camera is a macro overhead view focused on the brush tips.",
+  "alt": "흰 세라믹 타일 위에 가는 염색용 마이크로브러시 세 개와 짙은 파란 염색액 한 방울이 있고 뒤쪽에 작은 온전한 치아 모형이 있다.",
+  "props": [
+   "microbrushes",
+   "dye droplet",
+   "tooth model"
+  ]
+ },
+ "/cost/implant-senior": {
+  "scene": "A closed unmarked ledger sits at the center of the counter with two smooth metal tokens placed on its lower corner and a plain pen laid across the spine. The camera is a straight overhead shot with no pages open.",
+  "alt": "글자가 없는 닫힌 장부가 카운터 중앙에 있고 아래쪽 모서리에 매끈한 금속 토큰 두 개와 책등을 가로지른 무지 펜이 놓여 있다.",
+  "props": [
+   "closed ledger",
+   "metal tokens",
+   "plain pen"
+  ]
+ },
+ "/cost/scaling": {
+  "scene": "A small brass balance scale stands on the counter with blank round tokens on one pan and a capped pen on the other. The camera is at a low front angle, keeping the pans and beam visible.",
+  "alt": "작은 황동 양팔저울이 카운터 위에 서 있고 한쪽 접시에는 무지 원형 토큰이, 다른 쪽 접시에는 뚜껑 닫힌 펜이 놓여 있다.",
+  "props": [
+   "brass scale",
+   "round tokens",
+   "capped pen"
+  ]
+ },
+ "/cost/endodontic-cost": {
+  "scene": "A black fountain pen lies diagonally on a blank notepad, with a small closed sample box placed near the top edge of the pad. The view is an angled overhead crop that shows only unmarked surfaces.",
+  "alt": "글자가 없는 메모패드 위에 검은 만년필이 대각선으로 놓여 있고 위쪽 가장자리 근처에 작은 닫힌 샘플 상자가 있다.",
+  "props": [
+   "fountain pen",
+   "blank notepad",
+   "sample box"
+  ]
+ },
+ "/cost/wisdom-cost": {
+  "scene": "A sealed blank envelope is positioned upright against a small acrylic block, with a loose row of smooth tokens blurred behind it. The camera is a front close-up centered on the envelope flap.",
+  "alt": "글자가 없는 봉투가 작은 아크릴 블록에 기대어 세워져 있고 뒤쪽에는 매끈한 토큰들이 흐릿하게 한 줄로 놓여 있다.",
+  "props": [
+   "blank envelope",
+   "acrylic block",
+   "smooth tokens"
+  ]
+ },
+ "/cost/periodontal-cost": {
+  "scene": "A large matte binder clip holds a stack of blank appointment cards, set beside a short unmarked pencil on the counter. The camera looks from the right side so the clipped card edges form a stepped pattern.",
+  "alt": "큰 무광 바인더 클립이 글자 없는 예약 카드 묶음을 집고 있으며 옆에는 짧은 무지 연필이 놓여 있다.",
+  "props": [
+   "binder clip",
+   "blank cards",
+   "unmarked pencil"
+  ]
+ },
+ "/cost/cavity-cost": {
+  "scene": "A stack of frosted metal tokens is placed beside a folded blank receipt pad, with a clear acrylic ruler without markings lying behind them. The shot is a shallow side view with the token edges facing the camera.",
+  "alt": "반투명 금속 토큰 더미가 접힌 무지 영수증 패드 옆에 놓여 있고 뒤에는 눈금 없는 투명 아크릴 자가 있다.",
+  "props": [
+   "frosted tokens",
+   "receipt pad",
+   "acrylic ruler"
+  ]
+ },
+ "/glossary/enamel": {
+  "scene": "An oversized white enamel cap model is lifted slightly above a yellow tooth-core form on a short clear post, showing the outer shell as a separate layer. The camera is a centered frontal close-up.",
+  "alt": "큰 흰 법랑질 덮개 모형이 노란 치아 중심부 모형 위로 조금 떠 있고 짧은 투명 기둥이 두 층을 분리해 보인다.",
+  "props": [
+   "enamel cap",
+   "tooth core",
+   "clear post"
+  ]
+ },
+ "/glossary/dentin": {
+  "scene": "A yellow dentin cylinder model with radial microtube openings stands on its flat base, with a thin white enamel ring leaning against it. The view is from above and slightly to the side, showing the tube openings on top.",
+  "alt": "미세한 관 구멍들이 방사형으로 보이는 노란 상아질 원통 모형이 서 있고 얇은 흰 법랑질 고리가 기대어 있다.",
+  "props": [
+   "dentin cylinder",
+   "microtube openings",
+   "enamel ring"
+  ]
+ },
+ "/glossary/pulp": {
+  "scene": "A transparent canine tooth model contains red and blue nerve-vessel strands running from the crown area down through the root. It is placed upright in a small socket stand and photographed from the front.",
+  "alt": "투명한 송곳니 치아 모형 안에 붉고 파란 신경·혈관 가닥이 치관 부위에서 뿌리까지 이어져 있으며 작은 받침에 세워져 있다.",
+  "props": [
+   "transparent canine",
+   "nerve strands",
+   "socket stand"
+  ]
+ },
+ "/glossary/pulpitis": {
+  "scene": "A split tooth teaching model shows an enlarged red pulp core inside the chamber, with the outer white halves opened to either side. The camera is a close overhead view focused on the swollen inner core.",
+  "alt": "반으로 열린 치아 교육 모형 안에 커진 붉은 치수 핵이 보이고 흰 외부 조각들이 양쪽으로 벌어져 있다.",
+  "props": [
+   "split tooth model",
+   "red pulp core",
+   "outer halves"
+  ]
+ },
+ "/glossary/root-canal": {
+  "scene": "Tapered gutta-percha points are fanned across a sterile foam block, with a sealed obturation plugger laid parallel below them. The shot is a tight diagonal view from above.",
+  "alt": "멸균 폼 블록 위에 끝이 가는 거타퍼차 포인트들이 부채꼴로 펼쳐져 있고 아래에는 밀봉용 플러거가 나란히 놓여 있다.",
+  "props": [
+   "gutta-percha points",
+   "foam block",
+   "obturation plugger"
+  ]
+ },
+ "/glossary/periapical-abscess": {
+  "scene": "A transparent root-tip lesion block stands on the white counter with a yellow resin pocket attached to the end of the root and a small rounded bump on the gum side. The camera is at a tight side angle so the pocket at the apex is visible through the model.",
+  "alt": "흰 카운터 위에 투명한 치아 뿌리 끝 모형이 서 있고 뿌리 끝에는 노란 수지 주머니가, 잇몸 쪽에는 작은 둥근 돌기가 보인다.",
+  "props": [
+   "root-tip lesion block",
+   "yellow resin pocket",
+   "gingival bump"
+  ]
+ },
+ "/glossary/gingivitis": {
+  "scene": "A curved inflamed-papilla teaching strip is laid diagonally, showing pink gum peaks around a short row of teeth with red edging only at the gum line. A small unmarked silicone brush head lies behind it for scale.",
+  "alt": "흰 카운터 위에 치아 줄을 감싼 잇몸 모형이 대각선으로 놓여 있고 잇몸선 주변만 붉게 표시되어 있으며 뒤쪽에 표시 없는 실리콘 브러시 헤드가 있다.",
+  "props": [
+   "inflamed papilla strip",
+   "silicone brush head",
+   "tooth row sample"
+  ]
+ },
+ "/glossary/periodontitis": {
+  "scene": "A periodontal defect block is viewed from a low front angle, with the bone crest carved down unevenly around one standing tooth. The exposed support area is shown as a pale stepped surface beneath the gum edge.",
+  "alt": "흰 카운터 위에 치아 하나가 선 치주 결손 블록이 놓여 있고 잇몸 아래 지지 부위가 계단처럼 낮아진 연한 표면으로 드러나 있다.",
+  "props": [
+   "periodontal defect block",
+   "lowered bone crest",
+   "standing tooth"
+  ]
+ },
+ "/glossary/periodontal-pocket": {
+  "scene": "A silicone deep-sulcus sleeve is pulled slightly away from a tooth cylinder, creating a narrow dark gap between the gum material and the tooth. The model is photographed from above and slightly to the side to show the opening of the gap.",
+  "alt": "흰 카운터 위에 치아 원기둥을 감싼 실리콘 잇몸 슬리브가 한쪽으로 벌어져 치아와 잇몸 사이의 좁은 틈이 보인다.",
+  "props": [
+   "deep sulcus sleeve",
+   "tooth cylinder",
+   "spacing shim"
+  ]
+ },
+ "/glossary/calculus": {
+  "scene": "A posterior calculus display tooth sits upright with rough tan mineral patches attached along the inner curve near the gum edge. A few matching detachable chips are placed in a crescent in front of the model.",
+  "alt": "흰 카운터 위에 뒤쪽 치아 모형이 세워져 있고 잇몸선 가까이에 거친 황갈색 침착물이 붙어 있으며 앞쪽에는 같은 색의 작은 조각들이 반달 모양으로 놓여 있다.",
+  "props": [
+   "calculus display tooth",
+   "mineral patches",
+   "detachable chips"
+  ]
+ },
+ "/glossary/crown": {
+  "scene": "A full-coverage cap is seated halfway over a prepared die, leaving the margin line visible around the lower edge. The cap and die are centered in a close three-quarter view with a silicone index set off to one side.",
+  "alt": "흰 카운터 위에 깎인 치아 다이에 전체를 덮는 보철 캡이 절반쯤 끼워져 있고 옆에는 실리콘 인덱스가 놓여 있다.",
+  "props": [
+   "full-coverage cap",
+   "prepared die",
+   "silicone index"
+  ]
+ },
+ "/glossary/inlay": {
+  "scene": "A ceramic inlay insert rests just outside the matching cavity-shaped block, aligned as if ready to drop into the prepared recess. The camera looks straight down so the fitted outline of the insert and recess can be compared.",
+  "alt": "흰 카운터 위에 홈이 파인 수복 블록 옆으로 세라믹 인레이 조각이 맞춰 넣기 전 위치에 놓여 있어 두 윤곽이 나란히 보인다.",
+  "props": [
+   "ceramic inlay",
+   "cavity block",
+   "fitted recess"
+  ]
+ },
+ "/glossary/bridge": {
+  "scene": "A three-unit bridge prosthesis spans between two prepared support dies, with the middle artificial tooth hovering over a small open space. The arrangement is shown from the front at counter height to emphasize the connected shape.",
+  "alt": "흰 카운터 위에 양쪽 지대치 다이 사이로 세 개가 연결된 브릿지 보철물이 걸쳐져 있고 가운데 인공치 아래에는 작은 빈 공간이 보인다.",
+  "props": [
+   "bridge prosthesis",
+   "support dies",
+   "open span"
+  ]
+ },
+ "/glossary/bone-graft": {
+  "scene": "A ridge augmentation block lies horizontally with a collagen membrane draped over a strip of pale graft putty. The edge of the membrane is folded back slightly to reveal the added material underneath.",
+  "alt": "흰 카운터 위에 치조제 증대 블록이 가로로 놓여 있고 연한 이식 퍼티 위를 콜라겐 막이 덮으며 한쪽 모서리가 살짝 접혀 있다.",
+  "props": [
+   "collagen membrane",
+   "ridge augmentation block",
+   "graft putty"
+  ]
+ },
+ "/glossary/sinus-lift": {
+  "scene": "A maxillary sinus cross-section model is positioned upright, showing a curved lifted membrane above a marked implant space in the upper molar area. A slim sinus elevator rests parallel to the base without touching the model.",
+  "alt": "흰 카운터 위에 상악동 단면 모형이 세워져 있고 위턱 어금니 부위 위로 들어 올려진 막과 임플란트 공간 표시가 보이며 아래에는 가는 상악동 엘리베이터가 놓여 있다.",
+  "props": [
+   "maxillary sinus model",
+   "lifted membrane",
+   "sinus elevator"
+  ]
+ },
+ "/glossary/osseointegration": {
+  "scene": "A titanium surface cylinder is half embedded in a porous bone-mimic cube, with small white contact nodules molded along the metal surface. The cube is turned at an angle so the metal-to-bone boundary is exposed.",
+  "alt": "흰 카운터 위에 다공성 뼈 모사 큐브가 비스듬히 놓여 있고 티타늄 표면 원기둥이 절반 묻혀 있으며 금속과 뼈 경계에 작은 흰 접촉 돌기들이 붙어 있다.",
+  "props": [
+   "titanium surface cylinder",
+   "porous bone cube",
+   "contact nodules"
+  ]
+ },
+ "/glossary/peri-implantitis": {
+  "scene": "A peri-implant defect model shows a titanium post surrounded by a red gum cuff and an uneven cratered rim below it. The model is placed near the counter edge and viewed from above so the circular defect around the post is clear.",
+  "alt": "흰 카운터 가장자리 가까이에 티타늄 기둥을 둘러싼 붉은 잇몸 커프와 울퉁불퉁한 원형 결손 가장자리가 있는 임플란트 주위 모형이 놓여 있다.",
+  "props": [
+   "peri-implant defect model",
+   "titanium post",
+   "red gum cuff"
+  ]
+ },
+ "/glossary/impacted-tooth": {
+  "scene": "An unerupted-tooth block is set flat on the counter, with a gum-colored cover over a bone window that reveals a tooth shape lying under the surface. The camera looks down at a shallow angle across the covered area.",
+  "alt": "흰 카운터 위에 잇몸색 덮개가 있는 매복 치아 블록이 놓여 있고 뼈 창 안쪽으로 표면 아래 누워 있는 치아 형태가 보인다.",
+  "props": [
+   "unerupted tooth block",
+   "gum cover",
+   "bone window"
+  ]
+ },
+ "/glossary/dry-socket": {
+  "scene": "An extraction wound model contains a pale exposed base, while a separate red clot disk is placed beside it instead of inside the cup-shaped opening. The view is a close overhead shot centered on the empty cup form.",
+  "alt": "흰 카운터 위에 컵 모양의 발치 상처 모형이 놓여 있고 안쪽에는 연한 바닥이 드러나 있으며 붉은 혈병 원반은 모형 옆에 따로 놓여 있다.",
+  "props": [
+   "extraction wound model",
+   "clot disk",
+   "bone-colored base"
+  ]
+ },
+ "/glossary/occlusion": {
+  "scene": "An upper-and-lower occlusion contact model is closed on a single raised cusp cap, leaving the opposing teeth slightly separated elsewhere. The hinged base is angled toward the camera to show the one high contact point.",
+  "alt": "흰 카운터 위에 위아래 맞물림 모형이 한 개의 솟은 교두 캡 위에서 닫혀 있고 다른 치아 사이는 조금 벌어져 있으며 힌지 받침이 앞쪽을 향한다.",
+  "props": [
+   "occlusion contact model",
+   "raised cusp cap",
+   "hinged base"
+  ]
+ },
+ "/glossary/sealant": {
+  "scene": "A clear resin strip fills the deepest channel of a groove replica, with an unmarked dispensing capsule placed behind it. The model is shown in a macro side view so the clear material inside the groove is visible.",
+  "alt": "흰 카운터 위에 홈 복제 모형의 깊은 통로 안으로 투명 수지 띠가 채워져 있고 뒤쪽에는 표시 없는 디스펜싱 캡슐이 놓여 있다.",
+  "props": [
+   "groove replica",
+   "clear resin strip",
+   "dispenser capsule"
+  ]
+ },
+ "/glossary/cervical-abrasion": {
+  "scene": "A cervical notch model stands on a small base, showing a wedge-shaped groove at the boundary between the tooth surface and a removable gingival edge sleeve. The camera is level with the notch to show its depth.",
+  "alt": "흰 카운터 위에 치아 목 부위 노치 모형이 작은 받침 위에 서 있고 치아 표면과 분리형 잇몸 가장자리 사이에 쐐기 모양 홈이 보인다.",
+  "props": [
+   "cervical notch model",
+   "gingival edge sleeve",
+   "dentin-colored wedge"
+  ]
+ },
+ "/qa/save-natural-tooth-1": {
+  "scene": "A root-end repair block is placed upright with a tiny apical plug sealing the cut end of a root channel. A sealed branch canal is visible inside the transparent side wall, and the block is angled toward the left.",
+  "alt": "흰 카운터 위에 뿌리 끝 수리 블록이 세워져 있고 잘린 뿌리관 끝에는 작은 플러그가 막혀 있으며 투명한 옆면 안으로 봉합된 가지 관이 보인다.",
+  "props": [
+   "root-end repair block",
+   "apical plug",
+   "sealed canal"
+  ]
+ },
+ "/qa/save-natural-tooth-2": {
+  "scene": "A split-root model is separated into two vertical halves with a collapsed support ring set behind it. A dark subgingival decay band wraps low around one half near the base.",
+  "alt": "흰 카운터 위에 두 조각으로 세로로 나뉜 치아 뿌리 모형이 벌어져 있고 뒤에는 무너진 지지 고리가 있으며 한 조각 아래쪽에는 어두운 잇몸밑 우식 띠가 둘러져 있다.",
+  "props": [
+   "split-root model",
+   "support ring",
+   "subgingival decay band"
+  ]
+ },
+ "/qa/save-natural-tooth-3": {
+  "scene": "A small brass scale is centered between a closed ledger and a pen resting on blank paper, with a few out-of-focus coins pushed far to the back. All paper surfaces are blank and turned away from the camera.",
+  "alt": "흰 카운터 위 중앙에 작은 황동 저울이 있고 옆에는 닫힌 장부와 빈 종이 위의 펜이 놓여 있으며 뒤쪽에는 흐릿한 동전 몇 개가 밀려 있다.",
+  "props": [
+   "brass scale",
+   "closed ledger",
+   "blank paper",
+   "pen"
+  ]
+ },
+ "/qa/save-natural-tooth-4": {
+  "scene": "A transparent root column lies on its side with a thin blue dye line stopping at one depth and a second dye line running farther down another side. An unmarked dye vial stands behind the column.",
+  "alt": "흰 카운터 위에 투명한 치아 뿌리 기둥이 옆으로 놓여 있고 한쪽에는 짧은 파란 염색선, 다른 쪽에는 더 길게 내려간 염색선이 보이며 뒤에는 표시 없는 염색 바이알이 서 있다.",
+  "props": [
+   "transparent root column",
+   "dye lines",
+   "dye vial"
+  ]
+ },
+ "/qa/implant-1": {
+  "scene": "Several smooth ceramic appointment tokens form a curved path across the counter, ending beside a small capped implant driver. The camera looks down from a high diagonal angle so the tokens read as a sequence without any markings.",
+  "alt": "흰 카운터 위에 매끈한 세라믹 방문 토큰들이 곡선으로 배열되어 있고 끝에는 작은 캡이 씌워진 임플란트 드라이버가 놓여 있으며 토큰에는 표시가 없다.",
+  "props": [
+   "ceramic tokens",
+   "implant driver",
+   "blank sequence"
+  ]
+ },
+ "/qa/implant-2": {
+  "scene": "A sand timer stands between a sealed implant vial and a bone-colored cube, with the cube set slightly forward. The scene is photographed from the side so the waiting object is centered between the treatment parts.",
+  "alt": "흰 카운터 위에 모래시계가 서 있고 한쪽에는 밀봉된 임플란트 바이알, 다른 쪽 앞쪽에는 뼈색 큐브가 놓여 있다.",
+  "props": [
+   "sand timer",
+   "implant vial",
+   "bone cube"
+  ]
+ },
+ "/qa/implant-3": {
+  "scene": "A capped anesthetic syringe lies diagonally next to a sealed carpule, with the needle cap pointing away from the viewer. The objects are separated on the counter so the capped tip is clearly visible.",
+  "alt": "흰 카운터 위에 캡이 씌워진 마취 주사기가 대각선으로 놓여 있고 옆에는 밀봉된 카풀 앰풀이 있으며 바늘 캡은 보는 쪽 반대편을 향한다.",
+  "props": [
+   "anesthetic syringe",
+   "carpule",
+   "needle cap"
+  ]
+ },
+ "/qa/implant-4": {
+  "scene": "Two unmarked medicine bottles stand beside a blank medical checklist, with a plain pressure-cuff bulb coiled in front. The view is from above, and no gauges or printed surfaces face the camera.",
+  "alt": "흰 카운터 위에 표시 없는 약병 두 개가 빈 의료 체크지 옆에 서 있고 앞쪽에는 숫자판이 보이지 않는 혈압 커프 벌브가 감겨 있다.",
+  "props": [
+   "unmarked medicine bottles",
+   "blank checklist",
+   "pressure cuff bulb"
+  ]
+ },
+ "/qa/implant-5": {
+  "scene": "A plastic maintenance curette rests across a circular implant collar cleaning model that has a removable gray plaque ring around its base. The camera is close and slightly overhead to show the ring as a separate part.",
+  "alt": "흰 카운터 위에 원형 임플란트 칼라 청소 모형이 놓여 있고 밑부분에는 분리형 회색 플라크 링이 둘러져 있으며 플라스틱 관리 큐렛이 그 위를 가로질러 놓여 있다.",
+  "props": [
+   "plastic curette",
+   "implant collar model",
+   "plaque ring"
+  ]
+ },
+ "/qa/implant-6": {
+  "scene": "A narrow ridge model is held between the open arms of a bone caliper, with a small spacing block placed beside the thin crest. The model is photographed lengthwise so the reduced width is visible along the top edge.",
+  "alt": "흰 카운터 위에 얇은 치조제 모형이 열린 뼈 캘리퍼 팔 사이에 놓여 있고 옆에는 작은 간격 블록이 있으며 위쪽 가장자리의 좁은 폭이 길게 보인다.",
+  "props": [
+   "narrow ridge model",
+   "bone caliper",
+   "spacing block"
+  ]
+ },
+ "/qa/endodontic-1": {
+  "scene": "Gutta-percha cones are sorted upright in a small sterile block beside a simple canal access block. The cones are arranged from short to long without labels, and the camera views them from the front-left corner.",
+  "alt": "흰 카운터 위에 구타퍼차 콘들이 작은 멸균 블록에 길이가 다르게 꽂혀 있고 옆에는 단순한 근관 접근 블록이 놓여 있으며 표시는 없다.",
+  "props": [
+   "gutta-percha cones",
+   "sterile block",
+   "canal access block"
+  ]
+ },
+ "/qa/endodontic-2": {
+  "scene": "A rubber dam clamp is opened on a square rubber sheet, with clamp forceps placed parallel to the sheet edge. The setup is viewed from directly above so the isolation tools are separated and easy to identify.",
+  "alt": "흰 카운터 위에 사각 러버댐 시트 위로 러버댐 클램프가 벌어진 채 놓여 있고 클램프 포셉은 시트 가장자리와 나란히 배치되어 있다.",
+  "props": [
+   "rubber dam clamp",
+   "rubber sheet",
+   "clamp forceps"
+  ]
+ },
+ "/qa/endodontic-3": {
+  "scene": "A fiber post is seated inside a post-and-core model, with the core buildup shaped above the root portion and no outer restoration attached. The object is placed upright and photographed at a close side angle.",
+  "alt": "흰 카운터 위에 포스트앤코어 모형이 세워져 있고 뿌리 부분 안에는 섬유 포스트가 들어가 있으며 위쪽에는 코어 축조부만 형성되어 있다.",
+  "props": [
+   "post-and-core model",
+   "fiber post",
+   "core buildup"
+  ]
+ },
+ "/qa/endodontic-4": {
+  "scene": "A clear root-canal training tooth stands upright on a white counter, with orange gutta-percha strands partly pulled from a curved canal by fine micro-forceps. A blank amber solvent bottle sits behind it, out of the focal plane.",
+  "alt": "흰 카운터 위에 투명한 근관 연습용 치아가 세워져 있고 미세 집게가 굽은 관에서 주황색 충전 재료 가닥을 일부 꺼내고 있습니다.",
+  "props": [
+   "clear training tooth",
+   "gutta-percha strands",
+   "micro-forceps",
+   "solvent bottle"
+  ]
+ },
+ "/qa/endodontic-5": {
+  "scene": "Closed extraction forceps lie diagonally on the counter beside an intact root-form tooth model standing in a small clear holder. The camera looks down at a low angle so the instrument points toward the saved tooth model without touching it.",
+  "alt": "흰 카운터 위에 닫힌 발치 겸자가 대각선으로 놓여 있고 작은 투명 홀더 안에 온전한 치근 형태의 치아 모형이 서 있습니다.",
+  "props": [
+   "extraction forceps",
+   "root-form tooth model",
+   "clear holder"
+  ]
+ },
+ "/qa/periodontal-1": {
+  "scene": "A Gracey curette is inserted under the edge of a transparent periodontal pocket model, with small chalky deposits visible beneath the gum-colored rim. The view is a tight side close-up showing the instrument tip below the surface line.",
+  "alt": "투명한 치주 포켓 모형의 잇몸색 가장자리 아래로 그레이시 큐렛 끝이 들어가 있고 안쪽에 작은 흰색 침착물이 보입니다.",
+  "props": [
+   "Gracey curette",
+   "transparent pocket model",
+   "subgingival deposits"
+  ]
+ },
+ "/qa/periodontal-2": {
+  "scene": "A thin fiber splint strip rests across the front of an acrylic tooth row with slightly separated sockets, and a small resin pad sits ready at one end. The composition is an overhead view with the strip forming a straight line across the tooth row.",
+  "alt": "아크릴 치열 모형 앞면을 따라 얇은 섬유 고정 스트립이 놓여 있고 한쪽 끝에는 작은 레진 패드가 있습니다.",
+  "props": [
+   "fiber splint strip",
+   "acrylic tooth row",
+   "resin pad"
+  ]
+ },
+ "/qa/periodontal-3": {
+  "scene": "A folded collagen membrane is draped over a sloped defect on a periodontal regeneration block, with the edge lifted by a small titanium pin. The camera is close and slightly above, making the membrane cover and uncovered defect both visible.",
+  "alt": "치주 재생 블록의 경사진 결손 부위 위에 접힌 콜라겐 막이 걸쳐져 있고 가장자리는 작은 티타늄 핀으로 살짝 들어 올려져 있습니다.",
+  "props": [
+   "collagen membrane",
+   "regeneration block",
+   "titanium pin"
+  ]
+ },
+ "/qa/periodontal-4": {
+  "scene": "A small brass balance scale is centered on the counter, with a closed cloth ledger to one side and a pen on blank paper to the other. A few coins are blurred far behind the scale with no markings visible.",
+  "alt": "흰 카운터 중앙에 작은 황동 저울이 있고 한쪽에는 닫힌 천 표지 장부가, 다른 쪽에는 빈 종이 위의 펜이 놓여 있습니다.",
+  "props": [
+   "brass scale",
+   "closed ledger",
+   "pen",
+   "blank paper"
+  ]
+ },
+ "/qa/periodontal-5": {
+  "scene": "A glass hourglass stands beside a gum-line maintenance model coated with a thin translucent film along the tooth bases. The scene is shot from above, with the hourglass casting a narrow shadow toward the model.",
+  "alt": "유리 모래시계가 치아 밑부분을 따라 얇은 반투명 막이 붙은 잇몸선 관리 모형 옆에 서 있습니다.",
+  "props": [
+   "glass hourglass",
+   "gum-line model",
+   "translucent film"
+  ]
+ },
+ "/qa/cavity-1": {
+  "scene": "An open fluoride varnish cup sits next to a smooth enamel sample tile with a matte pale patch but no hole. A small disposable microbrush lies across the rim of the cup in a close overhead arrangement.",
+  "alt": "작은 불소 바니시 컵이 열려 있고 구멍은 없지만 무광의 옅은 부분이 있는 매끈한 법랑질 샘플 타일이 옆에 놓여 있습니다.",
+  "props": [
+   "fluoride varnish cup",
+   "enamel sample tile",
+   "microbrush"
+  ]
+ },
+ "/qa/cavity-2": {
+  "scene": "Three tooth preparation blocks of increasing size are arranged in a shallow arc, with a composite plug, a ceramic inlay insert, and an empty full-coverage preparation shown beside their matching blocks. The camera looks straight down so the remaining wall thickness differs clearly between blocks.",
+  "alt": "크기가 점점 커지는 치아 삭제 블록들이 얕은 호 모양으로 놓여 있고 각각 옆에 복합레진 플러그와 세라믹 인레이 삽입물, 전체를 감싸는 형태의 빈 삭제 모형이 배치되어 있습니다.",
+  "props": [
+   "preparation blocks",
+   "composite plug",
+   "ceramic inlay",
+   "coverage preparation"
+  ]
+ },
+ "/qa/cavity-3": {
+  "scene": "A plain cold testing spray can without a label stands behind a treated deep-cavity tooth block, with a frosted ceramic pellet on a small glass square in front. The angle is a close front view focused on the pellet and the restored floor of the cavity.",
+  "alt": "표시가 없는 냉각 검사 스프레이 용기가 깊은 충치 치료 블록 뒤에 서 있고 앞쪽 작은 유리판 위에는 서리가 낀 세라믹 펠릿이 놓여 있습니다.",
+  "props": [
+   "cold spray can",
+   "deep-cavity block",
+   "ceramic pellet",
+   "glass square"
+  ]
+ },
+ "/qa/cavity-4": {
+  "scene": "A silver amalgam filling plug and a tooth-colored composite plug sit in separate matching cavity blocks, with the amalgam block showing a thin open edge at one side. The two blocks are photographed from a low diagonal angle on the white counter.",
+  "alt": "은색 아말감 충전 플러그와 치아색 복합레진 플러그가 각각의 와동 블록 안에 놓여 있고 아말감 블록 한쪽 가장자리에는 얇게 벌어진 틈이 보입니다.",
+  "props": [
+   "amalgam plug",
+   "composite plug",
+   "cavity blocks"
+  ]
+ },
+ "/qa/wisdom-tooth-1": {
+  "scene": "An end-tuft cleaning brush rests against the far back groove of a posterior arch access model where the last tooth is fully upright. The camera is positioned from behind the arch to show the brush tip reaching the rear surface.",
+  "alt": "맨 뒤 치아가 곧게 서 있는 후방 치열 접근 모형의 마지막 홈에 끝모 칫솔이 닿아 있습니다.",
+  "props": [
+   "end-tuft brush",
+   "posterior arch model",
+   "upright last tooth"
+  ]
+ },
+ "/qa/wisdom-tooth-2": {
+  "scene": "A transparent acrylic nerve-canal block holds a tilted lower molar shape above a yellow curved canal tube. The view is a side close-up, making the distance between the root tips and the canal tube visible.",
+  "alt": "투명 아크릴 신경관 블록 안에서 기울어진 아래 어금니 형태가 노란 곡선 관 위에 놓여 있고 뿌리 끝과 관 사이의 거리가 보입니다.",
+  "props": [
+   "nerve-canal block",
+   "tilted molar shape",
+   "yellow canal tube"
+  ]
+ },
+ "/qa/wisdom-tooth-3": {
+  "scene": "A blue reusable cold pack lies folded beside a neutral postoperative care block with a covered oval opening. The photograph is taken from directly above, with the cold pack occupying the foreground.",
+  "alt": "파란 재사용 냉찜질 팩이 접힌 채 놓여 있고 옆에는 타원형 구멍이 덮인 중립적인 수술 후 관리 블록이 있습니다.",
+  "props": [
+   "cold pack",
+   "postoperative block",
+   "covered opening"
+  ]
+ },
+ "/qa/wisdom-tooth-4": {
+  "scene": "An unmarked plastic opening caliper is held open between two separate arch blocks on the counter. The camera faces the caliper head-on so the limited space between the blocks is emphasized without any scale markings.",
+  "alt": "눈금이 없는 플라스틱 개구 측정기가 카운터 위의 분리된 두 치열 블록 사이에 벌어진 채 놓여 있습니다.",
+  "props": [
+   "opening caliper",
+   "arch blocks",
+   "plastic hinge"
+  ]
+ },
+ "/qa/wisdom-tooth-5": {
+  "scene": "A closed leather coin pouch sits in front of a stack of blank estimate papers, with a fountain pen placed parallel to the paper edge. Several coins are out of focus near the back corner with no readable markings.",
+  "alt": "닫힌 가죽 동전 주머니가 빈 견적 종이 더미 앞에 놓여 있고 만년필이 종이 가장자리와 나란히 놓여 있습니다.",
+  "props": [
+   "coin pouch",
+   "blank papers",
+   "fountain pen",
+   "blurred coins"
+  ]
+ },
+ "/qa/laminate-1": {
+  "scene": "A depth-cutting diamond bur lies beside a front-surface preparation block with shallow parallel guide grooves on the facial surface. The scene is a tight oblique close-up with the bur tip aligned to the grooves.",
+  "alt": "앞면에 얕은 평행 가이드 홈이 있는 전면 삭제 블록 옆에 깊이 절삭용 다이아몬드 버가 놓여 있습니다.",
+  "props": [
+   "depth-cutting bur",
+   "preparation block",
+   "guide grooves"
+  ]
+ },
+ "/qa/laminate-2": {
+  "scene": "A translucent enamel thickness gauge arches over a flat anterior bonding sample, leaving a narrow clear gap at the edge. The camera looks down at a three-quarter angle so the gauge, bonding surface, and edge thickness are all visible.",
+  "alt": "반투명 법랑질 두께 게이지가 평평한 전치부 접착 샘플 위를 아치 모양으로 덮고 가장자리에는 좁은 투명 간격이 남아 있습니다.",
+  "props": [
+   "enamel gauge",
+   "bonding sample",
+   "edge gap"
+  ]
+ },
+ "/qa/laminate-3": {
+  "scene": "A clear aligner shell is placed half over an uneven anterior arch model, with one rotated tooth space left uncovered. The view is from the front and slightly above, showing that the shell changes position while the base arch remains fixed.",
+  "alt": "투명 교정장치 쉘이 고르지 않은 전치부 치열 모형의 절반을 덮고 있고 회전된 치아 자리 하나는 드러나 있습니다.",
+  "props": [
+   "clear aligner",
+   "uneven arch model",
+   "rotated space"
+  ]
+ },
+ "/qa/laminate-4": {
+  "scene": "A fractured porcelain flake rests on a black silicone mat next to a smooth bonding surface sample, with fine ceramic dust gathered along the broken edge. The camera is very close and level with the counter, focusing on the fracture line.",
+  "alt": "검은 실리콘 매트 위에 깨진 도재 조각이 놓여 있고 옆의 매끈한 접착면 샘플 주변에는 부러진 가장자리를 따라 고운 도재 가루가 모여 있습니다.",
+  "props": [
+   "porcelain flake",
+   "bonding sample",
+   "ceramic dust",
+   "silicone mat"
+  ]
+ },
+ "/qa/laminate-5": {
+  "scene": "Small ceramic shade disks are arranged in a gentle curve on a plain glass tile, with a temporary front-tooth mockup placed just behind them. The camera looks down from the side so the disk colors can be compared to the mockup surface.",
+  "alt": "작은 세라믹 색상 디스크들이 투명 유리 타일 위에 완만한 곡선으로 놓여 있고 그 뒤에는 임시 앞니 목업이 있습니다.",
+  "props": [
+   "ceramic shade disks",
+   "glass tile",
+   "temporary mockup"
+  ]
+ },
+ "/qa/crown-prosthesis-1": {
+  "scene": "A gold alloy casting ingot, a white zirconia puck, and a translucent ceramic puck are spaced in a triangular layout on the counter. The camera looks from a low corner angle so the different material thicknesses are visible.",
+  "alt": "금 합금 주조 잉곳과 흰색 지르코니아 퍽, 반투명 세라믹 퍽이 카운터 위에 삼각형 배치로 놓여 있습니다.",
+  "props": [
+   "gold alloy ingot",
+   "zirconia puck",
+   "ceramic puck"
+  ]
+ },
+ "/qa/crown-prosthesis-2": {
+  "scene": "A thin blue feeler strip is slid partway under the edge of a capped-tooth margin block, with the cap seated on a small tooth stump replica. The shot is a side close-up centered on the narrow seam at the margin.",
+  "alt": "작은 지대치 복제물 위에 씌워진 보철 경계 블록 가장자리 아래로 얇은 파란 필러 스트립이 일부 들어가 있습니다.",
+  "props": [
+   "feeler strip",
+   "margin block",
+   "tooth stump replica"
+  ]
+ },
+ "/qa/crown-prosthesis-3": {
+  "scene": "A three-unit bridge framework lies across two prepared support blocks with a suspended middle pontic over the counter surface. The camera is at counter height, showing the open space under the middle unit.",
+  "alt": "세 유닛 브릿지 프레임워크가 두 개의 지지 블록 위에 걸쳐 있고 가운데 폰틱 부분은 카운터 위에서 떠 있습니다.",
+  "props": [
+   "bridge framework",
+   "support blocks",
+   "middle pontic"
+  ]
+ },
+ "/qa/crown-prosthesis-4": {
+  "scene": "A thin strip of shiny shimstock foil is positioned between a ceramic biting cap and a small opposing cusp block. The view is a tight side angle, with the foil protruding from the contact point.",
+  "alt": "얇고 반짝이는 심스톡 포일이 세라믹 교합 캡과 작은 맞은편 교두 블록 사이에 끼워져 있고 접촉점 밖으로 조금 나와 있습니다.",
+  "props": [
+   "shimstock foil",
+   "ceramic biting cap",
+   "opposing cusp block"
+  ]
+ },
+ "/qa/crown-prosthesis-5": {
+  "scene": "Two cutaway preparation samples sit side by side: one shows only the front surface reduced, and the other shows a full wraparound reduction. A curved ceramic overlay piece rests in front of the shallow sample, while a full-cover sample cap is set behind the deeper one.",
+  "alt": "절단면이 보이는 두 삭제 샘플이 나란히 놓여 있으며 하나는 앞면만 줄어 있고 다른 하나는 둘레 전체가 줄어 있으며 앞쪽에는 곡면 세라믹 덮개 조각, 뒤쪽에는 전체 덮개 샘플 캡이 있습니다.",
+  "props": [
+   "cutaway samples",
+   "ceramic overlay",
+   "full-cover cap"
+  ]
+ },
+ "/qa/crown-prosthesis-6": {
+  "scene": "A flexible silicone reduction index is peeled back from the front of an aesthetic preparation block, revealing the amount of removed surface as an even hollow space. The camera is overhead and slightly tilted to show both the index and the prepared surface.",
+  "alt": "심미 삭제 블록 앞면에서 유연한 실리콘 삭제 인덱스가 젖혀져 있고 제거된 표면만큼의 고른 빈 공간이 보입니다.",
+  "props": [
+   "reduction index",
+   "preparation block",
+   "hollow space"
+  ]
+ },
+ "/qa/scaling-prevention-1": {
+  "scene": "A sealed prophylaxis instrument cassette with perforated sides sits diagonally on the counter, next to a plain recall token with no writing. The view is from above, with the cassette occupying most of the frame.",
+  "alt": "구멍이 있는 밀폐형 예방 처치 기구 카세트가 카운터 위에 대각선으로 놓여 있고 옆에는 아무 글자도 없는 회상 토큰이 있습니다.",
+  "props": [
+   "prophylaxis cassette",
+   "recall token",
+   "perforated case"
+  ]
+ },
+ "/qa/scaling-prevention-2": {
+  "scene": "A plain desensitizing paste sachet is torn open on one corner, with a small ribbon of paste laid on a glass mixing slab. The shot is a close overhead view with no printed side of the sachet visible.",
+  "alt": "표시가 보이지 않는 시린이 완화 페이스트 파우치 한쪽 모서리가 열려 있고 유리 혼합판 위에는 짧은 페이스트 줄이 놓여 있습니다.",
+  "props": [
+   "paste sachet",
+   "glass slab",
+   "paste ribbon"
+  ]
+ },
+ "/qa/scaling-prevention-3": {
+  "scene": "A triangular interdental space insert is placed between two smooth tooth blocks, with the insert matching the open space at the gum-side corner. The camera looks straight down to show the triangle-shaped gap and the surrounding tooth surfaces.",
+  "alt": "두 개의 매끈한 치아 블록 사이 잇몸 쪽 모서리 공간에 삼각형 치간 공간 삽입물이 끼워져 있습니다.",
+  "props": [
+   "interdental insert",
+   "tooth blocks",
+   "triangle gap"
+  ]
+ },
+ "/qa/scaling-prevention-4": {
+  "scene": "A closed charcoal ledger sits on the left side of a white dental counter, with a small brass balance scale centered behind it and a few blurred coins near a capped pen. The camera looks down from a shallow overhead angle so the ledger is the largest object.",
+  "alt": "흰 치과 카운터 위에 닫힌 짙은색 장부, 작은 황동 저울, 흐릿한 동전 몇 개와 뚜껑 닫힌 펜이 놓여 있다.",
+  "props": [
+   "closed ledger",
+   "brass scale",
+   "blurred coins",
+   "capped pen"
+  ]
+ },
+ "/qa/whitening-1": {
+  "scene": "Three small enamel test tiles are arranged in a gentle arc beside a clear cup containing tea-colored liquid, with the lightest tile placed farthest from the cup. The camera is at counter height from the front, showing the tiles as the main object.",
+  "alt": "흰 카운터 위에 작은 법랑 시험 타일 세 개가 곡선으로 놓여 있고 옆에는 차색 액체가 든 투명 컵이 있다.",
+  "props": [
+   "enamel tiles",
+   "staining cup",
+   "ceramic saucer"
+  ]
+ },
+ "/qa/whitening-2": {
+  "scene": "A transparent tooth model with a gray internal core stands upright on a small round base, separated from two pale enamel chips lying flat to its right. The camera frames it tightly from a three-quarter side angle so the inner discoloration is visible.",
+  "alt": "둥근 받침 위에 회색 내부가 보이는 투명 치아 모형이 서 있고 오른쪽에는 밝은 법랑 조각 두 개가 평평하게 놓여 있다.",
+  "props": [
+   "transparent tooth model",
+   "gray core",
+   "enamel chips"
+  ]
+ },
+ "/qa/whitening-3": {
+  "scene": "A round enamel test disk lies flat under a clear protective cover, with two sealed whitening compules placed diagonally behind it. The camera looks straight down, showing the disk surface and the unopened material capsules.",
+  "alt": "흰 카운터 위에 둥근 법랑 시험 디스크가 투명 덮개 아래 놓여 있고 뒤쪽에는 밀봉된 미백 재료 캡슐 두 개가 대각선으로 놓여 있다.",
+  "props": [
+   "enamel disk",
+   "protective cover",
+   "whitening compules"
+  ]
+ },
+ "/qa/medical-team-1": {
+  "scene": "An orthodontic arch model with small brackets is placed upright on a white base, with a plain unmarked binder lying closed behind it. The camera is close and slightly above, emphasizing the bracketed arch as the main object.",
+  "alt": "흰 받침 위에 브라켓이 붙은 교정 치열 모형이 세워져 있고 뒤쪽에는 글자 없는 바인더가 닫힌 채 놓여 있다.",
+  "props": [
+   "orthodontic arch model",
+   "brackets",
+   "plain binder"
+  ]
+ },
+ "/qa/medical-team-2": {
+  "scene": "A stack of blank procedure cards is clipped together with three plain color tabs, and a capped pen rests parallel to the card edge. The camera looks from the right side at a low angle so the separated tabs are visible without any writing.",
+  "alt": "글자 없는 절차 카드 묶음에 색 탭 세 개가 끼워져 있고 가장자리와 평행하게 뚜껑 닫힌 펜이 놓여 있다.",
+  "props": [
+   "procedure cards",
+   "color tabs",
+   "capped pen"
+  ]
+ },
+ "/qa/digital-diagnosis-1": {
+  "scene": "An intraoral scanner wand rests diagonally on a white counter beside a single smooth scan calibration block. The camera looks from above the wand tip, showing the scanning head as the main object without any screen.",
+  "alt": "구강스캐너 손잡이가 흰 카운터 위에 대각선으로 놓여 있고 옆에는 매끈한 보정 블록 하나가 있다.",
+  "props": [
+   "intraoral scanner wand",
+   "calibration block",
+   "scanner cradle"
+  ]
+ },
+ "/qa/digital-diagnosis-2": {
+  "scene": "A clear surgical guide is seated over a horseshoe-shaped resin arch, with two cylindrical drill sleeves visible along the ridge. The camera is close from the front-left corner, showing the guide holes aligned over the arch.",
+  "alt": "말굽 모양의 레진 치열 위에 투명 수술 가이드가 얹혀 있고 능선 위로 원통형 드릴 슬리브 두 개가 보인다.",
+  "props": [
+   "surgical guide",
+   "resin arch",
+   "drill sleeves"
+  ]
+ },
+ "/qa/custom-implant-1": {
+  "scene": "A custom angled titanium abutment stands alone on a matte ceramic tile, with a straight stock abutment lying horizontally behind it for comparison. The camera is at macro height from the side, making the angle difference visible.",
+  "alt": "세라믹 타일 위에 맞춤형으로 기울어진 티타늄 어벗트먼트가 서 있고 뒤쪽에는 직선형 기성 어벗트먼트가 눕혀져 있다.",
+  "props": [
+   "custom abutment",
+   "stock abutment",
+   "ceramic tile"
+  ]
+ },
+ "/qa/custom-implant-2": {
+  "scene": "An unmarked zirconia milling puck sits upright in a shallow ceramic holder, with a small chipped ceramic test fragment placed several centimeters in front. The camera looks down at a three-quarter angle, showing the round puck face and the separate fragment.",
+  "alt": "글자 없는 지르코니아 밀링 디스크가 낮은 세라믹 홀더에 세워져 있고 앞쪽에는 작은 세라믹 파편이 따로 놓여 있다.",
+  "props": [
+   "zirconia puck",
+   "ceramic fragment",
+   "ceramic holder"
+  ]
+ },
+ "/qa/custom-implant-3": {
+  "scene": "Three hex driver tips are arranged in separate wells of a plain ceramic component dish, with a tiny unmarked screw cap set off to the side. The camera is directly overhead, making each component compartment distinct.",
+  "alt": "글자 없는 세라믹 부품 접시의 칸마다 육각 드라이버 팁 세 개가 나뉘어 놓여 있고 옆에는 작은 나사 캡이 있다.",
+  "props": [
+   "hex driver tips",
+   "component dish",
+   "screw cap"
+  ]
+ },
+ "/qa/low-dose-ct-1": {
+  "scene": "A folded dental lead apron with an attached thyroid collar lies on the white counter, with a small exposure indicator badge placed nearby without markings. The camera is angled from above so the collar curve and apron folds are visible.",
+  "alt": "흰 카운터 위에 갑상선 보호대가 붙은 치과용 납 앞치마가 접혀 있고 옆에는 표시 없는 작은 노출 배지가 놓여 있다.",
+  "props": [
+   "lead apron",
+   "thyroid collar",
+   "indicator badge"
+  ]
+ },
+ "/qa/low-dose-ct-2": {
+  "scene": "A clear acrylic CT calibration phantom with embedded metal spheres is centered on the counter, with a small jaw-outline stencil lying flat behind it. The camera looks down from a steep angle, showing the phantom as the main object.",
+  "alt": "금속 구슬이 박힌 투명 아크릴 CT 보정 팬텀이 가운데 놓여 있고 뒤쪽에는 턱 윤곽 스텐실이 평평하게 놓여 있다.",
+  "props": [
+   "CT phantom",
+   "metal spheres",
+   "jaw stencil"
+  ]
+ },
+ "/qa/low-dose-ct-3": {
+  "scene": "An unmarked data disc in a clear sleeve rests partly outside a plain gray case, with a small USB drive placed perpendicular to it. The camera is close from overhead, showing the disc edge and storage items on the counter.",
+  "alt": "글자 없는 데이터 디스크가 투명 슬리브에 반쯤 들어간 채 회색 케이스 위에 놓여 있고 작은 USB 드라이브가 직각으로 놓여 있다.",
+  "props": [
+   "data disc",
+   "clear sleeve",
+   "USB drive",
+   "plain case"
+  ]
+ },
+ "/qa/hygiene-1": {
+  "scene": "A sealed sterilization pouch lies flat with two simple instrument handles visible through its transparent side, and a second unopened pouch is set behind it at an angle. The camera looks straight down, keeping the sealed edges in view.",
+  "alt": "밀봉된 멸균 파우치 안쪽으로 간단한 기구 손잡이 두 개가 보이고 뒤쪽에는 다른 미개봉 파우치가 비스듬히 놓여 있다.",
+  "props": [
+   "sterilization pouch",
+   "instrument handles",
+   "unopened pouch"
+  ]
+ },
+ "/qa/hygiene-2": {
+  "scene": "A dental handpiece rests on a folded sterile wrap, with a separate capped bur holder placed behind it. The camera is at counter level from the front, focusing on the handpiece head and its clean connection end.",
+  "alt": "치과 핸드피스가 접힌 멸균 포 위에 놓여 있고 뒤쪽에는 뚜껑 닫힌 버 홀더가 따로 놓여 있다.",
+  "props": [
+   "dental handpiece",
+   "sterile wrap",
+   "bur holder"
+  ]
+ },
+ "/qa/pain-control-1": {
+  "scene": "Two unlabeled anesthetic carpules lie beside a small glass hourglass on the white counter, with the carpules parallel and the hourglass upright. The camera is close from a side angle, showing the liquid-filled cartridges and sand chamber.",
+  "alt": "글자 없는 마취 카풀 두 개가 작은 유리 모래시계 옆에 나란히 놓여 있고 모래시계는 세워져 있다.",
+  "props": [
+   "anesthetic carpules",
+   "glass hourglass",
+   "cartridge cap"
+  ]
+ },
+ "/qa/pain-control-2": {
+  "scene": "An open unlabeled jar of topical anesthetic gel sits in front of a row of disposable microbrushes still in a clear sleeve. The camera looks down from the front-right corner, showing the gel surface and the unused brush tips.",
+  "alt": "글자 없는 도포마취 젤 용기가 열린 채 앞쪽에 놓여 있고 뒤쪽에는 투명 슬리브 안의 일회용 마이크로브러시들이 줄지어 있다.",
+  "props": [
+   "topical gel jar",
+   "microbrushes",
+   "clear sleeve"
+  ]
+ },
+ "/qa/pain-control-3": {
+  "scene": "Several blank pH indicator strips with colored pads fan out from a small glass dish containing red-tinted gel. The camera is directly overhead, showing the strip tips pointing toward the dish.",
+  "alt": "색 패드가 있는 글자 없는 pH 시험지가 작은 유리 접시에서 부채꼴로 펼쳐져 있고 접시 안에는 붉은 젤이 담겨 있다.",
+  "props": [
+   "pH strips",
+   "glass dish",
+   "red gel"
+  ]
+ },
+ "/qa/warranty-1": {
+  "scene": "A sealed blank guarantee folder is placed squarely in the center of the counter, with a plain wax seal and a capped pen set beside its lower edge. The camera is top-down, showing the folder without any writing.",
+  "alt": "글자 없는 보증 폴더가 흰 카운터 가운데 놓여 있고 아래쪽 가장자리 옆에는 무늬 없는 왁스 실과 뚜껑 닫힌 펜이 있다.",
+  "props": [
+   "guarantee folder",
+   "wax seal",
+   "capped pen"
+  ]
+ },
+ "/qa/warranty-2": {
+  "scene": "Blank recall cards stand upright in a clear acrylic card holder, with a small sealed polishing cup pouch placed in front. The camera is at a low front angle so the card edges and unopened pouch are visible.",
+  "alt": "글자 없는 리콜 카드들이 투명 아크릴 카드 홀더에 세워져 있고 앞쪽에는 밀봉된 폴리싱 컵 파우치가 놓여 있다.",
+  "props": [
+   "recall cards",
+   "card holder",
+   "polishing cup pouch"
+  ]
+ },
+ "/qa/visit-1": {
+  "scene": "A numberless desk clock with simple tick marks stands beside a closed blank appointment book on the white counter. The camera views it from slightly above and to the left, with the clock face turned toward the lens.",
+  "alt": "숫자 없이 눈금만 있는 탁상시계가 흰 카운터 위에 서 있고 옆에는 글자 없는 예약 책이 닫혀 있다.",
+  "props": [
+   "numberless clock",
+   "appointment book",
+   "counter stand"
+  ]
+ },
+ "/qa/visit-2": {
+  "scene": "A white corded telephone handset rests off its base next to an open appointment book with blank pages. The camera looks from the front at counter height, showing the handset curve and empty page spread.",
+  "alt": "흰색 유선 전화 수화기가 본체에서 내려와 있고 옆에는 글자 없는 빈 예약 책이 펼쳐져 있다.",
+  "props": [
+   "corded telephone",
+   "blank appointment book",
+   "phone base"
+  ]
+ },
+ "/qa/visit-3": {
+  "scene": "A small metal location pin stands on a folded blank map with only pale route lines, and a simple white building block sits near the pin. The camera looks down from a diagonal angle, keeping the map free of labels.",
+  "alt": "연한 길 선만 있는 글자 없는 접힌 지도 위에 작은 금속 위치 핀이 서 있고 가까이에 흰 건물 블록이 놓여 있다.",
+  "props": [
+   "location pin",
+   "blank map",
+   "building block"
+  ]
+ },
+ "/qa/visit-4": {
+  "scene": "A miniature car is centered on a small lift platform, with two vertical guide rails standing behind it to suggest mechanical parking. The camera is low and frontal, showing the car and platform on the counter.",
+  "alt": "작은 자동차 모형이 리프트 플랫폼 가운데 놓여 있고 뒤쪽에는 수직 가이드 레일 두 개가 서 있다.",
+  "props": [
+   "miniature car",
+   "lift platform",
+   "guide rails"
+  ]
+ },
+ "/qa/visit-5": {
+  "scene": "A blank estimate envelope lies slightly open on the counter, with a capped pen across its flap and a few blurred coins set far in the background. The camera is close from above, making the empty envelope the main object.",
+  "alt": "글자 없는 견적 봉투가 조금 열린 채 놓여 있고 덮개 위에는 뚜껑 닫힌 펜이 있으며 뒤쪽에는 흐릿한 동전 몇 개가 있다.",
+  "props": [
+   "estimate envelope",
+   "capped pen",
+   "blurred coins"
+  ]
+ },
+ "/qa/visit-6": {
+  "scene": "A plain radiograph envelope lies open with the dark edge of a dental x-ray film partly visible, and a clear protective sleeve sits beside it. The camera looks down at a shallow angle, showing the film emerging without any label.",
+  "alt": "글자 없는 방사선 사진 봉투가 열려 있고 어두운 치과 엑스레이 필름 가장자리가 일부 보이며 옆에는 투명 보호 슬리브가 있다.",
+  "props": [
+   "radiograph envelope",
+   "x-ray film",
+   "protective sleeve"
+  ]
+ },
+ "/qa/visit-7": {
+  "scene": "An unlabeled amber medication bottle stands beside two sealed blister packs with blank foil, and a small plain warning tag lies flat in front. The camera is close from the side, focusing on the bottle silhouette and sealed packs.",
+  "alt": "글자 없는 갈색 약병이 빈 포일의 밀봉 블리스터 팩 두 개 옆에 서 있고 앞에는 무지 경고 태그가 평평하게 놓여 있다.",
+  "props": [
+   "medication bottle",
+   "blister packs",
+   "warning tag"
+  ]
+ },
+ "/qa/visit-8": {
+  "scene": "A plain pastel maternity booklet is closed on the counter beside a sealed disposable dental bib and a capped pen. The camera looks down from the upper right, showing the booklet as the largest object with no writing visible.",
+  "alt": "글자 없는 파스텔색 산모 수첩이 닫힌 채 놓여 있고 옆에는 밀봉된 일회용 치과용 턱받이와 뚜껑 닫힌 펜이 있다.",
+  "props": [
+   "maternity booklet",
+   "dental bib",
+   "capped pen"
+  ]
+ },
+ "/qa/implant-full-arch-1": {
+  "scene": "A curved titanium full-arch framework rests on two small ceramic rests, with several empty screw access openings visible along its top surface. The camera is close from a low three-quarter angle, showing the arch shape across the counter.",
+  "alt": "곡선형 티타늄 전악 프레임워크가 작은 세라믹 받침 두 개 위에 놓여 있고 윗면에는 빈 나사 접근 구멍들이 보인다.",
+  "props": [
+   "full-arch framework",
+   "ceramic rests",
+   "screw openings"
+  ]
+ },
+ "/qa/implant-full-arch-2": {
+  "scene": "An inverted fixed full-arch implant bridge rests on two small ceramic supports, with the metal connection cylinders visible along its underside. The camera is at a low front angle so the prosthetic teeth and attachment points are seen together on the white counter.",
+  "alt": "흰 카운터 위의 작은 세라믹 받침 두 개에 뒤집힌 전체 악궁 임플란트 브리지가 놓여 있고 아래쪽 금속 연결부가 보입니다.",
+  "props": [
+   "fixed implant bridge",
+   "ceramic supports",
+   "metal cylinders"
+  ]
+ },
+ "/qa/implant-full-arch-3": {
+  "scene": "A small glass hourglass stands beside a temporary full-arch prosthesis lying flat on a folded sterile drape. The view is from above at a slight diagonal, with the prosthesis curved around the base of the hourglass.",
+  "alt": "접힌 멸균포 위에 임시 전체 악궁 보철물이 누워 있고 그 옆에 작은 유리 모래시계가 서 있습니다.",
+  "props": [
+   "hourglass",
+   "temporary prosthesis",
+   "sterile drape"
+  ]
+ },
+ "/qa/implant-full-arch-4": {
+  "scene": "Three unlabeled amber medicine bottles are arranged in a diagonal line beside a capped pen and a plain clipboard with no writing. The camera is close to counter height, focusing on the bottle caps and the blank surface behind them.",
+  "alt": "라벨이 없는 갈색 약병 세 개가 사선으로 놓여 있고 옆에는 뚜껑이 닫힌 펜과 아무것도 적히지 않은 클립보드가 있습니다.",
+  "props": [
+   "medicine bottles",
+   "capped pen",
+   "plain clipboard"
+  ]
+ },
+ "/qa/implant-bone-graft-1": {
+  "scene": "A thin collagen membrane sheet lies partly draped over a ridge-shaped practice block, with one edge still resting in a shallow glass dish of clear fluid. The view is a tight overhead shot showing the sheet spanning the ridge.",
+  "alt": "얇은 콜라겐 막이 능선 모양 실습 블록 위에 일부 덮여 있고 한쪽 끝은 투명한 액체가 담긴 얕은 유리 접시에 걸쳐 있습니다.",
+  "props": [
+   "collagen membrane",
+   "ridge block",
+   "glass dish"
+  ]
+ },
+ "/qa/implant-bone-graft-2": {
+  "scene": "A clear sterile vial holds a white porous mineral scaffold cube, set upright beside a sealed blank foil pouch. The camera is at macro distance, showing the tiny pores in the cube through the glass.",
+  "alt": "투명한 멸균 바이알 안에 흰색 다공성 광물 지지체 큐브가 서 있고 옆에는 아무 표시 없는 밀봉 포일 파우치가 놓여 있습니다.",
+  "props": [
+   "mineral scaffold",
+   "clear vial",
+   "foil pouch"
+  ]
+ },
+ "/qa/implant-bone-graft-3": {
+  "scene": "A closed dark ledger sits in the center of the counter with a brass pen laid across it and a few out-of-focus coins near the back edge. The camera looks down from a shallow angle, with no writing visible anywhere.",
+  "alt": "닫힌 짙은색 장부 위에 황동 펜이 가로로 놓여 있고 뒤쪽에는 흐릿한 동전 몇 개가 있습니다.",
+  "props": [
+   "closed ledger",
+   "brass pen",
+   "blurred coins"
+  ]
+ },
+ "/qa/implant-sinus-lift-1": {
+  "scene": "A curved sinus lift curette is placed beside two unlabeled anesthetic carpules on a folded surgical drape. The side view shows the rounded spoon tip of the instrument facing the carpules.",
+  "alt": "접힌 수술포 위에 굽은 상악동 거상 큐렛이 놓여 있고 옆에는 라벨 없는 마취 카풀 두 개가 있습니다.",
+  "props": [
+   "sinus curette",
+   "anesthetic carpules",
+   "surgical drape"
+  ]
+ },
+ "/qa/implant-sinus-lift-2": {
+  "scene": "A transparent maxillary sinus training model sits upright with a raised membrane panel and several smooth unmarked measuring rods laid in front of it. The camera is angled from the right so the sinus cavity and lower ridge thickness are visible.",
+  "alt": "투명한 상악동 실습 모형이 세워져 있고 앞에는 눈금 없는 매끈한 측정 막대들이 놓여 있으며 들어 올려진 막 패널이 보입니다.",
+  "props": [
+   "sinus model",
+   "membrane panel",
+   "measuring rods"
+  ]
+ },
+ "/qa/implant-senior-insurance-1": {
+  "scene": "A small brass balance scale is centered on the counter, with plain ceramic tooth tokens placed on one pan and additional tokens resting nearby. The shot is frontal and close, with the blurred coins kept behind the scale.",
+  "alt": "작은 황동 양팔저울이 카운터 가운데에 있고 한쪽 접시에는 무늬 없는 세라믹 치아 토큰이 놓여 있으며 뒤쪽에는 동전이 흐릿하게 보입니다.",
+  "props": [
+   "brass scale",
+   "tooth tokens",
+   "blurred coins"
+  ]
+ },
+ "/qa/implant-senior-insurance-2": {
+  "scene": "Two plain closed storage cases sit side by side: a rounded case on the left and a slim component case on the right, separated by a capped pen. The overhead view shows both closed lids with no markings.",
+  "alt": "둥근 보관 케이스와 길쭉한 부품 케이스가 펜을 사이에 두고 나란히 닫힌 채 놓여 있으며 뚜껑에는 아무 표시가 없습니다.",
+  "props": [
+   "closed cases",
+   "capped pen",
+   "component case"
+  ]
+ },
+ "/qa/implant-senior-insurance-3": {
+  "scene": "Several unlabeled dental material pucks in ceramic and metal finishes are arranged in a semicircle around a blank selection card. The camera looks down from the front, emphasizing the different surfaces without any printed information.",
+  "alt": "라벨 없는 치과 재료 원반들이 세라믹색과 금속색으로 반원 형태로 놓여 있고 가운데에는 빈 선택 카드가 있습니다.",
+  "props": [
+   "material pucks",
+   "blank card",
+   "metal puck"
+  ]
+ },
+ "/qa/implant-digital-navigation-1": {
+  "scene": "A clear surgical guide with embedded metal sleeves is placed alone on a white silicone arch pad. The camera is a three-quarter close-up, showing the sleeve openings aligned along the curved guide.",
+  "alt": "금속 슬리브가 박힌 투명 수술 가이드가 흰색 실리콘 악궁 패드 위에 단독으로 놓여 있고 슬리브 구멍들이 곡선을 따라 보입니다.",
+  "props": [
+   "surgical guide",
+   "metal sleeves",
+   "silicone pad"
+  ]
+ },
+ "/qa/implant-digital-navigation-2": {
+  "scene": "Translucent CBCT slice films are fanned across the counter, with a small unmarked caliper resting diagonally over one corner. The overhead composition shows layered jaw cross-sections without a screen or viewer.",
+  "alt": "투명한 CBCT 단면 필름들이 부채꼴로 펼쳐져 있고 한쪽 모서리 위에 눈금 없는 작은 캘리퍼가 사선으로 놓여 있습니다.",
+  "props": [
+   "CBCT films",
+   "unmarked caliper",
+   "film stack"
+  ]
+ },
+ "/qa/implant-aftercare-1": {
+  "scene": "A small markless analog clock lies flat beside a polished single implant crown sample on a dark rubber pad. The camera is close and slightly above, with the clock face blank and the crown sample offset to one side.",
+  "alt": "눈금이 없는 작은 아날로그 시계가 어두운 고무 패드 위에 납작하게 놓여 있고 옆에는 광택 있는 단일 임플란트 크라운 샘플이 있습니다.",
+  "props": [
+   "markless clock",
+   "implant crown sample",
+   "rubber pad"
+  ]
+ },
+ "/qa/implant-aftercare-2": {
+  "scene": "A thick implant hygiene threader forms a loop through a U-shaped acrylic cleaning channel, with the stiff blue end resting on the counter. The camera is a tight side close-up focused on the threader passing under the channel.",
+  "alt": "두꺼운 임플란트 위생용 스레더가 U자형 아크릴 세정 통로를 지나 고리 모양을 만들고 파란 단단한 끝부분이 카운터에 놓여 있습니다.",
+  "props": [
+   "hygiene threader",
+   "acrylic channel",
+   "threader loop"
+  ]
+ },
+ "/qa/implant-aftercare-3": {
+  "scene": "A closed appointment book with a plain cover is placed at the back of the counter, while a capped pen and several blank round reminder chips are arranged in the foreground. The camera looks from above at a wide diagonal angle.",
+  "alt": "무늬 없는 표지의 닫힌 예약 수첩이 뒤쪽에 놓여 있고 앞쪽에는 뚜껑이 닫힌 펜과 빈 원형 알림 칩들이 배열되어 있습니다.",
+  "props": [
+   "appointment book",
+   "capped pen",
+   "blank chips"
+  ]
+ },
+ "/qa/dental-caries-1": {
+  "scene": "An opened blank fluoride varnish capsule sits beside a fine microbrush, with a small translucent enamel tile placed just beyond it. The view is directly overhead, showing the varnish cup and brush tip without any labels.",
+  "alt": "아무 표시 없는 불소 바니시 캡슐이 열려 있고 옆에는 가는 마이크로브러시와 작은 반투명 법랑질 타일이 놓여 있습니다.",
+  "props": [
+   "fluoride capsule",
+   "microbrush",
+   "enamel tile"
+  ]
+ },
+ "/qa/dental-caries-2": {
+  "scene": "A translucent layered enamel model stands upright with a small brown lesion visible beneath the outer surface but no open hole on top. The camera is close from the left, showing the hidden spot through the clear layer.",
+  "alt": "반투명 층상 법랑질 모형이 세워져 있고 겉면에는 구멍이 없지만 안쪽에 작은 갈색 병소가 비쳐 보입니다.",
+  "props": [
+   "layered enamel model",
+   "brown lesion",
+   "clear layer"
+  ]
+ },
+ "/qa/dental-caries-3": {
+  "scene": "Two plain stainless spoons are placed on separate glass coasters with a narrow clear divider standing between them. Tiny clear resin droplets sit near the bowls of the spoons, seen from a centered overhead angle.",
+  "alt": "무늬 없는 스테인리스 숟가락 두 개가 각각 유리 받침 위에 놓여 있고 그 사이에는 투명한 칸막이가 서 있으며 숟가락 오목한 부분 근처에 작은 투명 레진 방울들이 있습니다.",
+  "props": [
+   "stainless spoons",
+   "glass divider",
+   "resin droplets"
+  ]
+ },
+ "/qa/pulpitis-1": {
+  "scene": "A transparent single-root tooth model stands upright with a dark gray central core running down to the root tip. The camera is at eye level with the model, making the dark inner canal visible through the clear shell.",
+  "alt": "투명한 단근 치아 모형이 세워져 있고 뿌리 끝까지 이어지는 짙은 회색 중심부가 투명한 껍질 안으로 보입니다.",
+  "props": [
+   "transparent tooth",
+   "gray core",
+   "root tip"
+  ]
+ },
+ "/qa/pulpitis-2": {
+  "scene": "An unlabeled cold spray can lies horizontally beside a small frosted foam testing pellet and several plain porcelain tooth chips arranged in a loose arc. The camera is angled down from the front so the pellet sits between the can and the tooth chips.",
+  "alt": "라벨 없는 냉각 스프레이 캔이 가로로 놓여 있고 서리 낀 폼 테스트 펠릿과 무늬 없는 도재 치아 조각들이 느슨한 호 모양으로 배열되어 있습니다.",
+  "props": [
+   "cold spray",
+   "foam pellet",
+   "tooth chips"
+  ]
+ },
+ "/qa/gingivitis-1": {
+  "scene": "A soft rubber gum stimulator is angled against a pink silicone gingival strip, with tiny red glass beads placed along the contact edge. The close side view shows the rounded rubber tip touching the strip.",
+  "alt": "부드러운 고무 잇몸 자극기가 분홍색 실리콘 잇몸 스트립에 비스듬히 닿아 있고 접촉선에는 작은 빨간 유리 구슬들이 놓여 있습니다.",
+  "props": [
+   "gum stimulator",
+   "gingival strip",
+   "red beads"
+  ]
+ },
+ "/qa/gingivitis-2": {
+  "scene": "A thin transparent plaque sheet is partially lifted from a pink gum strip using fine tweezers, with the peeled edge curling upward. The camera is a tight overhead shot centered on the lifted clear film.",
+  "alt": "얇은 투명 플라크 시트가 가는 핀셋으로 분홍색 잇몸 스트립에서 일부 들어 올려져 있고 벗겨진 가장자리가 위로 말려 있습니다.",
+  "props": [
+   "plaque sheet",
+   "gum strip",
+   "fine tweezers"
+  ]
+ },
+ "/qa/periodontitis-1": {
+  "scene": "A perforated sterilization cassette is partly open, showing several curved Gracey curettes nested inside on silicone rails. The camera is a wide top-down view with the instruments aligned in parallel rows.",
+  "alt": "구멍이 있는 멸균 카세트가 일부 열려 있고 안에는 굽은 그레이시 큐렛들이 실리콘 레일 위에 나란히 놓여 있습니다.",
+  "props": [
+   "sterilization cassette",
+   "Gracey curettes",
+   "silicone rails"
+  ]
+ },
+ "/qa/periodontitis-2": {
+  "scene": "A resorbable barrier membrane is stretched like a small tent over a crater-shaped periodontal defect block, held at the corners by smooth plastic pins. The camera is low from the front, showing the membrane spanning the hollow area.",
+  "alt": "흡수성 차폐막이 분화구 모양 치주 결손 블록 위에 작은 텐트처럼 펼쳐져 있고 모서리는 매끈한 플라스틱 핀으로 고정되어 있습니다.",
+  "props": [
+   "barrier membrane",
+   "defect block",
+   "plastic pins"
+  ]
+ },
+ "/qa/periodontitis-3": {
+  "scene": "An ultrasonic insert tip lies in the foreground beside a closed unlabeled medication bottle set farther back. The camera is close from the right, placing the metal tip in focus and the bottle slightly behind it.",
+  "alt": "초음파 인서트 팁이 앞쪽에 놓여 있고 뒤쪽에는 라벨 없는 닫힌 약병이 서 있으며 금속 팁이 더 선명하게 보입니다.",
+  "props": [
+   "ultrasonic insert",
+   "medication bottle",
+   "metal tip"
+  ]
+ },
+ "/qa/pericoronitis-1": {
+  "scene": "Closed extraction forceps rest on the counter beside a small red-tinted silicone gum practice block and an unlabeled anesthetic carpule. The view is from above at a steep angle, with the forceps set apart from the inflamed-looking block.",
+  "alt": "닫힌 발치 겸자가 카운터 위에 놓여 있고 옆에는 붉은빛 실리콘 잇몸 실습 블록과 라벨 없는 마취 카풀이 있습니다.",
+  "props": [
+   "extraction forceps",
+   "gum block",
+   "anesthetic carpule"
+  ]
+ },
+ "/qa/pericoronitis-2": {
+  "scene": "Tiny colored debris beads are tucked under a crescent-shaped pink silicone flap on a small practice base, with a curved cleaning nozzle lying nearby. The macro overhead view shows the beads trapped beneath the lifted flap edge.",
+  "alt": "작은 실습 베이스 위의 초승달 모양 분홍 실리콘 플랩 아래에 작은 색 구슬들이 끼어 있고 근처에는 굽은 세정 노즐이 놓여 있습니다.",
+  "props": [
+   "debris beads",
+   "silicone flap",
+   "cleaning nozzle"
+  ]
+ },
+ "/qa/dry-socket-1": {
+  "scene": "A narrow eugenol dressing strip lies coiled inside a shallow glass well, with a small stainless packing instrument placed parallel beside it. The camera is close and level with the rim of the glass well.",
+  "alt": "얕은 유리 웰 안에 가느다란 유제놀 드레싱 스트립이 말려 있고 옆에는 작은 스테인리스 패킹 기구가 나란히 놓여 있습니다.",
+  "props": [
+   "eugenol dressing",
+   "glass well",
+   "packing instrument"
+  ]
+ },
+ "/qa/dry-socket-2": {
+  "scene": "A pale collagen wound plug sits upright in a clear sterile cup, with sealed blank packaging folded behind it. The camera is a tight front close-up showing the plug texture through the cup wall.",
+  "alt": "연한 색의 콜라겐 상처 플러그가 투명한 멸균 컵 안에 세워져 있고 뒤에는 아무 표시 없는 포장이 접혀 있습니다.",
+  "props": [
+   "collagen plug",
+   "sterile cup",
+   "blank packaging"
+  ]
+ },
+ "/qa/cracked-tooth-syndrome-1": {
+  "scene": "A small glass dye dropper hovers above a white ceramic tooth replica, letting blue dye collect inside a fine hairline groove. The camera is close and angled from the front right.",
+  "alt": "흰 세라믹 치아 복제물의 가는 홈 위에 작은 유리 색소 드로퍼가 놓여 있고 파란 색소가 홈에 고여 있다.",
+  "props": [
+   "dye dropper",
+   "ceramic replica",
+   "glass dish"
+  ]
+ },
+ "/qa/cracked-tooth-syndrome-2": {
+  "scene": "A thin stainless stabilization band encircles a white tooth stump set in a gum-colored block, with the band seam visible at the front. The arrangement is photographed from directly above.",
+  "alt": "잇몸색 블록에 꽂힌 흰 치아 기둥을 얇은 스테인리스 고정 밴드가 둘러싸고 있으며 앞쪽에 밴드 이음부가 보인다.",
+  "props": [
+   "stabilization band",
+   "tooth stump",
+   "gum block"
+  ]
+ },
+ "/qa/dentin-hypersensitivity-1": {
+  "scene": "An unlabeled toothpaste tube rests beside a pea-sized ribbon of paste on a clear glass slab, with a small soft timer placed behind it. The view is a close overhead diagonal.",
+  "alt": "글자가 없는 치약 튜브와 투명 유리판 위의 작은 치약 줄기, 뒤쪽의 작은 타이머가 흰 카운터에 놓여 있다.",
+  "props": [
+   "toothpaste tube",
+   "soft timer",
+   "glass slab"
+  ]
+ },
+ "/qa/dentin-hypersensitivity-2": {
+  "scene": "Several tan calculus chips sit in a shallow clear specimen dish beside a smooth root-surface tile and a blunt desensitizing brush. The objects are arranged in a top-down triangular layout.",
+  "alt": "얕은 투명 표본 접시 안의 황갈색 치석 조각들과 매끈한 치근 표면 타일, 둥근 끝의 탈감작 브러시가 삼각형으로 배치되어 있다.",
+  "props": [
+   "calculus chips",
+   "specimen dish",
+   "root tile"
+  ]
+ },
+ "/qa/tmd-1": {
+  "scene": "An unmarked jaw-opening caliper is opened between two stacked acrylic jaw blocks, with its hinge end pointed toward the camera. The shot is taken from a low side angle.",
+  "alt": "눈금이 없는 개구 측정 캘리퍼가 두 개의 아크릴 턱 블록 사이에 벌어져 있고 경첩 부분이 카메라 쪽을 향한다.",
+  "props": [
+   "jaw-opening caliper",
+   "acrylic blocks",
+   "hinge pin"
+  ]
+ },
+ "/qa/tmd-2": {
+  "scene": "A narrow strip of silver shimstock foil lies partly between upper and lower plastic occlusion blocks, with a small hemostat nearby. The camera looks down from an oblique overhead angle.",
+  "alt": "은색 심스톡 포일 한 줄이 위아래 플라스틱 교합 블록 사이에 일부 끼워져 있고 옆에 작은 지혈겸자가 놓여 있다.",
+  "props": [
+   "shimstock foil",
+   "occlusion blocks",
+   "hemostat"
+  ]
+ },
+ "/qa/bruxism-1": {
+  "scene": "A rectangular clear acrylic wear plate with shallow parallel scuff marks sits next to a closed vented storage case. The scene is tightly framed from directly above.",
+  "alt": "얕은 평행 마모 자국이 있는 직사각형 투명 아크릴 마모판이 닫힌 통풍 보관 케이스 옆에 놓여 있다.",
+  "props": [
+   "wear plate",
+   "vented case",
+   "scuff marks"
+  ]
+ },
+ "/qa/bruxism-2": {
+  "scene": "A round silicone force cushion with repeated bite-like depressions is set beside a smooth relaxation ball and a blank habit card. The objects are viewed from a high angle.",
+  "alt": "반복된 물림 모양 눌림 자국이 있는 둥근 실리콘 힘 완충 패드와 매끈한 릴랙스 볼, 빈 카드가 나란히 놓여 있다.",
+  "props": [
+   "force cushion",
+   "relaxation ball",
+   "blank card"
+  ]
+ },
+ "/qa/peri-implantitis-1": {
+  "scene": "A gold-toned titanium implant curette lies diagonally beside a pink acrylic implant collar sample and a small maintenance brush head. The camera is placed above the counter at a shallow angle.",
+  "alt": "금빛 티타늄 임플란트 큐렛이 분홍색 아크릴 임플란트 칼라 샘플과 작은 관리용 브러시 헤드 옆에 대각선으로 놓여 있다.",
+  "props": [
+   "implant curette",
+   "collar sample",
+   "brush head"
+  ]
+ },
+ "/qa/peri-implantitis-2": {
+  "scene": "A single implant analog cylinder is embedded in a clear acrylic block, with a red rubber ring sitting low around it. A blank recall token is placed behind the block in a straight-down view.",
+  "alt": "투명 아크릴 블록 안에 임플란트 아날로그 원통이 박혀 있고 그 낮은 위치에 빨간 고무 링이 둘러져 있으며 뒤쪽에 빈 리콜 토큰이 있다.",
+  "props": [
+   "implant analog",
+   "red ring",
+   "acrylic block"
+  ]
+ },
+ "/qa/impacted-tooth-1": {
+  "scene": "A clear acrylic block holds a sideways unerupted tooth form beneath a smooth surface, with a small observation marker peg outside the block. The camera is close to the front face of the block.",
+  "alt": "투명 아크릴 블록 안에 옆으로 누운 미맹출 치아 형태가 들어 있고 블록 바깥에는 작은 관찰 표시 말뚝이 놓여 있다.",
+  "props": [
+   "acrylic block",
+   "unerupted tooth form",
+   "marker peg"
+  ]
+ },
+ "/qa/impacted-tooth-2": {
+  "scene": "A transparent mandibular-slice block shows a yellow nerve-channel cord passing under two root tips, with an unmarked measuring compass opened nearby. The view is an oblique side view.",
+  "alt": "투명한 턱 단면 블록 안에서 노란 신경관 줄이 두 치근 끝 아래를 지나가고 옆에는 눈금 없는 측정 컴퍼스가 벌어져 있다.",
+  "props": [
+   "nerve-channel block",
+   "yellow cord",
+   "measuring compass"
+  ]
+ },
+ "/qa/xerostomia-1": {
+  "scene": "An unlabeled amber medicine bottle stands closed beside a fluoride varnish well and a dry-mouth moisturizing swab. The objects are photographed at counter level from the front.",
+  "alt": "글자가 없는 갈색 약병이 닫힌 채 서 있고 옆에 불소 바니시 웰과 구강 보습용 면봉이 놓여 있다.",
+  "props": [
+   "amber bottle",
+   "varnish well",
+   "moisturizing swab"
+  ]
+ },
+ "/qa/xerostomia-2": {
+  "scene": "A clear oral-moisture atomizer with no label lies horizontally next to a small enamel remineralizing tablet and a sealed water ampoule. The composition runs diagonally across the counter from above.",
+  "alt": "라벨이 없는 투명 구강 보습 분무기가 가로로 놓여 있고 옆에 작은 법랑질 재광화 정제와 밀봉된 물 앰플이 있다.",
+  "props": [
+   "moisture atomizer",
+   "mineral tablet",
+   "water ampoule"
+  ]
+ },
+ "/qa/halitosis-1": {
+  "scene": "A plain capped mouthwash bottle stands behind an unmarked measuring cap turned upside down, with a clean ceramic tile off to one side. The camera looks from a three-quarter front angle.",
+  "alt": "무늬 없는 뚜껑 달린 가글 병 뒤에 눈금 없는 계량 캡이 뒤집혀 있고 한쪽에는 깨끗한 세라믹 타일이 놓여 있다.",
+  "props": [
+   "mouthwash bottle",
+   "measuring cap",
+   "ceramic tile"
+  ]
+ },
+ "/qa/halitosis-2": {
+  "scene": "A sterile odor testing strip rests across the rim of a small glass jar, with a short loose waxed floss strand coiled nearby. The view is a tight top-down macro.",
+  "alt": "작은 유리병 입구 위에 멸균 냄새 확인 스트립이 걸쳐져 있고 옆에는 짧은 왁스 치실 가닥이 느슨하게 말려 있다.",
+  "props": [
+   "odor strip",
+   "glass jar",
+   "floss strand"
+  ]
+ },
+ "/qa/edentulism-1": {
+  "scene": "A partial arch drift model shows one molar-width gap, neighboring teeth tilted toward it, and an opposing tooth set slightly high. The model is photographed from the front at tabletop height.",
+  "alt": "부분 치열 이동 모형에 어금니 하나 폭의 빈 공간이 있고 양옆 치아가 그쪽으로 기울어 있으며 맞은편 치아 하나가 약간 높게 내려와 있다.",
+  "props": [
+   "drift arch",
+   "tilted teeth",
+   "opposing tooth"
+  ]
+ },
+ "/qa/edentulism-2": {
+  "scene": "A small brass balance scale sits centered with a removable denture tooth on one pan and a locator attachment cap on the other. A closed ledger is set behind it without any visible writing.",
+  "alt": "작은 황동 저울의 한쪽 접시에는 탈착식 틀니 치아가, 다른 쪽 접시에는 로케이터 부착 캡이 놓여 있고 뒤에는 닫힌 장부가 있다.",
+  "props": [
+   "brass scale",
+   "denture tooth",
+   "locator cap",
+   "closed ledger"
+  ]
+ }
+}

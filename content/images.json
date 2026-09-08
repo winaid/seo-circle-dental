@@ -1,0 +1,32 @@
+{
+ "/symptom/bleeding-gums": {
+  "src": "/img/gen/symptom-bleeding-gums.webp",
+  "alt": "흰 트레이 위에 성인용 부드러운 칫솔이 대각선으로 놓여 있고 옆의 투명 컵 바닥에는 옅은 붉은 물이 담겨 있다.",
+  "scene": "A soft adult toothbrush lies diagonally across a white tray beside a clear rinse cup with faint red-tinted water at the bottom. The scene is photographed from directly above."
+ },
+ "/symptom/cold-sensitivity": {
+  "src": "/img/gen/symptom-cold-sensitivity.webp",
+  "alt": "확대된 소구치 마모 모형의 노란 상아질 부분이 앞을 향하고 옆에 표시 없는 에어워터 시린지 팁과 작은 금속 트레이가 놓여 있다.",
+  "scene": "An enlarged premolar enamel-wear model sits near an unmarked air-water syringe tip and a small metal tray. The exposed yellow dentin area faces the camera in a close front view."
+ },
+ "/symptom/toothache-night": {
+  "src": "/img/gen/symptom-toothache-night.webp",
+  "alt": "흰 치과 카운터 위의 작은 라이트 뷰어에 치근 엑스레이 필름이 꽂혀 있고 옆에 솜롤과 캡이 씌워진 탐침이 놓여 있다.",
+  "scene": "A small periapical x-ray film is clipped to a compact light viewer on a white dental counter, with a cotton roll and a capped explorer placed to the side. The camera looks down at a slight angle so the root area on the film is visible without any markings."
+ },
+ "/symptom/missing-tooth": {
+  "src": "/img/gen/symptom-missing-tooth.webp",
+  "alt": "아래턱 치열 모형에 어금니 한 자리가 비어 있고 양옆 치아가 빈 공간 쪽으로 약간 기울어진 채 놓여 있다.",
+  "scene": "A lower jaw arch model with one empty molar space is placed alone on the counter, with the adjacent teeth angled slightly toward the gap. The camera views the arch from a low three-quarter angle."
+ },
+ "/symptom/wisdom-tooth-pain": {
+  "src": "/img/gen/symptom-wisdom-tooth-pain.webp",
+  "alt": "뒤쪽 잇몸 모형에서 잇몸 덮개 아래로 사랑니 머리 일부가 나와 있고 뒤에는 작은 세척 주사기가 놓여 있다.",
+  "scene": "A back-corner gum model shows a partially erupted third molar under a raised gum flap, with a small irrigation syringe resting behind it. The view is a tight side close-up of the flap and tooth crown."
+ },
+ "/symptom/bad-breath": {
+  "src": "/img/gen/symptom-bad-breath.webp",
+  "alt": "흰 카운터 중앙에 U자형 금속 혀 클리너가 놓여 있고 뒤쪽에 치간칫솔과 치실 통이 함께 놓여 있다.",
+  "scene": "A U-shaped stainless tongue scraper is centered on a white counter, with an interdental brush and a floss spool set behind it. The camera looks straight down, keeping the scraper as the largest object."
+ }
+}

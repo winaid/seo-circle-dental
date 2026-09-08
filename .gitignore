@@ -9,3 +9,5 @@ _shots
 audit.log
 build.log
 dev.log
+.vercel
+gen.log
