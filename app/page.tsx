@@ -90,7 +90,7 @@ export default function HomePage() {
           <div className="hero-ring" aria-hidden="true" />
           <div className="wrap hero-in">
             <div className="hero-copy">
-              <span className="eyebrow eyebrow--light enter">고양시 덕양구 화정동 · 3호선 화정역 인근</span>
+              <span className="eyebrow eyebrow--light enter">화정치과 · 고양시 덕양구 화정동 · 3호선 화정역</span>
               <h1 className="enter enter-2">
                 뽑기 전에 살릴 수 있는지
                 <br />
@@ -152,7 +152,7 @@ export default function HomePage() {
             <div className="sec-head sec-head--row">
               <div>
                 <span className="eyebrow">진료 안내</span>
-                <h2 id="h-treat">화정동 치과에서 하는 진료, 무엇을 먼저 보는지까지</h2>
+                <h2 id="h-treat">화정치과 동그라미에서 하는 진료, 무엇을 먼저 보는지까지</h2>
                 <p>진료 이름만 나열하지 않았습니다. 각 진료에서 검사로 먼저 확인하는 것과 살릴 수 있는 조건·없는 조건을 나눠 적었습니다.</p>
               </div>
               <Link href="/treatment" className="btn btn--ghost">
@@ -183,7 +183,7 @@ export default function HomePage() {
             <div>
               <span className="eyebrow">동그라미치과의원은 어떤 곳인가요</span>
               <h2 id="h-why" style={{ fontSize: 'clamp(26px, 3vw, 36px)', marginTop: 14, marginBottom: 14 }}>
-                화정동 치과 동그라미치과의원이 진료를 대하는 다섯 가지 기준
+                화정치과 동그라미치과의원이 진료를 대하는 다섯 가지 기준
               </h2>
               <p className="muted" style={{ marginBottom: 28 }}>
                 병원이 스스로 밝히고 있는 내용 그대로입니다. 근거가 되는 자격·인증은 <Link href="/about" style={{ color: 'var(--brand)', fontWeight: 600 }}>병원 소개</Link>에서 실물 사진으로 확인하실 수 있습니다.

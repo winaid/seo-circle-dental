@@ -81,7 +81,7 @@ export function websiteNode() {
     '@type': 'WebSite',
     '@id': ID.website,
     url: SITE_URL,
-    name: `${SITE_NAME} — 화정동 치과 안내`,
+    name: `${SITE_NAME} — 화정치과 · 화정동 치과 안내`,
     inLanguage: 'ko-KR',
     publisher: { '@id': ID.clinic },
   };

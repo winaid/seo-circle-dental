@@ -27,7 +27,7 @@ function itemHtml(d: Doc) {
 }
 
 function channelHead(self: string) {
-  return `<title>${escapeXml(`${SITE_NAME} — 화정동 치과 안내`)}</title>
+  return `<title>${escapeXml(`${SITE_NAME} — 화정치과 · 화정동 치과 안내`)}</title>
     <link>${SITE_URL}</link>
     <description>${escapeXml(CLINIC.description)}</description>
     <language>ko-KR</language>

@@ -188,10 +188,10 @@ function buildDocs(): Doc[] {
     kind: 'home',
     title: '뽑기 전에 살릴 수 있는지 먼저 보는 화정동 치과',
     seoTitle: HOME_TITLE,
-    description: desc(`고양시 덕양구 화정동 동그라미치과의원. 화정역 3호선 인근, 화·목 저녁 8시 30분까지 야간 진료. 통합치의학과 전문의 3인이 자연치아 살리기·신경치료·임플란트·사랑니 발치를 진료합니다. ${CLINIC.phone}`),
+    description: desc(`화정치과 동그라미치과의원 — 고양시 덕양구 화정동, 화정역 3호선 인근. 화·목 저녁 8시 30분까지 야간 진료. 통합치의학과 전문의 3인이 자연치아 살리기·신경치료·임플란트·사랑니 발치를 진료합니다. ${CLINIC.phone}`),
     excerpt: CLINIC.description,
     image: { src: IMG.doctorsTeam, alt: '동그라미치과의원 의료진 세 명' },
-    keywords: ['화정동 치과', '화정역 치과', '덕양구 치과', '고양 치과', '동그라미치과의원'],
+    keywords: ['화정치과', '화정 치과', '화정동 치과', '화정역 치과', '덕양구 치과', '고양 치과', '동그라미치과의원'],
     category: '병원',
     priority: 1,
     core: true,
@@ -208,7 +208,7 @@ function buildDocs(): Doc[] {
 
   add({ path: '/treatment', kind: 'page', title: '진료 안내 — 자연치아 살리기부터 임플란트까지', seoTitle: seoTitle('진료 안내'), description: desc('화정동 동그라미치과의원의 진료 과목. 자연치아 살리기, 임플란트, 신경치료, 잇몸치료, 충치치료, 사랑니 발치, 라미네이트, 크라운, 스케일링, 치아미백.'), excerpt: '진료 과목 열 가지와 각 진료에서 먼저 확인하는 것.', keywords: ['화정동 치과 진료', '고양 치과 진료 과목'], category: '진료', priority: 0.9, core: true });
   for (const t of TREATMENTS) {
-    add({ path: `/treatment/${t.slug}`, kind: 'treatment', title: `화정동 ${t.name}`, seoTitle: seoTitle(`화정동 ${t.name}`), description: desc(t.summary), excerpt: t.summary, image: treatmentImage(t), keywords: [`화정동 ${t.short}`, `화정역 ${t.short}`, `고양 ${t.short}`, `덕양구 ${t.short}`, t.name], category: t.short, priority: 0.9, core: true });
+    add({ path: `/treatment/${t.slug}`, kind: 'treatment', title: `화정동 ${t.name}`, seoTitle: seoTitle(`화정동 ${t.name}`), description: desc(t.summary), excerpt: t.summary, image: treatmentImage(t), keywords: [`화정 ${t.short}`, `화정동 ${t.short}`, `화정역 ${t.short}`, `고양 ${t.short}`, `덕양구 ${t.short}`, t.name], category: t.short, priority: 0.9, core: true });
   }
   for (const it of IMPLANT_TOPICS) {
     add({ path: `/treatment/implant/${it.slug}`, kind: 'implant-topic', title: `임플란트 ${it.name} — ${it.tagline}`, seoTitle: seoTitle(`임플란트 ${it.name}`), description: desc(it.answer), excerpt: it.answer, image: treatmentImage(treatmentBySlugStrict('implant')), keywords: [`화정동 임플란트 ${it.name}`, `고양 ${it.name}`, it.name], category: '임플란트', priority: 0.8, core: true });
@@ -253,9 +253,9 @@ function buildDocs(): Doc[] {
 
   add({ path: '/area', kind: 'page', title: '지역별 안내 — 고양·덕양구·은평에서 오시는 길', seoTitle: seoTitle('지역별 오시는 길'), description: desc('화정동, 화정역, 행신동, 능곡, 원당, 주교동, 원흥, 삼송, 지축, 화전, 향동, 덕은, 구파발에서 동그라미치과의원까지. 3호선 정거장 수와 직선거리.'), excerpt: '동네별 오시는 길과 거리.', keywords: ['덕양구 치과', '고양 치과', '행신동 치과'], category: '지역', priority: 0.8, core: true });
   for (const r of REGIONS) {
-    add({ path: `/area/${r.slug}`, kind: 'area', title: `${r.keyword} — 동그라미치과의원 오시는 길과 진료 안내`, seoTitle: `${r.keyword} | 화정역 동그라미치과의원 · 야간진료`, description: desc(r.intro), excerpt: r.intro, image: { src: IMG.interior[REGIONS.indexOf(r) % IMG.interior.length].src, alt: IMG.interior[REGIONS.indexOf(r) % IMG.interior.length].alt }, keywords: [r.keyword, `${r.name} 임플란트`, `${r.name} 신경치료`, `${r.name} 야간진료 치과`], category: '지역', priority: 0.8, core: true });
+    add({ path: `/area/${r.slug}`, kind: 'area', title: `${r.slug === 'hwajeong' ? '화정치과 · ' : ''}${r.keyword} — 동그라미치과의원 오시는 길과 진료 안내`, seoTitle: `${r.slug === 'hwajeong' ? '화정치과 · ' : ''}${r.keyword} | 화정역 동그라미치과의원 · 야간진료`, description: desc(r.intro), excerpt: r.intro, image: { src: IMG.interior[REGIONS.indexOf(r) % IMG.interior.length].src, alt: IMG.interior[REGIONS.indexOf(r) % IMG.interior.length].alt }, keywords: [r.keyword, ...(r.slug === 'hwajeong' ? ['화정치과', '화정 치과'] : []), `${r.name} 임플란트`, `${r.name} 신경치료`, `${r.name} 야간진료 치과`], category: '지역', priority: 0.8, core: true });
     for (const t of AREA_TREATMENT_LIST) {
-      add({ path: `/area/${r.slug}/${t.slug}`, kind: 'area-treatment', title: `${r.name} ${t.name}`, seoTitle: `${r.name} ${t.short} | 화정동 치과 동그라미치과의원`, description: desc(`${r.name}에서 ${t.name}을 알아보신다면. 화정역 인근 동그라미치과의원까지 ${fmtDistanceLabel(r)}. ${t.summary}`), excerpt: `${r.name}에서 ${t.name}을 알아보시는 분께 — ${t.summary}`, image: treatmentImage(t), keywords: [`${r.name} ${t.short}`, `${r.name} 치과`, t.name], category: t.short, priority: 0.6, core: false });
+      add({ path: `/area/${r.slug}/${t.slug}`, kind: 'area-treatment', title: `${r.name} ${t.name}`, seoTitle: `${r.name} ${t.short} | 화정동 치과 동그라미치과의원`, description: desc(`${r.name}에서 ${t.name}을 알아보신다면. 화정역 인근 동그라미치과의원까지 ${fmtDistanceLabel(r)}. ${t.summary}`), excerpt: `${r.name}에서 ${t.name}을 알아보시는 분께 — ${t.summary}`, image: treatmentImage(t), keywords: [`${r.name} ${t.short}`, ...(r.slug === 'hwajeong' ? [`화정 ${t.short}`, '화정치과'] : []), `${r.name} 치과`, t.name], category: t.short, priority: 0.6, core: false });
     }
   }
 

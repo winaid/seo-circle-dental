@@ -16,9 +16,9 @@ export const SITE_NAME = CLINIC.name;
 export const SITE_SHORT = CLINIC.shortName;
 
 /** 홈 <title> — 실측한 상위 노출 사이트들의 '지역+업종 | 지역+업종 | 역+업종' 3중 구조. */
-export const HOME_TITLE = '화정동 치과 | 화정역 치과 | 고양 덕양구 동그라미치과의원';
+export const HOME_TITLE = '화정치과 | 화정동 치과 | 화정역 치과 | 고양 덕양구 동그라미치과의원';
 /** 내부 문서 제목 뒤에 붙는 꼬리. 검색 결과 한 줄에 지역·병원이 함께 잡히게 한다. */
-export const KEY_SUFFIX = '화정동 치과 동그라미치과의원';
+export const KEY_SUFFIX = '화정치과 · 화정동 치과 동그라미치과의원';
 export const KEY_SUFFIX_SHORT = '동그라미치과의원';
 
 /** 사이트를 처음 공개한 날 = 핵심 문서의 발행일. */

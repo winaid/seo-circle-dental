@@ -20,7 +20,7 @@ export function SiteHeader({ overlay = false }: { overlay?: boolean }) {
       <div className="wrap hd-in">
         <Link href="/" className="hd-brand" aria-label="동그라미치과의원 홈">
           <img src={IMG.logo} alt="동그라미치과의원" width={160} height={34} />
-          <small>고양 화정동 · 3호선 화정역</small>
+          <small>화정치과 · 3호선 화정역</small>
         </Link>
         <nav className="hd-nav" aria-label="주 메뉴">
           {NAV.map((n) => (

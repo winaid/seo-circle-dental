@@ -10,7 +10,7 @@ export function GET() {
   const docs = publishedDocs();
   const byKind = (k: string) => docs.filter((d) => d.kind === k);
   const lines = [
-    `# ${CLINIC.name} — 화정동 치과 안내`,
+    `# ${CLINIC.name} — 화정치과 · 화정동 치과 안내`,
     '',
     `> ${CLINIC.description}`,
     '',
