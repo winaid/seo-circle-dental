@@ -5,14 +5,15 @@ import { Btn, Chips, DocGrid, DoctorCard, Faq, HoursTable, Icon, JsonLd, LinkLis
 import { OpenNow } from '@/components/OpenNow';
 import { CLINIC, STRENGTHS, UNVERIFIED } from '@/lib/clinic';
 import { IMG } from '@/lib/assets';
-import { TREATMENTS, treatmentBySlug } from '@/lib/treatments';
+import { treatmentBySlug } from '@/lib/treatments';
 import { SYMPTOMS, SYMPTOM_GROUPS } from '@/lib/symptoms';
 import { DOCTORS } from '@/lib/doctors';
 import { CLINIC_QA } from '@/lib/faq';
 import { REGIONS } from '@/lib/regions';
 import { docByPathStrict, latestDocs, docsOfKind } from '@/lib/catalog';
 import { metaFor } from '@/lib/meta';
-import { webPageNode, breadcrumbNode, itemListNode } from '@/lib/schema';
+import { webPageNode, breadcrumbNode, itemListNode, imageGalleryNode } from '@/lib/schema';
+import { CAROUSEL_SLUGS, homeCarousel } from '@/lib/carousel';
 import { STATION_DISTANCE_M, fmtDistance } from '@/lib/site';
 import { sentences } from '@/lib/text';
 
@@ -70,7 +71,8 @@ const FEATURES = [
 ];
 
 export default function HomePage() {
-  const mainTreatments = ['save-natural-tooth', 'implant', 'endodontic', 'cavity', 'periodontal', 'wisdom-tooth'].map((s) => treatmentBySlug(s)!);
+  const mainTreatments = CAROUSEL_SLUGS.map((s) => treatmentBySlug(s)!); // 홈 카드 6장 = 구글 캐러셀 6장 (lib/carousel.ts 한 곳에서 정함)
+  const carousel = homeCarousel();
   const latest = latestDocs(8);
   const popularSymptoms = ['toothache-night', 'cold-sensitivity', 'bleeding-gums', 'missing-tooth', 'wisdom-tooth-pain', 'cracked-tooth', 'loose-tooth', 'crown-fell-out']
     .map((s) => SYMPTOMS.find((x) => x.slug === s)!)
@@ -363,7 +365,12 @@ export default function HomePage() {
         nodes={[
           webPageNode(doc),
           breadcrumbNode('/', [{ name: '홈', path: '/' }]),
-          itemListNode('진료 과목', TREATMENTS.map((t) => ({ name: t.name, path: `/treatment/${t.slug}` }))),
+          itemListNode('화정치과 동그라미치과의원 진료 안내', carousel.map((c) => ({ name: c.name, path: c.path, image: c.image }))),
+          imageGalleryNode('동그라미치과의원 화정동 진료실과 진료 안내', [
+            { src: HERO.src, name: '동그라미치과의원 진료실', caption: HERO.alt },
+            { src: IMG.interior[3].src, name: '검사 결과 설명', caption: IMG.interior[3].alt },
+            ...carousel.map((c) => ({ src: c.image, name: c.name, caption: c.caption })),
+          ]),
         ]}
       />
     </>

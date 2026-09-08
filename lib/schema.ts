@@ -216,12 +216,24 @@ export function conditionNode(c: Condition) {
   };
 }
 
-export function itemListNode(name: string, items: Array<{ name: string; path: string }>) {
+/** 목록. image 를 주면 구글이 사이트 결과 아래 썸네일 카드 줄(캐러셀)을 만들 때 쓴다 — 화면에 보이는 항목만. */
+export function itemListNode(name: string, items: Array<{ name: string; path: string; image?: string }>) {
   return {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
     name,
-    itemListElement: items.map((it, i) => ({ '@type': 'ListItem', position: i + 1, name: it.name, url: abs(it.path) })),
+    numberOfItems: items.length,
+    itemListElement: items.map((it, i) => ({ '@type': 'ListItem', position: i + 1, name: it.name, url: abs(it.path), ...(it.image ? { image: abs(it.image) } : {}) })),
+  };
+}
+
+/** 사진 묶음 — 그 페이지에 실제로 보이는 사진만. name 은 사진이 무엇인지, caption 은 alt 그대로. */
+export function imageGalleryNode(name: string, images: Array<{ src: string; name: string; caption?: string }>) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ImageGallery',
+    name,
+    associatedMedia: images.map((im) => ({ '@type': 'ImageObject', contentUrl: abs(im.src), name: im.name, ...(im.caption ? { caption: im.caption } : {}) })),
   };
 }
 
