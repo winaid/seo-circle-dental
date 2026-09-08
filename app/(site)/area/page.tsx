@@ -5,6 +5,7 @@ import { docByPathStrict } from '@/lib/catalog';
 import { metaFor } from '@/lib/meta';
 import { breadcrumbNode, itemListNode, webPageNode } from '@/lib/schema';
 import { REGIONS, regionDistanceM, regionStops } from '@/lib/regions';
+import type { Region } from '@/lib/regions';
 import { fmtDistance, STATION_DISTANCE_M } from '@/lib/site';
 
 export const revalidate = 3600;
@@ -23,13 +24,14 @@ export default function AreaHub() {
         <div className="grid grid--3">
           {REGIONS.map((r) => {
             const stops = regionStops(r);
+            const dist = regionDistanceM(r);
             return (
               <Link key={r.slug} href={`/area/${r.slug}`} className="card">
                 <div className="card-body">
-                  <span className="card-tag">{r.kind === '역' ? '지하철역' : r.kind === '생활권' ? '생활권' : r.kind}</span>
+                  <span className="card-tag">{r.kind === '역' ? '지하철역' : r.kind === '단지' ? '아파트 단지' : r.kind === '기관' ? '주변 기관' : r.kind}</span>
                   <h3>{r.keyword}</h3>
                   <p>
-                    {r.kind === '역' ? `병원까지 ${fmtDistance(STATION_DISTANCE_M)}` : `직선거리 ${fmtDistance(regionDistanceM(r))}`}
+                    {r.slug === 'hwajeong-station' ? `병원까지 ${fmtDistance(STATION_DISTANCE_M)}` : dist === null ? '교외선 → 대곡역 → 3호선 환승' : `직선거리 ${fmtDistance(dist)}`}
                     {stops !== null && stops > 0 ? ` · 3호선 ${stops}정거장` : ''}
                     {r.otherRail ? ` · ${r.otherRail}` : ''}
                   </p>

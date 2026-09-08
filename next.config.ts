@@ -32,6 +32,10 @@ const nextConfig: NextConfig = {
       { source: '/insight', destination: '/qa', permanent: true },
       { source: '/about/special/:slug', destination: '/about', permanent: true },
       { source: '/about/doctors', destination: '/about', permanent: true },
+      ...['jichuk', 'gupabal', 'hwajeon', 'hyangdong', 'deokeun'].flatMap((s) => [
+        { source: `/area/${s}`, destination: '/area/deogyang', permanent: true },
+        { source: `/area/${s}/:treatment`, destination: '/area/deogyang/:treatment', permanent: true },
+      ]),
       { source: '/rss', destination: '/feed', permanent: true },
       { source: '/feed.xml', destination: '/feed', permanent: true },
       { source: '/contact', destination: '/visit', permanent: true },

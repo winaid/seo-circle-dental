@@ -49,10 +49,10 @@ export default async function AreaTreatmentPage({ params }: { params: Promise<{ 
   ];
   const qa = [...t.qa.slice(idx % t.qa.length), ...t.qa.slice(0, idx % t.qa.length)].slice(0, 3);
   const symptoms = t.relatedSymptoms.map((s) => symptomBySlug(s)).filter(Boolean).slice(0, 4);
-  const otherRegions = REGIONS.filter((x) => x.slug !== region && isDocPublished(docByPath(`/area/${x.slug}/${treatment}`)!)).slice(0, 10);
-  const otherTreatments = AREA_TREATMENT_LIST.filter((x) => x.slug !== treatment).filter((x) => isDocPublished(docByPath(`/area/${region}/${x.slug}`)!));
+  const otherRegions = REGIONS.filter((x) => { const d = x.slug !== region ? docByPath(`/area/${x.slug}/${treatment}`) : undefined; return !!d && isDocPublished(d); }).slice(0, 10);
+  const otherTreatments = AREA_TREATMENT_LIST.filter((x) => x.slug !== treatment).filter((x) => { const d = docByPath(`/area/${region}/${x.slug}`); return !!d && isDocPublished(d); });
   const related = docsOfKind('treatment', 'qa').filter((d) => d.category === t.short).slice(0, 6);
-  const distLine = r.kind === '역' ? `화정역에서 병원까지 ${fmtDistance(STATION_DISTANCE_M)}` : `${r.name}에서 병원까지 직선거리 ${fmtDistance(dist)}`;
+  const distLine = r.slug === 'hwajeong-station' ? `화정역에서 병원까지 ${fmtDistance(STATION_DISTANCE_M)}` : dist !== null ? `${r.name}에서 병원까지 직선거리 ${fmtDistance(dist)}` : `${r.name}에서는 교외선으로 대곡역까지 간 뒤 3호선으로 갈아타 화정역에서 내리시면 됩니다`;
 
   return (
     <>
@@ -65,7 +65,7 @@ export default async function AreaTreatmentPage({ params }: { params: Promise<{ 
           <h2>{r.name}에서 동그라미치과의원까지</h2>
           <p>{r.intro}</p>
           <div className="kv">
-            <div><b>거리</b><span>{distLine} (좌표 기준 계산값)</span></div>
+            <div><b>거리</b><span>{distLine}{dist !== null ? ' (좌표 기준 계산값)' : ''}</span></div>
             {stops !== null && stops > 0 && <div><b>3호선</b><span>{r.line3}역 → 화정역 {stops}정거장, 환승 없음</span></div>}
             {r.otherRail && <div><b>다른 노선</b><span>{r.otherRail}</span></div>}
             <div><b>야간 진료</b><span>화·목 저녁 8시 30분까지 · 토요일 오후 2시까지</span></div>

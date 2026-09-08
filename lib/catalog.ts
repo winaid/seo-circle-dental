@@ -253,9 +253,10 @@ function buildDocs(): Doc[] {
 
   add({ path: '/area', kind: 'page', title: '지역별 안내 — 고양·덕양구·은평에서 오시는 길', seoTitle: seoTitle('지역별 오시는 길'), description: desc('화정동, 화정역, 행신동, 능곡, 원당, 주교동, 원흥, 삼송, 지축, 화전, 향동, 덕은, 구파발에서 동그라미치과의원까지. 3호선 정거장 수와 직선거리.'), excerpt: '동네별 오시는 길과 거리.', keywords: ['덕양구 치과', '고양 치과', '행신동 치과'], category: '지역', priority: 0.8, core: true });
   for (const r of REGIONS) {
-    add({ path: `/area/${r.slug}`, kind: 'area', title: `${r.slug === 'hwajeong' ? '화정치과 · ' : ''}${r.keyword} — 동그라미치과의원 오시는 길과 진료 안내`, seoTitle: `${r.slug === 'hwajeong' ? '화정치과 · ' : ''}${r.keyword} | 화정역 동그라미치과의원 · 야간진료`, description: desc(r.intro), excerpt: r.intro, image: { src: IMG.interior[REGIONS.indexOf(r) % IMG.interior.length].src, alt: IMG.interior[REGIONS.indexOf(r) % IMG.interior.length].alt }, keywords: [r.keyword, ...(r.slug === 'hwajeong' ? ['화정치과', '화정 치과'] : []), `${r.name} 임플란트`, `${r.name} 신경치료`, `${r.name} 야간진료 치과`], category: '지역', priority: 0.8, core: true });
+    add({ path: `/area/${r.slug}`, kind: 'area', title: `${r.slug === 'hwajeong' ? '화정치과 · ' : ''}${r.keyword} — 동그라미치과의원 오시는 길과 진료 안내`, seoTitle: `${r.slug === 'hwajeong' ? '화정치과 · ' : ''}${r.keyword} | 동그라미치과의원 · 화정역 3호선 야간진료`, description: desc(`${r.alt ?? r.keyword}를 찾으신다면 — ${r.intro}`), excerpt: r.intro, image: { src: IMG.interior[REGIONS.indexOf(r) % IMG.interior.length].src, alt: IMG.interior[REGIONS.indexOf(r) % IMG.interior.length].alt }, keywords: [r.keyword, ...(r.alt ? [r.alt] : []), ...(r.slug === 'hwajeong' ? ['화정치과'] : []), `${r.name} 임플란트`, `${r.name} 신경치료`, `${r.name} 야간진료 치과`], category: '지역', priority: 0.8, core: true });
+    if (r.tier === 'far') continue;
     for (const t of AREA_TREATMENT_LIST) {
-      add({ path: `/area/${r.slug}/${t.slug}`, kind: 'area-treatment', title: `${r.name} ${t.name}`, seoTitle: `${r.name} ${t.short} | 화정동 치과 동그라미치과의원`, description: desc(`${r.name}에서 ${t.name}을 알아보신다면. 화정역 인근 동그라미치과의원까지 ${fmtDistanceLabel(r)}. ${t.summary}`), excerpt: `${r.name}에서 ${t.name}을 알아보시는 분께 — ${t.summary}`, image: treatmentImage(t), keywords: [`${r.name} ${t.short}`, ...(r.slug === 'hwajeong' ? [`화정 ${t.short}`, '화정치과'] : []), `${r.name} 치과`, t.name], category: t.short, priority: 0.6, core: false });
+      add({ path: `/area/${r.slug}/${t.slug}`, kind: 'area-treatment', title: `${r.name} ${t.name}`, seoTitle: `${r.name} ${t.short} | 동그라미치과의원 · 화정역 3호선`, description: desc(`${r.name}에서 ${t.name}을 알아보신다면. 동그라미치과의원까지 ${fmtDistanceLabel(r)}. ${t.summary}`), excerpt: `${r.name}에서 ${t.name}을 알아보시는 분께 — ${t.summary}`, image: treatmentImage(t), keywords: [`${r.name} ${t.short}`, ...(r.slug === 'hwajeong' ? [`화정 ${t.short}`, '화정치과'] : []), `${r.name} 치과`, t.name], category: t.short, priority: 0.6, core: false });
     }
   }
 
@@ -277,7 +278,8 @@ function buildDocs(): Doc[] {
 }
 
 function fmtDistanceLabel(r: Region) {
-  return `직선거리 ${fmtDistance(regionDistanceM(r))}`;
+  const m = regionDistanceM(r);
+  return m === null ? '3호선 화정역 인근' : `직선거리 ${fmtDistance(m)}`;
 }
 
 export const DOCS: Doc[] = buildDocs();

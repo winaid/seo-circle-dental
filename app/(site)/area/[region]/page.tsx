@@ -6,7 +6,7 @@ import { AREA_TREATMENT_LIST, docByPathStrict, docsOfKind, isDocPublished, docBy
 import { requireDoc, publishedSlugs } from '@/lib/gate';
 import { metaFor } from '@/lib/meta';
 import { breadcrumbNode, itemListNode, webPageNode } from '@/lib/schema';
-import { REGIONS, regionBySlug, regionDistanceM, regionStops } from '@/lib/regions';
+import { REGIONS, regionBySlug, regionDistanceM, regionStops, regionNeighbors } from '@/lib/regions';
 import { fmtDistance, STATION_DISTANCE_M } from '@/lib/site';
 import { CLINIC, STRENGTHS, UNVERIFIED } from '@/lib/clinic';
 import { DOCTORS } from '@/lib/doctors';
@@ -45,11 +45,15 @@ export default async function RegionPage({ params }: { params: Promise<{ region:
   return (
     <>
       <ArticleShell doc={doc} crumbs={crumbs} eyebrow={`지역 안내 · ${r.name}`} related={related}>
-        <AnswerFirst label={`${r.name}에서 오신다면`}>{r.intro}</AnswerFirst>
+        <AnswerFirst label={`${r.alt ?? r.keyword}를 찾으신다면`}>{r.intro}</AnswerFirst>
         <div className="prose">
           <h2>{r.name}에서 오시는 길</h2>
           <div className="kv">
-            <div><b>직선거리</b><span>{r.kind === '역' ? `화정역에서 병원까지 ${fmtDistance(STATION_DISTANCE_M)}` : `${r.name}에서 병원까지 ${fmtDistance(dist)} (좌표 기준 계산값)`}</span></div>
+            {r.slug === 'hwajeong-station' ? (
+              <div><b>직선거리</b><span>화정역에서 병원까지 {fmtDistance(STATION_DISTANCE_M)}</span></div>
+            ) : dist !== null ? (
+              <div><b>직선거리</b><span>{r.name}에서 병원까지 {fmtDistance(dist)} (좌표 기준 계산값)</span></div>
+            ) : null}
             {stops !== null && stops > 0 && <div><b>3호선</b><span>{r.line3}역에서 화정역까지 {stops}정거장, 환승 없음</span></div>}
             {stops === 0 && <div><b>3호선</b><span>화정역 하차 · 병원까지 {fmtDistance(STATION_DISTANCE_M)}</span></div>}
             {r.otherRail && <div><b>다른 노선</b><span>{r.otherRail}</span></div>}
@@ -111,6 +115,12 @@ export default async function RegionPage({ params }: { params: Promise<{ region:
           <h2>{r.name}에서 오시기 전에 자주 묻는 것</h2>
           <Faq items={faq.map((q) => ({ q: q.q, a: q.a, href: `/qa/visit-${CLINIC_QA.indexOf(q) + 1}` }))} />
 
+          {regionNeighbors(r).length > 0 && (
+            <>
+              <h2>{r.name} 가까운 동네</h2>
+              <Chips items={regionNeighbors(r).map((x) => ({ label: x.keyword, href: `/area/${x.slug}` }))} />
+            </>
+          )}
           <h2>다른 지역에서 오시는 길</h2>
           <Chips items={REGIONS.filter((x) => x.slug !== region).map((x) => ({ label: x.keyword, href: `/area/${x.slug}` }))} />
 
