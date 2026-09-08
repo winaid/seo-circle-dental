@@ -1,5 +1,5 @@
 /**
- * 정사각 썸네일 — 구글 검색 결과의 사이트 카드 줄(ItemList 캐러셀)용.
+ * 정사각 썸네일 — 검색 결과의 사이트 카드 줄(ItemList 캐러셀)용. jpg 로 낸다(레퍼런스와 같은 형식, webp 는 수집기 호환을 믿지 않는다).
  *
  * 홈 진료 카드 6장의 원본을 800x800 으로 잘라 public/img/sq/ 에 두고, 어느 원본이 어느 정사각으로
  * 갔는지 content/square.json 에 적는다. lib/carousel.ts 는 그 표만 읽는다(실행 중 파일 검사 없음 —
@@ -26,9 +26,9 @@ fs.mkdirSync(OUT, { recursive: true });
 const table = {};
 for (const src of SOURCES) {
   const base = path.basename(src).replace(/\.[a-z]+$/i, '');
-  const rel = `/img/sq/${base}.webp`;
-  await sharp('public' + src).resize(800, 800, { fit: 'cover', position: 'attention' }).webp({ quality: 82 }).toFile(path.join(OUT, base + '.webp'));
-  const m = await sharp(path.join(OUT, base + '.webp')).metadata();
+  const rel = `/img/sq/${base}.jpg`;
+  await sharp('public' + src).resize(800, 800, { fit: 'cover', position: 'attention' }).jpeg({ quality: 84, mozjpeg: true }).toFile(path.join(OUT, base + '.jpg'));
+  const m = await sharp(path.join(OUT, base + '.jpg')).metadata();
   table[src] = rel;
   console.log(`${src} → ${rel} ${m.width}x${m.height}`);
 }
