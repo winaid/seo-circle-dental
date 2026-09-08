@@ -1,0 +1,25 @@
+{
+  "name": "seo-circle-dental",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev -p 3600",
+    "build": "node scripts/check-medical-ads.mjs && next build",
+    "start": "next start -p 3600",
+    "typecheck": "tsc --noEmit",
+    "check": "node scripts/check-medical-ads.mjs",
+    "indexnow": "node scripts/indexnow.mjs",
+    "seo:audit": "node scripts/seo-audit.mjs"
+  },
+  "dependencies": {
+    "next": "15.5.23",
+    "react": "19.2.8",
+    "react-dom": "19.2.8"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "typescript": "^5.6.0"
+  }
+}
