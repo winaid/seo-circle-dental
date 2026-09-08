@@ -11,3 +11,6 @@ build.log
 dev.log
 .vercel
 gen.log
+
+.vercel
+.env*
