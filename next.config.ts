@@ -18,6 +18,19 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   async redirects() {
     return [
+      /*
+       * 옛 vercel.app 주소로 들어오면 실제 도메인으로 영구 이전 (2026-09-10 도메인 연결).
+       * ★ 같은 내용이 두 주소로 열리면 검색엔진이 중복으로 보고 어느 쪽을 대표로 삼을지
+       *   스스로 정한다 — 그러면 우리가 서치어드바이저에 등록한 주소와 어긋날 수 있다.
+       * ★ host 를 정확히 지정한다. 프리뷰 배포 주소(seo-circle-dental-xxxx.vercel.app)는
+       *   해당되지 않아 미리보기가 계속 동작한다.
+       */
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'seo-circle-dental.vercel.app' }],
+        destination: 'https://circle-dental.shop/:path*',
+        permanent: true,
+      },
       { source: '/insight/symptom/:slug', destination: '/symptom/:slug', permanent: true },
       { source: '/insight/symptom', destination: '/symptom', permanent: true },
       { source: '/insight/condition/:slug', destination: '/condition/:slug', permanent: true },

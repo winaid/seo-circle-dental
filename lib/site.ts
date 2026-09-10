@@ -7,7 +7,13 @@
  */
 import { CLINIC } from './clinic';
 
-export const SITE_URL = (process.env.SITE_URL ?? process.env.NEXT_PUBLIC_SITE_URL ?? 'https://circle-dental-seo.vercel.app').replace(/\/+$/, '');
+/*
+ * 기본값 = 실제 도메인 (2026-09-10). 예전 기본값은 `circle-dental-seo.vercel.app` 이었는데
+ * **앞뒤가 바뀐 오타라 열리지도 않는 주소였다**(실제는 seo-circle-dental). 환경변수가 덮고 있어
+ * 겉으로는 멀쩡했지만, 환경변수가 빠지는 순간 canonical·sitemap·RSS·robots 가 통째로
+ * 죽은 주소를 가리킨다. 기본값은 '없어도 맞는 값' 이어야 한다.
+ */
+export const SITE_URL = (process.env.SITE_URL ?? process.env.NEXT_PUBLIC_SITE_URL ?? 'https://circle-dental.shop').replace(/\/+$/, '');
 
 /** 본원 홈페이지 — 구조화 데이터에서 같은 병원임을 잇는 sameAs 로 쓴다. */
 export const MAIN_SITE_URL = CLINIC.url;
