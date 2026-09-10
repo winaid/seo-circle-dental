@@ -39,7 +39,13 @@ export const PUBLISH_PER_DAY = Number(process.env.PUBLISH_PER_DAY ?? 6);
  */
 export const INDEXNOW_KEY = process.env.INDEXNOW_KEY ?? 'c1d2e0a7f3b94e6c8a5d1f0b7e2c9a4d';
 
-export const NAVER_SITE_VERIFICATION = process.env.NAVER_SITE_VERIFICATION ?? '';
+/**
+ * 네이버 서치어드바이저 소유확인 값 (2026-09-10 등록).
+ * ★ 이 태그를 빼면 소유확인이 풀리고 사이트맵·RSS 제출까지 함께 무효가 된다. 지우지 말 것.
+ * ★ 비밀이 아니다 — 어차피 모든 페이지의 HTML 에 그대로 노출되는 값이라 코드에 둔다.
+ *   환경변수로만 두면 그 변수가 지워지는 순간 조용히 소유확인이 풀린다.
+ */
+export const NAVER_SITE_VERIFICATION = process.env.NAVER_SITE_VERIFICATION ?? 'dd1337fcfdf147a54b15e3fc8198611c2e5c635f';
 export const GOOGLE_SITE_VERIFICATION = process.env.GOOGLE_SITE_VERIFICATION ?? '';
 export const NAVER_ANALYTICS_ID = process.env.NAVER_ANALYTICS_ID ?? '';
 
