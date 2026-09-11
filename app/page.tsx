@@ -369,7 +369,7 @@ export default function HomePage() {
           imageGalleryNode('동그라미치과의원 화정동 진료실과 진료 안내', [
             { src: HERO.src, name: '동그라미치과의원 진료실', caption: HERO.alt },
             { src: IMG.interior[3].src, name: '검사 결과 설명', caption: IMG.interior[3].alt },
-            ...carousel.map((c) => ({ src: c.image, name: c.name, caption: c.caption })),
+            ...carousel.map((c) => ({ src: c.image, name: c.keyword, caption: c.caption })),
           ]),
         ]}
       />

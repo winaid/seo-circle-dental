@@ -29,7 +29,10 @@ export const squareOf = (src: string) => SQ[src] ?? src;
 
 export interface CarouselItem {
   slug: CarouselSlug;
+  /** ItemList.name — 홈 카드의 <h3> 와 글자까지 같아야 한다(레퍼런스 실측). 2026-09-11 점검에서 '화정 임플란트' ≠ 화면 '임플란트' 로 어긋나 있던 것을 화면 쪽에 맞췄다. */
   name: string;
+  /** 검색어 모양의 이름('화정 임플란트') — 사진 이름(ImageGallery)에만 쓴다. 화면 문구와 비교되는 자리가 아니다. */
+  keyword: string;
   path: string;
   image: string;
   caption: string;
@@ -39,6 +42,6 @@ export function homeCarousel(): CarouselItem[] {
   return CAROUSEL_SLUGS.map((slug) => {
     const d = docByPathStrict(`/treatment/${slug}`);
     const t = treatmentBySlug(slug)!;
-    return { slug, name: LABEL[slug], path: d.path, image: squareOf(d.image!.src), caption: t.summary };
+    return { slug, name: t.name, keyword: LABEL[slug], path: d.path, image: squareOf(d.image!.src), caption: t.summary };
   });
 }
