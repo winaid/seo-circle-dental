@@ -10,7 +10,7 @@ import { SYMPTOMS, SYMPTOM_GROUPS } from '@/lib/symptoms';
 import { DOCTORS } from '@/lib/doctors';
 import { CLINIC_QA } from '@/lib/faq';
 import { REGIONS } from '@/lib/regions';
-import { docByPathStrict, latestDocs, docsOfKind } from '@/lib/catalog';
+import { docByPathStrict, latestDocs, docsOfKind, isLivePath } from '@/lib/catalog';
 import { metaFor } from '@/lib/meta';
 import { webPageNode, breadcrumbNode, itemListNode, imageGalleryNode } from '@/lib/schema';
 import { CAROUSEL_SLUGS, homeCarousel } from '@/lib/carousel';
@@ -226,7 +226,7 @@ export default function HomePage() {
                     <p>{t.summary}</p>
                     <p>{intro.slice(0, 3).join(' ')}</p>
                     <div className="feature-links">
-                      {f.links.map((l) => (
+                      {f.links.filter((l) => isLivePath(l.href)).map((l) => (
                         <Link key={l.href} href={l.href}>
                           {l.label}
                         </Link>

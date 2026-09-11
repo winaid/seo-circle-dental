@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { AnswerFirst, ArticleShell, Chips, CtaBlock, Faq, JsonLd, LinkList, MedicalNotice } from '@/components/ui';
-import { AREA_TREATMENT_LIST, docsOfKind, isDocPublished, docByPath, treatmentImage } from '@/lib/catalog';
+import { AREA_TREATMENT_LIST, docsOfKind, isDocPublished, docByPath, treatmentImage, isLivePath } from '@/lib/catalog';
 import { requireDoc, josa } from '@/lib/gate';
 import { metaFor } from '@/lib/meta';
 import { articleNode, breadcrumbNode, webPageNode } from '@/lib/schema';
@@ -89,7 +89,7 @@ export default async function AreaTreatmentPage({ params }: { params: Promise<{ 
               <div className="stat-row">
                 <div className="stat"><small>내원 횟수</small><b>{journey.visits}</b></div>
                 <div className="stat"><small>기간</small><b>{journey.duration}</b></div>
-                <div className="stat"><small>회차별 내용</small><b><Link href={`/journey/${journey.slug}`}>자세히 보기 →</Link></b></div>
+                {isLivePath(`/journey/${journey.slug}`) && <div className="stat"><small>회차별 내용</small><b><Link href={`/journey/${journey.slug}`}>자세히 보기 →</Link></b></div>}
               </div>
             </>
           )}

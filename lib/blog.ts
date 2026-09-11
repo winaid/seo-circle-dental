@@ -57,7 +57,8 @@ export function allBlogPosts(): BlogPost[] {
   const posts = files.map((f) => {
     const raw = JSON.parse(readFileSync(join(DIR, f), 'utf8')) as Omit<BlogPost, 'slug'>;
     const slug = f.replace(/\.json$/, '').replace(/^\d{4}-\d{2}-\d{2}-/, '');
-    let html = sanitizeBody(raw.html);
+    /* 작은따옴표 속성을 큰따옴표로 맞춘 뒤 변환한다 — 글 파일이 href='…' 로 적혀 있어 LINK_MAP 이 하나도 안 맞았다 (2026-09-11 빙 검사: /insight/cost 4xx). */
+    let html = sanitizeBody(raw.html).replace(/href='([^']*)'/g, 'href="$1"');
     for (const [re, to] of LINK_MAP) html = html.replace(re, to);
     return { ...raw, slug, html };
   });

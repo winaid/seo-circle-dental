@@ -109,7 +109,13 @@ export function seoTitle(title: string, suffix: string = KEY_SUFFIX) {
   return full.length <= 72 ? full : `${title} | ${KEY_SUFFIX_SHORT}`;
 }
 
-const desc = (s: string) => clampText(stripTags(s), 155);
+/*
+ * meta description · og:description 길이 = 80자 (2026-09-11 네이버 서치어드바이저 검사:
+ * "사용자가 쉽게 사이트를 파악할 수 있도록 80자 이내로 설명문을 작성해주세요"). 전에는 구글 기준 155자였다.
+ * clampText 가 문장 끝(. ) 에서 자른다 — 홈처럼 손으로 쓴 설명도 여기를 지나므로 80자 안에 문장이 끝나게 쓴다.
+ */
+export const DESC_MAX = 80;
+const desc = (s: string) => clampText(stripTags(s), DESC_MAX);
 
 export const treatmentBySlugStrict = (slug: string): Treatment => {
   const t = TREATMENTS.find((x) => x.slug === slug);
@@ -188,7 +194,8 @@ function buildDocs(): Doc[] {
     kind: 'home',
     title: '뽑기 전에 살릴 수 있는지 먼저 보는 화정동 치과',
     seoTitle: HOME_TITLE,
-    description: desc(`화정치과 동그라미치과의원 — 고양시 덕양구 화정동, 화정역 3호선 인근. 화·목 저녁 8시 30분까지 야간 진료. 통합치의학과 전문의 3인이 자연치아 살리기·신경치료·임플란트·사랑니 발치를 진료합니다. ${CLINIC.phone}`),
+    /* 80자 안에서 지역·역·야간진료·진료 네 가지만. 전화번호·전문의 수는 본문과 구조화 데이터에 있다. */
+    description: desc('화정치과 동그라미치과의원. 화정역 3호선 인근, 화·목 저녁 8시 30분까지 야간 진료. 자연치아 살리기·임플란트·사랑니 발치.'),
     excerpt: CLINIC.description,
     image: { src: IMG.doctorsTeam, alt: '동그라미치과의원 의료진 세 명' },
     keywords: ['화정치과', '화정 치과', '화정동 치과', '화정역 치과', '덕양구 치과', '고양 치과', '동그라미치과의원'],
@@ -294,6 +301,19 @@ export const docByPathStrict = (path: string): Doc => {
 
 export const publishedDocs = () => DOCS.filter((d) => isPublished(d.publishAt));
 export const isDocPublished = (d: Doc) => isPublished(d.publishAt);
+
+/**
+ * 이 주소로 링크를 걸어도 되는가 — 카탈로그 문서면 발행됐을 때만, 카탈로그 밖(정적 페이지·앵커·외부·전화)은 늘 true.
+ * ★ 빙 사이트 검사(2026-09-11) 가 4xx 73건을 잡았다 — 전부 "아직 발행일이 안 된 문서"로 가는 내부 링크였다
+ *   (문답·지역×진료·여정·비용·용어). 페이지는 requireDoc 이 404 를 내는데 링크는 발행 여부를 안 봤다.
+ *   링크를 그리는 공용 부품(LinkList·Chips·Faq)과 홈 카드가 이 함수로 거른다. 발행일이 지나면 ISR 재생성 때 저절로 나타난다.
+ */
+export function isLivePath(href: string): boolean {
+  if (!href.startsWith('/')) return true;
+  const path = href.split('#')[0].split('?')[0].replace(/\/+$/, '') || '/';
+  const d = byPath.get(path);
+  return !d || isDocPublished(d);
+}
 export const docsOfKind = (...kinds: DocKind[]) => publishedDocs().filter((d) => kinds.includes(d.kind));
 
 /** 최신 글 — 발행일 내림차순, 같은 날이면 경로 해시. 홈·RSS 가 쓴다. */

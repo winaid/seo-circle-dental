@@ -2,7 +2,7 @@ import Link from 'next/link';
 import type { ReactNode } from 'react';
 import { CLINIC, UNVERIFIED, MEDICAL_DISCLAIMER } from '@/lib/clinic';
 import { DOCTORS, type Doctor } from '@/lib/doctors';
-import type { Doc } from '@/lib/catalog';
+import { isLivePath, type Doc } from '@/lib/catalog';
 import { fmtDate } from '@/lib/text';
 import { serialize } from '@/lib/schema';
 import { OpenNow } from './OpenNow';
@@ -106,10 +106,13 @@ export function DocGrid({ docs, cols = 3 }: { docs: Doc[]; cols?: 2 | 3 | 4 }) {
   );
 }
 
+/* ★ LinkList·Chips·Faq 는 아직 발행 안 된 문서로 가는 링크를 그리지 않는다 (lib/catalog.ts isLivePath 주석). */
 export function LinkList({ items, mark }: { items: Array<{ label: string; href: string; meta?: string }>; mark?: string }) {
+  const live = items.filter((it) => isLivePath(it.href));
+  if (live.length === 0) return null;
   return (
     <div className="list-links">
-      {items.map((it) => (
+      {live.map((it) => (
         <Link key={it.href} href={it.href}>
           <span>
             {mark && <span className="ring">{mark}</span>}
@@ -123,9 +126,11 @@ export function LinkList({ items, mark }: { items: Array<{ label: string; href: 
 }
 
 export function Chips({ items, current }: { items: Array<{ label: string; href: string }>; current?: string }) {
+  const live = items.filter((it) => isLivePath(it.href));
+  if (live.length === 0) return null;
   return (
     <div className="chips">
-      {items.map((it) => (
+      {live.map((it) => (
         <Link key={it.href} href={it.href} className={it.href === current ? 'is-on' : undefined}>
           {it.label}
         </Link>
@@ -146,7 +151,7 @@ export function Faq({ items, openFirst = true }: { items: Array<{ q: string; a: 
           </summary>
           <div className="faq-a">
             {it.a}
-            {it.href && (
+            {it.href && isLivePath(it.href) && (
               <>
                 {' '}
                 <Link href={it.href}>자세히 보기</Link>

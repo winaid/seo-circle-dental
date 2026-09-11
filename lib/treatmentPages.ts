@@ -266,9 +266,12 @@ export const TREATMENT_PAGES: Record<string, TreatmentPage> = {
          * ★ 실제 진료 장면(움짤)으로 교체 (2026-09-07 오너). 전에는 AI 로 만든 기구 사진이었다.
          * ⚠️ ai 표시를 뺐다 — 진짜 원장이 확대경을 쓰고 치료하는 장면이라 고지 대상이 아니다.
          */
+        /*
+         * ⚠️ 2026-09-11: /video/endo-loupe.webp 는 저장소에 한 번도 들어온 적이 없어 늘 깨진 그림(404)이었다.
+         *    같은 장면의 실제 사진(endo-surgery.webp)으로 바꿔 둔다. 움짤 파일이 생기면 여기만 되돌린다.
+         */
         figure: {
-          src: '/video/endo-loupe.webp',
-          clip: 'endo-loupe',
+          src: '/img/clinic/endo-surgery.webp',
           alt: '확대경을 쓴 원장이 고개를 숙이고 신경치료를 하는 진료 장면.',
           ratio: '780 / 434',
         },

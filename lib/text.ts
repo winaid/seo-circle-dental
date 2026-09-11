@@ -9,7 +9,10 @@ export function clampText(s: string, max = 155): string {
   const cut = t.slice(0, max);
   const end = Math.max(cut.lastIndexOf('. '), cut.lastIndexOf('다. '), cut.lastIndexOf('요. '));
   if (end > max * 0.5) return cut.slice(0, end + 1).trim();
-  return `${cut.trim()}…`;
+  /* 문장 끝이 없으면 낱말 중간이 아니라 쉼표·띄어쓰기에서 끊고 말줄임표까지 max 안에 넣는다 (전에는 80자+… = 81자로 네이버 80자 기준을 넘겼다). */
+  const body = cut.slice(0, max - 1);
+  const pause = Math.max(body.lastIndexOf(', '), body.lastIndexOf(' '));
+  return `${(pause > max * 0.5 ? body.slice(0, pause) : body).trim()}…`;
 }
 
 export function charCount(...parts: string[]) {
