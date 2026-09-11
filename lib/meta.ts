@@ -35,7 +35,13 @@ export function metaFor(doc: Doc, extra: Partial<Metadata> = {}): Metadata {
       ...(doc.kind !== 'home' && doc.kind !== 'page' ? { publishedTime: doc.publishAt, modifiedTime: doc.updated } : {}),
     },
     twitter: { card: 'summary_large_image', title: doc.seoTitle, description: doc.description, images: [og.url] },
-    robots: { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1 },
+    /*
+     * 2층 문서(Doc.googleIndex=false)는 구글 로봇에게만 noindex — <meta name="googlebot" content="noindex, follow">.
+     * <meta name="robots"> 는 index 그대로라 네이버·Bing 색인은 변하지 않는다. follow 는 남겨 링크 신호는 흐르게 한다.
+     */
+    robots: doc.googleIndex
+      ? { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1 }
+      : { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1, googleBot: { index: false, follow: true } },
     ...extra,
   };
 }

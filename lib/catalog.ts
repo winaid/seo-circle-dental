@@ -60,6 +60,16 @@ export interface Doc {
   priority: number;
   /** 개시일에 바로 공개되는 핵심 문서인가. */
   core: boolean;
+  /**
+   * 구글에 색인시킬 문서인가 (2026-09-11 2층 구조).
+   *  · true  = 1층: 홈·소개·의료진·진료·증상·질환·칼럼·지역 허브 약 90쪽 → sitemap-google.xml 에 실리고 구글이 평가한다.
+   *  · false = 2층: 지역×진료·문답·용어·비용·여정 → <meta name="googlebot" content="noindex,follow">.
+   *    네이버(Yeti)·Bing 은 이 태그를 안 보므로 네이버 노출은 그대로다.
+   * ★ 이유: 구글 2026 스팸 업데이트가 동네 이름만 바꾼 지역 페이지·대량 템플릿 글을 직접 겨냥한다.
+   *   지역×진료는 서로 66~75% 같은 본문, 문답은 진료 페이지 안에 이미 있는 내용이라 구글에는 중복이다.
+   *   구글 색인에서 빼면 사이트 전체가 얇다는 판정을 피하고, Gemini 인용은 1층이 맡는다.
+   */
+  googleIndex: boolean;
   /** RSS 전문(있을 때만). */
   rssHtml?: string;
 }
@@ -115,6 +125,9 @@ export function seoTitle(title: string, suffix: string = KEY_SUFFIX) {
  * clampText 가 문장 끝(. ) 에서 자른다 — 홈처럼 손으로 쓴 설명도 여기를 지나므로 80자 안에 문장이 끝나게 쓴다.
  */
 export const DESC_MAX = 80;
+
+/** 구글 1층 종류 (Doc.googleIndex 주석 참조). 2층 = area-treatment · qa · glossary · journey · cost. */
+const GOOGLE_INDEX_KINDS = new Set<DocKind>(['home', 'page', 'doctor', 'treatment', 'implant-topic', 'symptom', 'condition', 'blog', 'area']);
 const desc = (s: string) => clampText(stripTags(s), DESC_MAX);
 
 export const treatmentBySlugStrict = (slug: string): Treatment => {
@@ -180,11 +193,12 @@ export const qaBySlug = (slug: string) => QA_ITEMS.find((q) => q.slug === slug);
 /* ────────────────────────────────────────────── 문서 목록 */
 function buildDocs(): Doc[] {
   const docs: Doc[] = [];
-  const add = (d: Omit<Doc, 'seoTitle' | 'updated' | 'publishAt'> & { seoTitle?: string; publishAt?: string; updated?: string }) => {
+  const add = (d: Omit<Doc, 'seoTitle' | 'updated' | 'publishAt' | 'googleIndex'> & { seoTitle?: string; publishAt?: string; updated?: string; googleIndex?: boolean }) => {
     docs.push({
       seoTitle: d.seoTitle ?? seoTitle(d.title),
       updated: d.updated ?? LAUNCH_DATE,
       publishAt: d.publishAt ?? (d.core ? LAUNCH_DATE : ''),
+      googleIndex: d.googleIndex ?? (GOOGLE_INDEX_KINDS.has(d.kind) && d.path !== '/privacy'),
       ...d,
     } as Doc);
   };
@@ -300,6 +314,8 @@ export const docByPathStrict = (path: string): Doc => {
 };
 
 export const publishedDocs = () => DOCS.filter((d) => isPublished(d.publishAt));
+/** 구글 사이트맵(sitemap-google.xml)용 — 발행됐고 1층인 문서만. */
+export const googleDocs = () => publishedDocs().filter((d) => d.googleIndex);
 export const isDocPublished = (d: Doc) => isPublished(d.publishAt);
 
 /**

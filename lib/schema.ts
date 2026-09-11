@@ -141,7 +141,8 @@ export function articleNode(doc: Doc, opts: { wordCount?: number; type?: 'Articl
     description: doc.description,
     inLanguage: 'ko-KR',
     mainEntityOfPage: { '@id': ID.page(doc.path) },
-    author: { '@id': ID.clinic },
+    /* 저자 = 대표원장(Physician). 구글 의료(YMYL) 평가는 '누가 썼나' 를 사람 단위로 본다 — 전에는 병원(Organization)이었다 (2026-09-11). */
+    author: { '@id': ID.director },
     publisher: { '@id': ID.clinic },
     reviewedBy: { '@id': ID.director },
     datePublished: doc.publishAt,

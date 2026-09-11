@@ -220,6 +220,8 @@ export default async function TreatmentPage({ params }: { params: Promise<{ slug
   const page = TREATMENT_PAGES[pageKey(slug)];
   const hero = page?.hero ? { src: page.hero.src, alt: page.hero.alt } : treatmentImage(t);
   const journey = journeyForTreatment(slug);
+  /* 숫자를 앞에 (2026-09-11): AI 인용의 44% 가 본문 앞 30% 에서 나온다. 손으로 쓴 stats 가 없는 진료는 여정 데이터의 내원 횟수·기간을 그대로 올린다 — 새 주장 없음. */
+  const stats = page?.stats ?? (journey ? [{ k: '내원 횟수', v: journey.visits }, { k: '기간', v: journey.duration }] : undefined);
   const symptoms = t.relatedSymptoms.map((s) => symptomBySlug(s)).filter(Boolean);
   const crumbs = [
     { name: '홈', path: '/' },
@@ -235,9 +237,9 @@ export default async function TreatmentPage({ params }: { params: Promise<{ slug
     <>
       <ArticleShell doc={doc} crumbs={crumbs} eyebrow={`진료 안내 · ${t.short}`} lead={page?.lead} hero={{ ...hero, caption: page?.hero?.alt }} related={related}>
         <AnswerFirst>{t.summary}</AnswerFirst>
-        {page?.stats && (
+        {stats && (
           <div className="stat-row">
-            {page.stats.map((s) => (
+            {stats.map((s) => (
               <div className="stat" key={s.k}>
                 <small>{s.k}</small>
                 <b>{s.v}</b>

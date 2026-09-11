@@ -415,3 +415,6 @@ button { font: inherit; }
 .muted { color: var(--mute); }
 .small { font-size: 14px; }
 .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* 화면에서 감추고 읽기 도구·검색 로봇에게만 (표 caption 등) */
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }

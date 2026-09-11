@@ -9,7 +9,7 @@ import { conditionBySlug } from '@/lib/conditions';
 import { symptomBySlug } from '@/lib/symptoms';
 import { treatmentBySlug } from '@/lib/treatments';
 import { REFS_CONDITION } from '@/lib/references';
-import { charCount } from '@/lib/text';
+import { charCount, sentences } from '@/lib/text';
 
 export const revalidate = 3600;
 export const dynamicParams = true;
@@ -45,6 +45,17 @@ export default async function ConditionPage({ params }: { params: Promise<{ slug
       <ArticleShell doc={doc} crumbs={crumbs} eyebrow={`질환 · ${c.aka.join(' · ')}`} related={relatedDocs(doc, 6)}>
         <AnswerFirst label="한 문장 정의">{c.definition}</AnswerFirst>
         <div className="prose">
+          {/* 한눈에 표 (2026-09-11): 이미 아래에 있는 증상·원인·치료·예방을 앞에서 표로 한 번 더 — 표 형식은 AI 답변에 그대로 인용되기 쉽고, 본문 앞 30% 에 핵심이 오게 한다. 새 의료 주장은 없다. */}
+          <table>
+            <caption className="sr-only">{c.name} 한눈에 보기</caption>
+            <tbody>
+              <tr><th scope="row">다른 이름</th><td>{c.aka.join(' · ')}</td></tr>
+              <tr><th scope="row">주요 증상</th><td>{c.signs.slice(0, 3).join(' · ')}</td></tr>
+              <tr><th scope="row">주요 원인</th><td>{c.causes.slice(0, 3).join(' · ')}</td></tr>
+              <tr><th scope="row">치료</th><td>{sentences(c.treatment)[0]}</td></tr>
+              <tr><th scope="row">예방</th><td>{c.prevention.slice(0, 2).join(' · ')}</td></tr>
+            </tbody>
+          </table>
           <p className="lead">{c.detail}</p>
 
           <h2>{c.name}의 증상</h2>
