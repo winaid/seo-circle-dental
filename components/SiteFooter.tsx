@@ -71,6 +71,10 @@ export function SiteFooter() {
           ))}
         </nav>
         <div className="ft-legal">
+          {/* 사람에게도 관계를 분명히 (2026-09-11 오너): 구조화 데이터는 본원=co.kr 로 되어 있지만 화면에는 없었다. */}
+          이 사이트는 {CLINIC.name}이 운영하는 진료 안내 사이트입니다. 공식 홈페이지는{' '}
+          <a href={MAIN_SITE_URL} target="_blank" rel="noopener">{MAIN_SITE_URL.replace(/^https?:\/\//, '')}</a> 입니다.
+          <br />
           {CLINIC.name} · 대표 {CLINIC.director} · 사업자등록번호 {CLINIC.bizNo}
           <br />
           {CLINIC.address.full} · 전화 {CLINIC.phone} · 이메일 {CLINIC.email}
