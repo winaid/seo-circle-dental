@@ -29,12 +29,21 @@ export const squareOf = (src: string) => SQ[src] ?? src;
 
 export interface CarouselItem {
   slug: CarouselSlug;
-  /** ItemList.name — 홈 카드의 <h3> 와 글자까지 같아야 한다(레퍼런스 실측). 2026-09-11 점검에서 '화정 임플란트' ≠ 화면 '임플란트' 로 어긋나 있던 것을 화면 쪽에 맞췄다. */
+  /**
+   * 카드 이름 = 검색어 모양('화정 임플란트').
+   * ★ 이 문구가 **홈 화면 카드의 <h3> 와 글자까지 같아야** 한다 — 레퍼런스 실측(2026-09-08)에서
+   *   검색 결과 카드에 뜬 글자가 ItemList.name 이자 화면 문구였다. 한쪽만 바꾸면 신호가 깨진다.
+   *   그래서 홈 카드도 이 배열로 그린다(app/page.tsx). 2026-09-14 오너 GO: 카드에 지역어를 붙인다.
+   */
   name: string;
-  /** 검색어 모양의 이름('화정 임플란트') — 사진 이름(ImageGallery)에만 쓴다. 화면 문구와 비교되는 자리가 아니다. */
-  keyword: string;
   path: string;
+  /** 구조화 데이터용 정사각 800×800 */
   image: string;
+  /** 화면 카드에 까는 사진(4:3) */
+  photo: string;
+  photoAlt: string;
+  /** 카드 위쪽 작은 글씨 — 어떤 경우에 보는 진료인지 */
+  tag: string;
   caption: string;
 }
 
@@ -42,6 +51,6 @@ export function homeCarousel(): CarouselItem[] {
   return CAROUSEL_SLUGS.map((slug) => {
     const d = docByPathStrict(`/treatment/${slug}`);
     const t = treatmentBySlug(slug)!;
-    return { slug, name: t.name, keyword: LABEL[slug], path: d.path, image: squareOf(d.image!.src), caption: t.summary };
+    return { slug, name: LABEL[slug], path: d.path, image: squareOf(d.image!.src), photo: d.image!.src, photoAlt: d.image!.alt, tag: t.whoFor[0], caption: t.summary };
   });
 }

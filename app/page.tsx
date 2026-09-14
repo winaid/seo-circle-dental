@@ -13,7 +13,7 @@ import { REGIONS } from '@/lib/regions';
 import { docByPathStrict, latestDocs, docsOfKind, isLivePath } from '@/lib/catalog';
 import { metaFor } from '@/lib/meta';
 import { webPageNode, breadcrumbNode, itemListNode, imageGalleryNode } from '@/lib/schema';
-import { CAROUSEL_SLUGS, homeCarousel } from '@/lib/carousel';
+import { homeCarousel } from '@/lib/carousel';
 import { STATION_DISTANCE_M, fmtDistance } from '@/lib/site';
 import { sentences } from '@/lib/text';
 
@@ -71,7 +71,6 @@ const FEATURES = [
 ];
 
 export default function HomePage() {
-  const mainTreatments = CAROUSEL_SLUGS.map((s) => treatmentBySlug(s)!); // 홈 카드 6장 = 구글 캐러셀 6장 (lib/carousel.ts 한 곳에서 정함)
   const carousel = homeCarousel();
   const latest = latestDocs(8);
   const popularSymptoms = ['toothache-night', 'cold-sensitivity', 'bleeding-gums', 'missing-tooth', 'wisdom-tooth-pain', 'cracked-tooth', 'loose-tooth', 'crown-fell-out']
@@ -162,19 +161,17 @@ export default function HomePage() {
               </Link>
             </div>
             <div className="grid grid--3">
-              {mainTreatments.map((t) => {
-                const d = docByPathStrict(`/treatment/${t.slug}`);
-                return (
-                  <Link key={t.slug} href={d.path} className="t-card">
-                    <img src={d.image!.src} alt={d.image!.alt} loading="lazy" decoding="async" />
-                    <div className="t-card-in">
-                      <span className="card-tag">{t.whoFor[0]}</span>
-                      <h3>{t.name}</h3>
-                      <p>{t.summary}</p>
-                    </div>
-                  </Link>
-                );
-              })}
+              {/* ★ 카드 6장은 lib/carousel.ts 한 곳에서 나온다 — 화면 <h3> 와 ItemList.name 이 글자까지 같아야 검색 결과 카드 줄이 붙는다 */}
+              {carousel.map((c) => (
+                <Link key={c.slug} href={c.path} className="t-card">
+                  <img src={c.photo} alt={`${c.name} — ${c.photoAlt}`} loading="lazy" decoding="async" />
+                  <div className="t-card-in">
+                    <span className="card-tag">{c.tag}</span>
+                    <h3>{c.name}</h3>
+                    <p>{c.caption}</p>
+                  </div>
+                </Link>
+              ))}
             </div>
           </div>
         </section>
@@ -369,7 +366,7 @@ export default function HomePage() {
           imageGalleryNode('동그라미치과의원 화정동 진료실과 진료 안내', [
             { src: HERO.src, name: '동그라미치과의원 진료실', caption: HERO.alt },
             { src: IMG.interior[3].src, name: '검사 결과 설명', caption: IMG.interior[3].alt },
-            ...carousel.map((c) => ({ src: c.image, name: c.keyword, caption: c.caption })),
+            ...carousel.map((c) => ({ src: c.image, name: c.name, caption: c.caption })),
           ]),
         ]}
       />
