@@ -62,12 +62,20 @@ export interface Doc {
   core: boolean;
   /**
    * 구글에 색인시킬 문서인가 (2026-09-11 2층 구조).
-   *  · true  = 1층: 홈·소개·의료진·진료·증상·질환·칼럼·지역 허브 약 90쪽 → sitemap-google.xml 에 실리고 구글이 평가한다.
-   *  · false = 2층: 지역×진료·문답·용어·비용·여정 → <meta name="googlebot" content="noindex,follow">.
+   *  · true  = 1층: 홈·소개·의료진·진료·증상·질환·칼럼·목록 허브 79쪽 → sitemap-google.xml 에 실리고 구글이 평가한다.
+   *  · false = 2층: 지역 상세·지역×진료·문답·용어·비용·여정 → <meta name="googlebot" content="noindex,follow">.
    *    네이버(Yeti)·Bing 은 이 태그를 안 보므로 네이버 노출은 그대로다.
    * ★ 이유: 구글 2026 스팸 업데이트가 동네 이름만 바꾼 지역 페이지·대량 템플릿 글을 직접 겨냥한다.
    *   지역×진료는 서로 66~75% 같은 본문, 문답은 진료 페이지 안에 이미 있는 내용이라 구글에는 중복이다.
    *   구글 색인에서 빼면 사이트 전체가 얇다는 판정을 피하고, Gemini 인용은 1층이 맡는다.
+   *
+   * ★ 2026-09-14 실측으로 지역 상세(kind='area') 26쪽도 2층으로 내렸다 (오너 GO).
+   *   프로덕션 전 쪽을 8어절 셰이글로 재 보니 종류별 평균 겹침이
+   *   진료 25% · 질환 32% · 칼럼 30% · 증상 42% 인데 **지역만 61%(최대 74%)** 였다.
+   *   공통 머리말·꼬리말이 만드는 바닥값이 25~30% 이므로 지역은 본문 자체가 거의 같다는 뜻이다.
+   *   남길 후보로 추린 화정동·고양시·덕양구끼리도 64~70% 라, 몇 개를 고르든 템플릿으로 읽힌다.
+   *   '화정동 치과' 검색은 홈이 받는다(홈 title 이 이미 화정치과·화정동) — 오히려 경쟁이 준다.
+   *   목록 허브 /area 는 kind='page' 라 그대로 1층에 남는다(링크가 흐르는 입구).
    */
   googleIndex: boolean;
   /** RSS 전문(있을 때만). */
@@ -126,8 +134,20 @@ export function seoTitle(title: string, suffix: string = KEY_SUFFIX) {
  */
 export const DESC_MAX = 80;
 
-/** 구글 1층 종류 (Doc.googleIndex 주석 참조). 2층 = area-treatment · qa · glossary · journey · cost. */
-const GOOGLE_INDEX_KINDS = new Set<DocKind>(['home', 'page', 'doctor', 'treatment', 'implant-topic', 'symptom', 'condition', 'blog', 'area']);
+/** 구글 1층 종류 (Doc.googleIndex 주석 참조). 2층 = area · area-treatment · qa · glossary · journey · cost. */
+const GOOGLE_INDEX_KINDS = new Set<DocKind>(['home', 'page', 'doctor', 'treatment', 'implant-topic', 'symptom', 'condition', 'blog']);
+
+/**
+ * 종류는 1층인데 개별로 빼는 주소 (kind='page' 안에 성격이 다른 쪽이 섞여 있다).
+ *  · /privacy  — 색인시킬 이유가 없는 법적 고지.
+ *  · /cost · /journey — 2026-09-14 `npm run seo:audit` 실측 본문 529자 · 726자.
+ *    소개 몇 줄 + 링크 목록인데 그 목록이 가리키는 하위 문서가 전부 2층(googlebot noindex)이라,
+ *    구글에게는 '읽을 것도 적고 따라가도 색인 안 되는' 막다른 쪽이다.
+ *    같은 허브라도 /glossary(1556자)·/qa(1289자)·/area(1267자)·/blog(877자)는 그 자체로 읽을
+ *    내용이 있어 남긴다. 본문을 채우면 여기서 빼면 된다 — 되돌리기 쉬운 선택이다.
+ * ★ 네이버·Bing 에는 그대로 나간다(sitemap.xml·robots 무변화).
+ */
+const GOOGLE_EXCLUDED_PATHS = new Set<string>(['/privacy', '/cost', '/journey']);
 const desc = (s: string) => clampText(stripTags(s), DESC_MAX);
 
 export const treatmentBySlugStrict = (slug: string): Treatment => {
@@ -198,7 +218,7 @@ function buildDocs(): Doc[] {
       seoTitle: d.seoTitle ?? seoTitle(d.title),
       updated: d.updated ?? LAUNCH_DATE,
       publishAt: d.publishAt ?? (d.core ? LAUNCH_DATE : ''),
-      googleIndex: d.googleIndex ?? (GOOGLE_INDEX_KINDS.has(d.kind) && d.path !== '/privacy'),
+      googleIndex: d.googleIndex ?? (GOOGLE_INDEX_KINDS.has(d.kind) && !GOOGLE_EXCLUDED_PATHS.has(d.path)),
       ...d,
     } as Doc);
   };
