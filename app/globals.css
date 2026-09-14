@@ -196,7 +196,8 @@ button { font: inherit; }
 .card-more { margin-top: auto; padding-top: 10px; font-size: 14px; font-weight: 600; color: var(--brand); display: inline-flex; align-items: center; gap: 6px; }
 .card-more svg, .feature-links svg, .list-links svg { width: 16px; height: 16px; flex: 0 0 auto; }
 
-.t-card { position: relative; display: block; border-radius: var(--r); overflow: hidden; aspect-ratio: 4 / 3; background: var(--brand-ink); color: #fff; isolation: isolate; }
+/* 정사각 — 구조화 데이터(ItemList)와 같은 800×800 사진을 그대로 깐다. 레퍼런스의 카드 줄과 같은 조건(2026-09-14). */
+.t-card { position: relative; display: block; border-radius: var(--r); overflow: hidden; aspect-ratio: 1 / 1; background: var(--brand-ink); color: #fff; isolation: isolate; }
 .t-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; transition: transform 0.7s ease; }
 .t-card::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(10, 18, 30, 0.05) 30%, rgba(10, 18, 30, 0.82) 100%); }
 .t-card:hover img { transform: scale(1.04); }

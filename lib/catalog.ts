@@ -248,8 +248,13 @@ function buildDocs(): Doc[] {
   add({ path: '/privacy', kind: 'page', title: '개인정보처리방침', description: desc('동그라미치과의원 개인정보처리방침.'), excerpt: '개인정보처리방침.', keywords: [], category: '병원', priority: 0.2, core: true });
 
   add({ path: '/treatment', kind: 'page', title: '진료 안내 — 자연치아 살리기부터 임플란트까지', seoTitle: seoTitle('진료 안내'), description: desc('화정동 동그라미치과의원의 진료 과목. 자연치아 살리기, 임플란트, 신경치료, 잇몸치료, 충치치료, 사랑니 발치, 라미네이트, 크라운, 스케일링, 치아미백.'), excerpt: '진료 과목 열 가지와 각 진료에서 먼저 확인하는 것.', keywords: ['화정동 치과 진료', '고양 치과 진료 과목'], category: '진료', priority: 0.9, core: true });
+  /* 제목의 지역 표기는 '화정동' 이 아니라 '화정' — 검색광고 키워드도구 실측(2026-09-14) 결과
+     진료 11종 전부에서 '화정 X' 가 '화정동 X' 보다 같거나 많다(임플란트 65 vs 45, 사랑니 발치 35 vs 15,
+     스케일링 25 vs 15, 나머지는 동률). 키워드 배열에는 두 형태를 다 남기므로 잃는 것은 없다.
+     '고양 X'(임플란트 75·사랑니 85 등)가 더 크지만 그 자리는 /area/goyang/<진료> 페이지가 받는다 —
+     제목에 지역을 둘씩 넣지 않는다(오너 원칙). */
   for (const t of TREATMENTS) {
-    add({ path: `/treatment/${t.slug}`, kind: 'treatment', title: `화정동 ${t.name}`, seoTitle: seoTitle(`화정동 ${t.name}`), description: desc(t.summary), excerpt: t.summary, image: treatmentImage(t), keywords: [`화정 ${t.short}`, `화정동 ${t.short}`, `화정역 ${t.short}`, `고양 ${t.short}`, `덕양구 ${t.short}`, t.name], category: t.short, priority: 0.9, core: true });
+    add({ path: `/treatment/${t.slug}`, kind: 'treatment', title: `화정 ${t.name}`, seoTitle: seoTitle(`화정 ${t.name}`), description: desc(t.summary), excerpt: t.summary, image: treatmentImage(t), keywords: [`화정 ${t.short}`, `화정동 ${t.short}`, `화정역 ${t.short}`, `고양 ${t.short}`, `덕양구 ${t.short}`, t.name], category: t.short, priority: 0.9, core: true });
   }
   for (const it of IMPLANT_TOPICS) {
     add({ path: `/treatment/implant/${it.slug}`, kind: 'implant-topic', title: `임플란트 ${it.name} — ${it.tagline}`, seoTitle: seoTitle(`임플란트 ${it.name}`), description: desc(it.answer), excerpt: it.answer, image: treatmentImage(treatmentBySlugStrict('implant')), keywords: [`화정동 임플란트 ${it.name}`, `고양 ${it.name}`, it.name], category: '임플란트', priority: 0.8, core: true });

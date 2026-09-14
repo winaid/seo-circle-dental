@@ -26,7 +26,7 @@ const HERO = { src: '/img/20210923_ed347b4ffee21.jpg', alt: IMG.interior[8].alt 
 const FEATURES = [
   {
     slug: 'implant',
-    h2: '화정동 임플란트, 마지막 선택이 되도록',
+    h2: '화정 임플란트, 마지막 선택이 되도록',
     img: { src: '/img/clinic/implant-hero.webp', alt: '상담실에서 원장이 모니터와 치아 모형을 보며 임플란트 계획을 설명하는 모습' },
     links: [
       { label: '임플란트 진료 안내', href: '/treatment/implant' },
@@ -161,10 +161,14 @@ export default function HomePage() {
               </Link>
             </div>
             <div className="grid grid--3">
-              {/* ★ 카드 6장은 lib/carousel.ts 한 곳에서 나온다 — 화면 <h3> 와 ItemList.name 이 글자까지 같아야 검색 결과 카드 줄이 붙는다 */}
+              {/* ★ 카드 6장은 lib/carousel.ts 한 곳에서 나온다 — 화면 <h3> 와 ItemList.name 이 글자까지 같아야 검색 결과 카드 줄이 붙는다
+                  ★★ 사진도 ItemList 와 **같은 URL(정사각 800×800)** 을 써야 한다. 2026-09-14 실측:
+                     레퍼런스(1dentalsolution)는 ItemList 의 640×640 6장이 화면 <img> 에도 그대로 있어(겹침 6/6)
+                     검색 결과 블록에 카드 줄이 붙었고, 우리는 화면이 3:2 webp·구조화 데이터가 정사각 jpg 라
+                     겹침 0/6 이라 안 붙었다(네이버가 고른 썸네일도 화면에 있는 사진이었다). */}
               {carousel.map((c) => (
                 <Link key={c.slug} href={c.path} className="t-card">
-                  <img src={c.photo} alt={`${c.name} — ${c.photoAlt}`} loading="lazy" decoding="async" />
+                  <img src={c.image} alt={`${c.name} — ${c.photoAlt}`} width={800} height={800} loading="lazy" decoding="async" />
                   <div className="t-card-in">
                     <span className="card-tag">{c.tag}</span>
                     <h3>{c.name}</h3>
