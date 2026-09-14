@@ -46,6 +46,13 @@ export const INDEXNOW_KEY = process.env.INDEXNOW_KEY ?? 'c1d2e0a7f3b94e6c8a5d1f0
  *   환경변수로만 두면 그 변수가 지워지는 순간 조용히 소유확인이 풀린다.
  */
 export const NAVER_SITE_VERIFICATION = process.env.NAVER_SITE_VERIFICATION ?? 'dd1337fcfdf147a54b15e3fc8198611c2e5c635f';
+/**
+ * 구글 서치콘솔 소유확인 (2026-09-14) — **메타 태그가 아니라 파일 방식**으로 했다.
+ * ★ `public/google597cd610e0e68c4b.html` 이 그 증거다. 지우면 소유확인이 풀리고
+ *   사이트맵 제출·색인 요청까지 함께 무효가 된다. public 정리할 때 지우지 말 것.
+ *   (도메인 속성 DNS TXT 는 이 도메인 DNS 가 카페24에 있어 코드로 못 해 택하지 않았다.)
+ * 아래 값은 나중에 메타 태그 방식으로 바꿀 때를 위해 배선만 남겨 둔 것이다 — 지금은 비어 있다.
+ */
 export const GOOGLE_SITE_VERIFICATION = process.env.GOOGLE_SITE_VERIFICATION ?? '';
 export const NAVER_ANALYTICS_ID = process.env.NAVER_ANALYTICS_ID ?? '';
 
