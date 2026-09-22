@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import type { ReactNode } from 'react';
 import './globals.css';
 import { SiteFooter, StickyCta } from '@/components/SiteFooter';
+import { SearchRedirect } from '@/components/SearchRedirect';
 import { JsonLd } from '@/components/ui';
 import { clinicNode, websiteNode, personNode } from '@/lib/schema';
 import { DOCTORS } from '@/lib/doctors';
@@ -36,6 +37,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       </head>
       <body>
         <a className="skip" href="#main">본문으로 건너뛰기</a>
+        <SearchRedirect />
         {children}
         <SiteFooter />
         <StickyCta />

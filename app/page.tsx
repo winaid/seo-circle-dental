@@ -5,6 +5,7 @@ import { Btn, Chips, DocGrid, DoctorCard, Faq, HoursTable, Icon, JsonLd, LinkLis
 import { OpenNow } from '@/components/OpenNow';
 import { CLINIC, STRENGTHS, UNVERIFIED } from '@/lib/clinic';
 import { IMG } from '@/lib/assets';
+import { QUICK_LINKS } from '@/lib/quicklinks';
 import { treatmentBySlug } from '@/lib/treatments';
 import { SYMPTOMS, SYMPTOM_GROUPS } from '@/lib/symptoms';
 import { DOCTORS } from '@/lib/doctors';
@@ -130,6 +131,23 @@ export default function HomePage() {
                 <dd><b>건물 내 주차 무료</b><span>기계식 · 큰 차량은 전화 문의</span></dd>
               </div>
             </dl>
+          </div>
+        </section>
+
+        {/* ───── 바로가기 타일 5장 ─────
+            ★ 네이버 웹사이트 결과 아래 '사이트링크 이미지 띠'의 재료(레퍼런스 lawcanvas.kr 실측 2026-09-22).
+            ★★ 타일 그림 = 그 페이지 og:image(같은 URL) · 큰 글자 = 카드 이름 = 페이지 제목 앞부분. lib/quicklinks 한 곳에서 나온다 */}
+        <section className="sec sec--tight" aria-labelledby="h-quick">
+          <div className="wrap">
+            <h2 id="h-quick" className="sr">바로가기</h2>
+            <div className="q-grid">
+              {QUICK_LINKS.map((q) => (
+                <Link key={q.slug} href={q.path} className="q-tile">
+                  <img src={q.tile} alt={q.name} width={800} height={800} loading={q.slug === 'about' ? 'eager' : 'lazy'} decoding="async" />
+                  <p>{q.caption}</p>
+                </Link>
+              ))}
+            </div>
           </div>
         </section>
 

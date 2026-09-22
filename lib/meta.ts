@@ -9,6 +9,7 @@ const OG = ogTable as Record<string, string>;
 export const OG_W = 1200;
 export const OG_H = 630;
 export function ogImageOf(src: string): { url: string; width?: number; height?: number } {
+  if (src.startsWith('/img/tile/')) return { url: abs(src), width: 800, height: 800 }; // 바로가기 타일은 정사각 그대로(사이트링크 띠 규격)
   const o = OG[src];
   return o ? { url: abs(o), width: OG_W, height: OG_H } : { url: abs(src) };
 }

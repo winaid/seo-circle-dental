@@ -22,7 +22,16 @@ export const SITE_NAME = CLINIC.name;
 export const SITE_SHORT = CLINIC.shortName;
 
 /** 홈 <title> — 실측한 상위 노출 사이트들의 '지역+업종 | 지역+업종 | 역+업종' 3중 구조. */
-export const HOME_TITLE = '화정치과 동그라미치과의원 | 화정동 · 3호선 화정역 · 화목 야간진료';
+/* 2026-09-22 오너: 메인 검색어는 '화정 치과'·'화정역 치과' 둘 — 사이트 제목 맨 앞에 둔다(웹사이트 결과의 제목 줄 = 이 값) */
+export const HOME_TITLE = '화정 치과 · 화정역 치과 동그라미치과의원 | 3호선 화정역 · 화목 야간진료';
+/** 검색어 그대로의 사이트 별칭 — WebSite.alternateName, og:site_name 보조 */
+export const SITE_ALIASES = ['화정 치과', '화정역 치과', '화정치과', '화정역치과'] as const;
+/**
+ * 검색 유입을 본 홈페이지(circle-dental.co.kr)로 보내기 — components/SearchRedirect.tsx. 오너 지시 2026-09-22.
+ * 끄기: 여기 false 또는 env NEXT_PUBLIC_SEARCH_REDIRECT=off. 대상 경로는 홈 + 바로가기 5쪽(lib/quicklinks 와 같은 것).
+ */
+export const SEARCH_REDIRECT_TO_MAIN = process.env.NEXT_PUBLIC_SEARCH_REDIRECT !== 'off';
+export const SEARCH_REDIRECT_PATHS = ['/', '/about', '/treatment', '/cost', '/booking', '/visit'];
 /** 내부 문서 제목 뒤에 붙는 꼬리. 검색 결과 한 줄에 지역·병원이 함께 잡히게 한다. */
 export const KEY_SUFFIX = '화정치과 동그라미치과의원';
 export const KEY_SUFFIX_SHORT = '동그라미치과의원';

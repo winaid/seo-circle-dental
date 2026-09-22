@@ -238,16 +238,18 @@ function buildDocs(): Doc[] {
     core: true,
   });
 
-  add({ path: '/about', kind: 'page', title: '동그라미치과의원 소개 — 의료진·장비·진료 원칙', seoTitle: seoTitle('병원 소개 · 의료진 · 진료 원칙'), description: desc('고양 화정동 동그라미치과의원의 의료진 3인, 통증을 줄이는 방법, 디지털 진단 장비, 위생 관리, 치료 후 보증 제도를 정리했습니다.'), excerpt: '통합치의학과 전문의 세 명이 진료하는 화정동 치과. 진료를 대하는 기준과 장비, 위생, 보증 제도.', image: { src: IMG.doctorsTeam, alt: '동그라미치과의원 의료진' }, keywords: ['화정동 치과 의료진', '동그라미치과 원장', '덕양구 치과 전문의'], category: '병원', priority: 0.9, core: true });
+  add({ path: '/about', kind: 'page', title: '동그라미치과의원 소개 — 의료진·장비·진료 원칙', seoTitle: seoTitle('병원 소개 · 의료진 · 진료 원칙'), description: desc('고양 화정동 동그라미치과의원의 의료진 3인, 통증을 줄이는 방법, 디지털 진단 장비, 위생 관리, 치료 후 보증 제도를 정리했습니다.'), excerpt: '통합치의학과 전문의 세 명이 진료하는 화정동 치과. 진료를 대하는 기준과 장비, 위생, 보증 제도.', image: { src: '/img/tile/about.jpg', alt: '병원 소개 — 동그라미치과의원 · 화정역' }, keywords: ['화정동 치과 의료진', '동그라미치과 원장', '덕양구 치과 전문의'], category: '병원', priority: 0.9, core: true });
   for (const d of DOCTORS) {
     add({ path: `/about/doctors/${d.slug}`, kind: 'doctor', title: `${d.name} ${d.role} — ${d.license}`, seoTitle: seoTitle(`${d.name} ${d.role}`), description: desc(`동그라미치과의원 ${d.name} ${d.role}. ${d.career.slice(0, 3).join(', ')}. 진료 영역: ${d.focus.join(', ')}.`), excerpt: `${d.career[0]} · ${d.license}`, image: { src: d.photo, alt: `${d.name} ${d.role}` }, keywords: [`${d.name} 원장`, `화정동 ${d.name}`, '동그라미치과 의료진'], category: '의료진', priority: 0.7, core: true });
   }
-  add({ path: '/visit', kind: 'page', title: '오시는 길·진료시간·예약', seoTitle: seoTitle('오시는 길 · 진료시간 · 예약'), description: desc(`${CLINIC.address.full}. 화정역 3호선 인근, 건물 내 기계식 주차 무료. 화·목 저녁 8시 30분까지 야간 진료. 전화 ${CLINIC.phone}, 네이버 예약, 카카오톡 상담.`), excerpt: '화정역 인근 현창빌딩 3층. 진료시간·주차·예약 방법.', image: { src: IMG.interior[11].src, alt: IMG.interior[11].alt }, keywords: ['화정역 치과 위치', '동그라미치과 진료시간', '화정동 치과 야간진료'], category: '내원 안내', priority: 0.9, core: true });
+  add({ path: '/visit', kind: 'page', title: '오시는 길·진료시간·예약', seoTitle: seoTitle('오시는 길 · 진료시간 · 예약'), description: desc(`${CLINIC.address.full}. 화정역 3호선 인근, 건물 내 기계식 주차 무료. 화·목 저녁 8시 30분까지 야간 진료. 전화 ${CLINIC.phone}, 네이버 예약, 카카오톡 상담.`), excerpt: '화정역 인근 현창빌딩 3층. 진료시간·주차·예약 방법.', image: { src: '/img/tile/visit.jpg', alt: '오시는 길 — 동그라미치과의원 · 3호선 화정역' }, keywords: ['화정역 치과 위치', '동그라미치과 진료시간', '화정동 치과 야간진료'], category: '내원 안내', priority: 0.9, core: true });
+  /* 바로가기 타일(lib/quicklinks) 전용 쪽 — 사이트링크 띠의 '예약하기' 칸. 예약 수단 셋을 한 화면에 */
+  add({ path: '/booking', kind: 'page', title: '예약하기 — 네이버 예약 · 전화 · 카카오톡 상담', seoTitle: seoTitle('예약하기'), description: desc(`동그라미치과의원 예약 방법. 네이버 예약으로 시간을 고르거나, 전화 ${CLINIC.phone}, 카카오톡 상담. 화·목 저녁 8시 30분까지 야간 진료.`), excerpt: '네이버 예약 · 전화 · 카카오톡, 세 가지 예약 방법.', image: { src: '/img/tile/booking.jpg', alt: '예약하기 — 동그라미치과의원' }, keywords: ['화정역 치과 예약', '동그라미치과 예약', '화정 치과 네이버 예약'], category: '내원 안내', priority: 0.9, core: true });
   add({ path: '/faq', kind: 'page', title: '자주 묻는 질문', description: desc('진료시간, 예약, 주차, 비용, 다른 병원 엑스레이, 복용 중인 약, 임신 중 치료 등 내원 전 궁금한 것을 정리했습니다.'), excerpt: '내원 전 자주 묻는 질문 모음.', keywords: ['화정동 치과 예약', '치과 자주 묻는 질문'], category: '내원 안내', priority: 0.7, core: true });
   add({ path: '/emergency', kind: 'page', title: '치과 응급 상황 — 병원에 오기 전 지금 할 일', seoTitle: seoTitle('치과 응급 상황 대처'), description: desc('치아가 빠졌을 때, 부러졌을 때, 밤에 참기 힘들 때, 얼굴이 부었을 때, 발치 후 피가 안 멈출 때. 병원 도착 전 할 수 있는 것과 하면 안 되는 것.'), excerpt: '치아가 빠졌을 때·부러졌을 때·붓기·출혈. 응급 대처법.', keywords: ['치과 응급', '고양 치과 응급', '치아 빠졌을 때'], category: '응급', priority: 0.8, core: true });
   add({ path: '/privacy', kind: 'page', title: '개인정보처리방침', description: desc('동그라미치과의원 개인정보처리방침.'), excerpt: '개인정보처리방침.', keywords: [], category: '병원', priority: 0.2, core: true });
 
-  add({ path: '/treatment', kind: 'page', title: '진료 안내 — 자연치아 살리기부터 임플란트까지', seoTitle: seoTitle('진료 안내'), description: desc('화정동 동그라미치과의원의 진료 과목. 자연치아 살리기, 임플란트, 신경치료, 잇몸치료, 충치치료, 사랑니 발치, 라미네이트, 크라운, 스케일링, 치아미백.'), excerpt: '진료 과목 열 가지와 각 진료에서 먼저 확인하는 것.', keywords: ['화정동 치과 진료', '고양 치과 진료 과목'], category: '진료', priority: 0.9, core: true });
+  add({ path: '/treatment', kind: 'page', title: '진료 안내 — 자연치아 살리기부터 임플란트까지', seoTitle: seoTitle('진료 안내'), description: desc('화정동 동그라미치과의원의 진료 과목. 자연치아 살리기, 임플란트, 신경치료, 잇몸치료, 충치치료, 사랑니 발치, 라미네이트, 크라운, 스케일링, 치아미백.'), excerpt: '진료 과목 열 가지와 각 진료에서 먼저 확인하는 것.', image: { src: '/img/tile/treatment.jpg', alt: '진료 안내 — 동그라미치과의원' }, keywords: ['화정동 치과 진료', '고양 치과 진료 과목'], category: '진료', priority: 0.9, core: true });
   /* 제목의 지역 표기는 '화정동' 이 아니라 '화정' — 검색광고 키워드도구 실측(2026-09-14) 결과
      진료 11종 전부에서 '화정 X' 가 '화정동 X' 보다 같거나 많다(임플란트 65 vs 45, 사랑니 발치 35 vs 15,
      스케일링 25 vs 15, 나머지는 동률). 키워드 배열에는 두 형태를 다 남기므로 잃는 것은 없다.
@@ -276,7 +278,7 @@ function buildDocs(): Doc[] {
     add({ path: `/journey/${j.slug}`, kind: 'journey', title: j.question, seoTitle: seoTitle(j.question), description: desc(j.answer), excerpt: j.answer, keywords: [`${j.treatment} 기간`, `${j.treatment} 내원 횟수`, `화정동 ${j.treatment}`], category: j.treatment, priority: 0.7, core: false });
   }
 
-  add({ path: '/cost', kind: 'page', title: '치과 비용 기준 — 건강보험이 되는 것과 안 되는 것', seoTitle: seoTitle('치과 비용 · 건강보험 기준'), description: desc('만 65세 이상 임플란트 보험, 스케일링 보험, 신경치료·잇몸치료·사랑니 발치·충치 치료의 급여와 비급여 기준. 비용이 사람마다 다른 이유.'), excerpt: '급여·비급여의 경계와 비용을 가르는 요인.', keywords: ['치과 비용', '임플란트 보험', '스케일링 보험'], category: '비용', priority: 0.8, core: true });
+  add({ path: '/cost', kind: 'page', title: '치과 비용 기준 — 건강보험이 되는 것과 안 되는 것', seoTitle: seoTitle('치과 비용 · 건강보험 기준'), description: desc('만 65세 이상 임플란트 보험, 스케일링 보험, 신경치료·잇몸치료·사랑니 발치·충치 치료의 급여와 비급여 기준. 비용이 사람마다 다른 이유.'), excerpt: '급여·비급여의 경계와 비용을 가르는 요인.', image: { src: '/img/tile/cost.jpg', alt: '치료 비용 — 동그라미치과의원' }, keywords: ['치과 비용', '임플란트 보험', '스케일링 보험'], category: '비용', priority: 0.8, core: true });
   for (const c of COST_TOPICS) {
     add({ path: `/cost/${c.slug}`, kind: 'cost', title: c.title, seoTitle: seoTitle(c.title), description: desc(c.answer), excerpt: c.answer, keywords: [c.title.replace(/[?？]/g, ''), COST_LABEL[c.covered], '화정동 치과 비용'], category: '비용', priority: 0.7, core: false });
   }
