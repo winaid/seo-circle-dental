@@ -14,7 +14,13 @@ export const NAV = [
   { label: '오시는 길', href: '/visit', desc: '진료시간·주차·예약' },
 ];
 
-export function SiteHeader({ overlay = false }: { overlay?: boolean }) {
+/**
+ * nav=false 는 홈 전용 — 홈 첫 링크 묶음이 메뉴가 아니라 바로가기 타일이 되게 한다.
+ * ★ 실측(2026-09-22): 네이버 웹사이트 결과의 사이트링크가 우리 헤더 메뉴 앞 6개(진료·증상·질환·문답·칼럼·지역)를 글자로 가져갔다.
+ *   이미지 띠가 붙은 사이트들(gwanghwamundental.co.kr, blog.hjudh.com, lawcanvas.kr)은 홈에 메뉴 링크 줄이 없거나 1~2개뿐이고
+ *   첫 링크가 그림+제목 카드였다. 그래서 홈에서만 메뉴(데스크톱 줄·햄버거 패널)를 DOM 에서 뺀다. 다른 쪽은 그대로.
+ */
+export function SiteHeader({ overlay = false, nav = true }: { overlay?: boolean; nav?: boolean }) {
   return (
     <header className={`hd${overlay ? ' hd--overlay' : ''}`}>
       <div className="wrap hd-in">
@@ -22,18 +28,20 @@ export function SiteHeader({ overlay = false }: { overlay?: boolean }) {
           <img src={IMG.logo} alt="동그라미치과의원" width={160} height={34} />
           <small>화정치과 · 3호선 화정역</small>
         </Link>
-        <nav className="hd-nav" aria-label="주 메뉴">
-          {NAV.map((n) => (
-            <Link key={n.href} href={n.href}>
-              {n.label}
-            </Link>
-          ))}
-        </nav>
+        {nav && (
+          <nav className="hd-nav" aria-label="주 메뉴">
+            {NAV.map((n) => (
+              <Link key={n.href} href={n.href}>
+                {n.label}
+              </Link>
+            ))}
+          </nav>
+        )}
         <div className="hd-cta">
           <a className={`btn btn--sm hd-phone ${overlay ? 'btn--white' : 'btn--primary'}`} href={CLINIC.phoneHref}>
             {Icon.phone} {CLINIC.phone}
           </a>
-          <details className="hd-menu">
+          {nav && <details className="hd-menu">
             <summary aria-label="메뉴 열기">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
             </summary>
@@ -53,7 +61,7 @@ export function SiteHeader({ overlay = false }: { overlay?: boolean }) {
                 네이버 예약<small>시간 선택 후 확정</small>
               </a>
             </div>
-          </details>
+          </details>}
         </div>
       </div>
     </header>

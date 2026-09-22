@@ -81,7 +81,7 @@ export default function HomePage() {
 
   return (
     <>
-      <SiteHeader overlay />
+      <SiteHeader overlay nav={false} />
       <main id="main">
         {/* ───── 히어로 ───── */}
         <section className="hero" aria-label="소개">
@@ -107,9 +107,6 @@ export default function HomePage() {
                 </Btn>
                 <Btn href={CLINIC.booking.naver} kind="ghost-light" size="lg">
                   {Icon.calendar} 네이버 예약
-                </Btn>
-                <Btn href="/symptom" kind="ghost-light" size="lg">
-                  증상으로 찾기 {Icon.arrow}
                 </Btn>
               </div>
             </div>
@@ -143,8 +140,8 @@ export default function HomePage() {
             <div className="q-grid">
               {QUICK_LINKS.map((q) => (
                 <Link key={q.slug} href={q.path} className="q-tile">
-                  <img src={q.tile} alt={q.name} width={800} height={800} loading={q.slug === 'about' ? 'eager' : 'lazy'} decoding="async" />
-                  <p>{q.caption}</p>
+                  <img src={q.tile} alt={q.caption} width={800} height={800} loading={q.slug === 'about' ? 'eager' : 'lazy'} decoding="async" />
+                  <h3>{q.caption}</h3>
                 </Link>
               ))}
             </div>

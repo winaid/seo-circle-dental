@@ -34,6 +34,7 @@ export function SiteFooter() {
           <div>
             <h4>미리 알아두기</h4>
             <ul>
+              <li><Link href="/treatment">진료 안내</Link></li>
               <li><Link href="/symptom">증상으로 찾기</Link></li>
               <li><Link href="/condition">질환 안내</Link></li>
               <li><Link href="/qa">진료실 문답</Link></li>
@@ -56,6 +57,8 @@ export function SiteFooter() {
                 </li>
               ))}
               <li><Link href="/visit">오시는 길·진료시간</Link></li>
+              <li><Link href="/booking">예약하기</Link></li>
+              <li><Link href="/area">지역별 오시는 길</Link></li>
               <li><Link href="/faq">자주 묻는 질문</Link></li>
               <li><a href={MAIN_SITE_URL} target="_blank" rel="noopener">본원 홈페이지</a></li>
               <li><a href={CLINIC.social.naverBlog} target="_blank" rel="noopener">네이버 블로그</a></li>
