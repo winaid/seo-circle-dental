@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import type { ReactNode } from 'react';
 import './globals.css';
 import './theme-warm.css'; // 따뜻한 진료실 테마(2026-09-28) — 이 한 줄을 빼면 예전 모습
+import './landing.css'; // 환자용 첫 화면 구조(2026-09-28, components/Landing.tsx)
 import { SiteFooter, StickyCta } from '@/components/SiteFooter';
 import { JsonLd } from '@/components/ui';
 import { Motion } from '@/components/Motion';

@@ -6,6 +6,7 @@ import { isLivePath, type Doc } from '@/lib/catalog';
 import { fmtDate } from '@/lib/text';
 import { serialize } from '@/lib/schema';
 import { OpenNow } from './OpenNow';
+import { SplitTitle, TrustStrip, VisitBlock } from './Landing';
 
 /* ───── 구조화 데이터 ───── */
 export function JsonLd({ nodes }: { nodes: unknown[] }) {
@@ -257,25 +258,35 @@ export function ArticleShell({
   asideExtra?: ReactNode;
 }) {
   const reviewer = DOCTORS[0];
+  /*
+   * 2026-09-28 오너: "SEO 만을 위한 느낌 · 구조도 바꿔라" — 머리를 문서(발행·검토 줄)에서 환자용으로.
+   * h1 글자(doc.title)는 그대로, 앞(검색어)·뒤(설명)만 크기를 나눈다. 발행·검토는 검토 원장 사진이 붙은 한 줄로.
+   * 머리 바로 아래에 지금 진료 중인지 + 전화·예약, 그 아래 병원 한눈에(짧은 이름표), 글 끝엔 진료시간·예약 띠.
+   */
   return (
+    <>
     <div className="wrap">
       <div className="read-bar" aria-hidden="true" />
-      <header className="art-head">
+      <header className="art-head art-head--lp">
         <Crumbs items={crumbs} />
         {eyebrow && <span className="eyebrow">{eyebrow}</span>}
-        <h1>{doc.title}</h1>
+        <SplitTitle title={doc.title} />
         {lead && <p className="art-lead">{lead}</p>}
-        <div className="art-meta">
-          <span>
-            발행 <b>{fmtDate(doc.publishAt)}</b>
+        <div className="consult">
+          <span className="consult-open"><OpenNow withDot /> · 화·목 저녁 8시 30분까지</span>
+          <span className="consult-btns">
+            <a className="btn btn--primary" href={CLINIC.phoneHref}>{Icon.phone} 전화 상담</a>
+            <a className="btn btn--ghost" href={CLINIC.booking.naver} target="_blank" rel="noopener">{Icon.calendar} 네이버 예약</a>
           </span>
-          {doc.updated !== doc.publishAt && (
-            <span>
-              수정 <b>{fmtDate(doc.updated)}</b>
-            </span>
-          )}
+        </div>
+        <div className="rev-chip">
+          <img src={reviewer.photo} alt="" width={40} height={40} />
           <span>
-            검토 <b>{reviewer.name} {reviewer.role}</b> · {reviewer.license}
+            <b>{reviewer.name} {reviewer.role}</b> 검토 · {reviewer.license}
+            <small>
+              발행 {fmtDate(doc.publishAt)}
+              {doc.updated !== doc.publishAt ? ` · 수정 ${fmtDate(doc.updated)}` : ''}
+            </small>
           </span>
         </div>
         {hero && (
@@ -285,6 +296,9 @@ export function ArticleShell({
           </figure>
         )}
       </header>
+    </div>
+    <TrustStrip />
+    <div className="wrap">
       <div className="art">
         <div className="art-main">{children}</div>
         <aside className="aside" aria-label="보조 정보">
@@ -300,10 +314,6 @@ export function ArticleShell({
             <Btn href={CLINIC.booking.naver} kind="ghost-light">
               {Icon.calendar} 네이버 예약
             </Btn>
-          </div>
-          <div className="aside-card">
-            <h4>이 글을 검토한 의료진</h4>
-            <DoctorCard d={reviewer} />
           </div>
           {asideExtra}
           {related && related.length > 0 && (
@@ -332,6 +342,12 @@ export function ArticleShell({
         </aside>
       </div>
     </div>
+    <section className="lp-sec lp-sec--visit lp-sec--end">
+      <div className="wrap">
+        <VisitBlock title="진료시간을 확인하고 편하게 연락 주세요" />
+      </div>
+    </section>
+    </>
   );
 }
 

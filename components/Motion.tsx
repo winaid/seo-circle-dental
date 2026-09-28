@@ -23,6 +23,10 @@ const REVEAL = [
   '.visit-box',
   '.sec .list-links',
   '.grid > .card',
+  '.lp-line',
+  '.lp-docs',
+  '.lp-gallery',
+  '.lp-visit',
 ].join(',');
 const SKIP = '.art-main, .card-row, .hero';
 
