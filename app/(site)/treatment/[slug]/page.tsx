@@ -1,11 +1,13 @@
 import type { Metadata } from 'next';
+import { treatmentCards } from '@/lib/carousel';
+import { CardRow } from '@/components/CardRow';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { AnswerFirst, ArticleShell, Chips, CtaBlock, Faq, JsonLd, LinkList, MedicalNotice } from '@/components/ui';
 import { docsOfKind, treatmentImage, isLivePath } from '@/lib/catalog';
 import { requireDoc, publishedSlugs } from '@/lib/gate';
 import { metaFor } from '@/lib/meta';
-import { articleNode, breadcrumbNode, procedureNode, webPageNode } from '@/lib/schema';
+import { articleNode, breadcrumbNode, itemListNode, procedureNode, webPageNode } from '@/lib/schema';
 import { TREATMENTS, treatmentBySlug, type Treatment } from '@/lib/treatments';
 import { TREATMENT_PAGES, type TreatmentBlock } from '@/lib/treatmentPages';
 import { journeyForTreatment } from '@/lib/insight';
@@ -231,6 +233,8 @@ export default async function TreatmentPage({ params }: { params: Promise<{ slug
   const isArea = (AREA_TREATMENTS as readonly string[]).includes(slug);
   const related = docsOfKind('qa', 'symptom', 'condition', 'blog').filter((d) => d.category === t.short || d.keywords.some((k) => t.short.includes(k))).slice(0, 6);
   const about = procedureNode(t);
+  // 다른 진료 카드 6장 = 화면 카드 = ItemList(사진 포함) (2026-09-28 네이버 캐러셀)
+  const cards = treatmentCards(slug);
   const words = charCount(t.intro, t.summary, ...t.whoFor, ...t.qa.map((q) => q.q + q.a), ...(page?.blocks.flatMap((b) => [b.title, b.desc ?? '', ...(b.paragraphs ?? []), ...(b.items?.map((i) => i.body) ?? [])]) ?? []));
 
   return (
@@ -305,8 +309,8 @@ export default async function TreatmentPage({ params }: { params: Promise<{ slug
             </>
           )}
 
-          <h2>다른 진료</h2>
-          <Chips items={TREATMENTS.filter((x) => x.slug !== slug).map((x) => ({ label: x.name, href: `/treatment/${x.slug}` }))} />
+          <CardRow title="다른 진료" cards={cards} />
+          <Chips items={TREATMENTS.filter((x) => x.slug !== slug && !cards.some((c) => c.path === `/treatment/${x.slug}`)).map((x) => ({ label: x.name, href: `/treatment/${x.slug}` }))} />
 
           <h2>참고 자료</h2>
           <ul>
@@ -321,7 +325,7 @@ export default async function TreatmentPage({ params }: { params: Promise<{ slug
           <MedicalNotice />
         </div>
       </ArticleShell>
-      <JsonLd nodes={[webPageNode(doc, { medical: true, about: { '@id': about['@id'] } }), about, articleNode(doc, { wordCount: words, about: { '@id': about['@id'] } }), breadcrumbNode(doc.path, crumbs)]} />
+      <JsonLd nodes={[webPageNode(doc, { medical: true, about: { '@id': about['@id'] } }), about, articleNode(doc, { wordCount: words, about: { '@id': about['@id'] } }), breadcrumbNode(doc.path, crumbs), ...(cards.length >= 5 ? [itemListNode(`${t.name} · 다른 진료`, cards.map((c) => ({ name: c.name, path: c.path, image: c.image })))] : [])]} />
     </>
   );
 }

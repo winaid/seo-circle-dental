@@ -2,10 +2,10 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { AnswerFirst, ArticleShell, Chips, CtaBlock, Faq, JsonLd, LinkList, MedicalNotice } from '@/components/ui';
-import { AREA_TREATMENT_LIST, docsOfKind, isDocPublished, docByPath, treatmentImage, isLivePath } from '@/lib/catalog';
+import { docsOfKind, isDocPublished, docByPath, treatmentImage, isLivePath } from '@/lib/catalog';
 import { requireDoc, josa } from '@/lib/gate';
 import { metaFor } from '@/lib/meta';
-import { articleNode, breadcrumbNode, webPageNode } from '@/lib/schema';
+import { articleNode, breadcrumbNode, itemListNode, webPageNode } from '@/lib/schema';
 import { REGIONS, regionBySlug, regionDistanceM, regionStops, AREA_TREATMENTS } from '@/lib/regions';
 import { fmtDistance, STATION_DISTANCE_M } from '@/lib/site';
 import { CLINIC } from '@/lib/clinic';
@@ -13,6 +13,8 @@ import { treatmentBySlug } from '@/lib/treatments';
 import { journeyForTreatment } from '@/lib/insight';
 import { symptomBySlug } from '@/lib/symptoms';
 import { DOCS } from '@/lib/catalog';
+import { areaTreatmentCards } from '@/lib/carousel';
+import { CardRow } from '@/components/CardRow';
 
 export const revalidate = 3600;
 export const dynamicParams = true;
@@ -50,7 +52,8 @@ export default async function AreaTreatmentPage({ params }: { params: Promise<{ 
   const qa = [...t.qa.slice(idx % t.qa.length), ...t.qa.slice(0, idx % t.qa.length)].slice(0, 3);
   const symptoms = t.relatedSymptoms.map((s) => symptomBySlug(s)).filter(Boolean).slice(0, 4);
   const otherRegions = REGIONS.filter((x) => { const d = x.slug !== region ? docByPath(`/area/${x.slug}/${treatment}`) : undefined; return !!d && isDocPublished(d); }).slice(0, 10);
-  const otherTreatments = AREA_TREATMENT_LIST.filter((x) => x.slug !== treatment).filter((x) => { const d = docByPath(`/area/${region}/${x.slug}`); return !!d && isDocPublished(d); });
+  // 카드 6장 = '○○ 치과' + 같은 지역 다른 진료 5장 · 화면 카드 = ItemList(사진 포함) (2026-09-28 네이버 캐러셀)
+  const cards = areaTreatmentCards(r, treatment);
   const related = docsOfKind('treatment', 'qa').filter((d) => d.category === t.short).slice(0, 6);
   const distLine = r.slug === 'hwajeong-station' ? `화정역에서 병원까지 ${fmtDistance(STATION_DISTANCE_M)}` : dist !== null ? `${r.name}에서 병원까지 직선거리 ${fmtDistance(dist)}` : `${r.name}에서는 교외선으로 대곡역까지 간 뒤 3호선으로 갈아타 화정역에서 내리시면 됩니다`;
 
@@ -62,6 +65,8 @@ export default async function AreaTreatmentPage({ params }: { params: Promise<{ 
           {stops !== null && stops > 0 ? `, 3호선 ${r.line3}역에서 화정역까지 ${stops}정거장입니다.` : '입니다.'} {t.summary}
         </AnswerFirst>
         <div className="prose">
+          <CardRow title={`${r.name}에서 함께 찾으시는 진료`} cards={cards} />
+
           <h2>{r.name}에서 동그라미치과의원까지</h2>
           <p>{r.intro}</p>
           <div className="kv">
@@ -107,12 +112,6 @@ export default async function AreaTreatmentPage({ params }: { params: Promise<{ 
             </>
           )}
 
-          {otherTreatments.length > 0 && (
-            <>
-              <h2>{r.name}에서 함께 찾으시는 진료</h2>
-              <Chips items={otherTreatments.map((x) => ({ label: `${r.name} ${x.short}`, href: `/area/${region}/${x.slug}` }))} />
-            </>
-          )}
           {otherRegions.length > 0 && (
             <>
               <h2>다른 지역의 {t.short} 안내</h2>
@@ -124,7 +123,7 @@ export default async function AreaTreatmentPage({ params }: { params: Promise<{ 
           <MedicalNotice />
         </div>
       </ArticleShell>
-      <JsonLd nodes={[webPageNode(doc, { medical: true }), articleNode(doc), breadcrumbNode(doc.path, crumbs)]} />
+      <JsonLd nodes={[webPageNode(doc, { medical: true }), articleNode(doc), breadcrumbNode(doc.path, crumbs), ...(cards.length >= 5 ? [itemListNode(`${r.name} ${t.name} · 함께 찾으시는 진료`, cards.map((c) => ({ name: c.name, path: c.path, image: c.image })))] : [])]} />
     </>
   );
 }

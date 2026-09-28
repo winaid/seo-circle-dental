@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { AnswerFirst, ArticleShell, Chips, CtaBlock, DoctorCard, Faq, HoursTable, JsonLd, LinkList, MedicalNotice } from '@/components/ui';
-import { AREA_TREATMENT_LIST, docByPathStrict, docsOfKind, isDocPublished, docByPath } from '@/lib/catalog';
+import { AnswerFirst, ArticleShell, Chips, CtaBlock, DoctorCard, Faq, HoursTable, JsonLd, MedicalNotice } from '@/components/ui';
+import { docsOfKind } from '@/lib/catalog';
 import { requireDoc, publishedSlugs } from '@/lib/gate';
 import { metaFor } from '@/lib/meta';
 import { breadcrumbNode, itemListNode, webPageNode } from '@/lib/schema';
@@ -11,6 +11,8 @@ import { fmtDistance, STATION_DISTANCE_M } from '@/lib/site';
 import { CLINIC, STRENGTHS, UNVERIFIED } from '@/lib/clinic';
 import { DOCTORS } from '@/lib/doctors';
 import { CLINIC_QA } from '@/lib/faq';
+import { regionCards } from '@/lib/carousel';
+import { CardRow } from '@/components/CardRow';
 
 export const revalidate = 3600;
 export const dynamicParams = true;
@@ -39,7 +41,8 @@ export default async function RegionPage({ params }: { params: Promise<{ region:
     { name: r.keyword, path: doc.path },
   ];
   const faq = [...CLINIC_QA.slice(idx % 4), ...CLINIC_QA.slice(0, idx % 4)].slice(0, 4);
-  const areaDocs = AREA_TREATMENT_LIST.map((t) => docByPath(`/area/${r.slug}/${t.slug}`)).filter((d) => d && isDocPublished(d));
+  // 카드 6장 = 화면 카드 = ItemList(사진 포함). 네이버 캐러셀 재료 (2026-09-28)
+  const cards = regionCards(r);
   const related = docsOfKind('area').filter((d) => d.path !== doc.path).slice(0, 6);
 
   return (
@@ -47,6 +50,8 @@ export default async function RegionPage({ params }: { params: Promise<{ region:
       <ArticleShell doc={doc} crumbs={crumbs} eyebrow={`지역 안내 · ${r.name}`} related={related}>
         <AnswerFirst label={`${r.alt ?? r.keyword}를 찾으신다면`}>{r.intro}</AnswerFirst>
         <div className="prose">
+          <CardRow title={`${r.name}에서 많이 찾으시는 진료`} cards={cards} />
+
           <h2>{r.name}에서 오시는 길</h2>
           <div className="kv">
             {r.slug === 'hwajeong-station' ? (
@@ -75,23 +80,6 @@ export default async function RegionPage({ params }: { params: Promise<{ region:
           <p>화요일과 목요일은 저녁 8시 30분까지 야간 진료를 합니다. 토요일은 오후 2시까지 점심시간 없이 진료합니다.</p>
           <HoursTable />
           <p className="small muted">점심시간 {UNVERIFIED.hours.lunch.start}–{UNVERIFIED.hours.lunch.end} (토요일 제외)</p>
-
-          <h2>{r.name}에서 많이 찾으시는 진료</h2>
-          {areaDocs.length > 0 ? (
-            <div className="grid grid--2" style={{ marginTop: 4 }}>
-              {areaDocs.map((d) => (
-                <Link key={d!.path} href={d!.path} className="t-card">
-                  <img src={d!.image!.src} alt={d!.image!.alt} loading="lazy" decoding="async" />
-                  <div className="t-card-in">
-                    <span className="card-tag">{r.name}</span>
-                    <h3>{d!.title}</h3>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          ) : (
-            <LinkList items={AREA_TREATMENT_LIST.map((t) => ({ label: t.name, href: `/treatment/${t.slug}`, meta: t.short }))} />
-          )}
 
           <h2>{r.name} 치과를 고르실 때 확인하면 좋은 것</h2>
           <p>
@@ -128,7 +116,7 @@ export default async function RegionPage({ params }: { params: Promise<{ region:
           <MedicalNotice />
         </div>
       </ArticleShell>
-      <JsonLd nodes={[webPageNode(doc), breadcrumbNode(doc.path, crumbs), itemListNode(`${r.name} 진료 안내`, AREA_TREATMENT_LIST.map((t) => ({ name: `${r.name} ${t.name}`, path: `/area/${r.slug}/${t.slug}` })))]} />
+      <JsonLd nodes={[webPageNode(doc), breadcrumbNode(doc.path, crumbs), itemListNode(`${r.keyword} 진료 안내`, cards.map((c) => ({ name: c.name, path: c.path, image: c.image })))]} />
     </>
   );
 }

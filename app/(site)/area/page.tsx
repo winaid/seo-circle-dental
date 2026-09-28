@@ -7,6 +7,8 @@ import { breadcrumbNode, itemListNode, webPageNode } from '@/lib/schema';
 import { REGIONS, regionDistanceM, regionStops } from '@/lib/regions';
 import type { Region } from '@/lib/regions';
 import { fmtDistance, STATION_DISTANCE_M } from '@/lib/site';
+import { regionHubCards } from '@/lib/carousel';
+import { CardRow } from '@/components/CardRow';
 
 export const revalidate = 3600;
 const doc = docByPathStrict('/area');
@@ -17,10 +19,15 @@ export default function AreaHub() {
     { name: '홈', path: '/' },
     { name: '지역별 안내', path: '/area' },
   ];
+  // 사진 카드 6장 = ItemList(사진 포함) — 네이버 캐러셀 재료 (2026-09-28)
+  const cards = regionHubCards(REGIONS);
   return (
     <>
       <HubHead crumbs={crumbs} eyebrow="지역별 안내" title={doc.title} lead={`병원은 3호선 화정역에서 ${fmtDistance(STATION_DISTANCE_M)} 거리에 있습니다. 동네마다 오시는 길과 직선거리, 3호선 정거장 수를 계산해 두었습니다. 소요 시간은 시간대마다 달라 적지 않았습니다.`} />
       <div className="wrap" style={{ paddingBottom: 88 }}>
+        <div className="prose" style={{ maxWidth: 'none', marginBottom: 28 }}>
+          <CardRow title="많이 찾으시는 지역" cards={cards} />
+        </div>
         <div className="grid grid--3">
           {REGIONS.map((r) => {
             const stops = regionStops(r);
@@ -43,7 +50,7 @@ export default function AreaHub() {
         </div>
         <CtaBlock />
       </div>
-      <JsonLd nodes={[webPageNode(doc), breadcrumbNode('/area', crumbs), itemListNode('지역별 안내', REGIONS.map((r) => ({ name: r.keyword, path: `/area/${r.slug}` })))]} />
+      <JsonLd nodes={[webPageNode(doc), breadcrumbNode('/area', crumbs), itemListNode('지역별 안내 · 많이 찾으시는 지역', cards.map((c) => ({ name: c.name, path: c.path, image: c.image })))]} />
     </>
   );
 }
