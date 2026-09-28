@@ -7,7 +7,7 @@
  *   홈 화면(app/page.tsx)·페이지 og:image(lib/catalog.ts)·타일 그림(scripts/gen-tiles.mjs)이 전부 이 표를 따른다.
  * ★ 이름을 바꾸면 scripts/gen-tiles.mjs 의 TILES 도 같이 바꾸고 다시 돌린다.
  * ★ 레퍼런스의 만료 도메인 매입·검색어 위장 사이트명·봇/사람 다른 화면은 따라 하지 않는다.
- *   검색에서 들어온 방문자를 본 홈페이지로 보내는 것만 한다(components/SearchRedirect.tsx, 오너 지시 2026-09-22).
+ *   (검색 유입을 본 홈페이지로 보내던 장치도 2026-09-28 에 뺐다 — lib/site.ts 설명 참고.)
  */
 export interface QuickLink {
   slug: 'about' | 'treatment' | 'cost' | 'booking' | 'visit';

@@ -2,7 +2,9 @@ import type { Metadata } from 'next';
 import { CtaBlock, HubHead, JsonLd, LinkList } from '@/components/ui';
 import { QA_ITEMS, docByPathStrict, docsOfKind } from '@/lib/catalog';
 import { metaFor } from '@/lib/meta';
-import { breadcrumbNode, itemListNode, webPageNode } from '@/lib/schema';
+import { breadcrumbNode, webPageNode, cardListNode } from '@/lib/schema';
+import { hubCards } from '@/lib/carousel';
+import { CardRow } from '@/components/CardRow';
 
 export const revalidate = 3600;
 const doc = docByPathStrict('/qa');
@@ -20,6 +22,8 @@ export default function QaHub() {
     { name: '홈', path: '/' },
     { name: '진료실 문답', path: '/qa' },
   ];
+  // 사진 카드 6장 = 화면 카드 = ItemList(사진 포함). 예전 목록은 사진이 0장이라 카드 재료가 못 됐다 (2026-09-28 네이버 캐러셀)
+  const cards = hubCards(docsOfKind('qa'));
   return (
     <>
       <HubHead crumbs={crumbs} eyebrow="진료실 문답" title={doc.title} lead={`${items.length}가지 질문에 답합니다. 답은 첫 두세 문장에서 끝내고, 배경 설명을 뒤에 이었습니다. 진료 안내·증상·질환 페이지와 서로 이어져 있습니다.`} />
@@ -34,9 +38,10 @@ export default function QaHub() {
             </section>
           ))}
         </div>
+        <CardRow title="많이 찾으시는 질문" cards={cards} />
         <CtaBlock />
       </div>
-      <JsonLd nodes={[webPageNode(doc), breadcrumbNode('/qa', crumbs), itemListNode('진료실 문답', items.slice(0, 100).map((q) => ({ name: q.q, path: q.path })))]} />
+      <JsonLd nodes={[webPageNode(doc), breadcrumbNode('/qa', crumbs), ...cardListNode('진료실 문답', cards)]} />
     </>
   );
 }

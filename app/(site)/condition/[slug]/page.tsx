@@ -4,7 +4,9 @@ import { AnswerFirst, ArticleShell, CtaBlock, Faq, JsonLd, LinkList, MedicalNoti
 import { relatedDocs } from '@/lib/catalog';
 import { requireDoc, neighbors, publishedSlugs } from '@/lib/gate';
 import { metaFor } from '@/lib/meta';
-import { articleNode, breadcrumbNode, conditionNode, webPageNode } from '@/lib/schema';
+import { articleNode, breadcrumbNode, conditionNode, webPageNode, cardListNode } from '@/lib/schema';
+import { docCards } from '@/lib/carousel';
+import { CardRow } from '@/components/CardRow';
 import { conditionBySlug } from '@/lib/conditions';
 import { symptomBySlug } from '@/lib/symptoms';
 import { treatmentBySlug } from '@/lib/treatments';
@@ -37,6 +39,8 @@ export default async function ConditionPage({ params }: { params: Promise<{ slug
   const symptoms = c.relatedSymptoms.map((s) => symptomBySlug(s)).filter(Boolean);
   const treatments = c.relatedTreatments.map((t) => treatmentBySlug(t)).filter(Boolean);
   const { prev, next } = neighbors(doc);
+  // 사진 카드 6장 = 화면 카드 = ItemList(사진 포함) — 어느 문서가 검색에 떠도 카드 재료가 있게 (2026-09-28 네이버 캐러셀)
+  const cards = docCards(doc, c.relatedTreatments);
   const about = conditionNode(c);
   const words = charCount(c.definition, c.detail, c.treatment, ...c.signs, ...c.causes, ...c.prevention, ...c.stages.map((s) => s.what));
 
@@ -114,12 +118,13 @@ export default async function ConditionPage({ params }: { params: Promise<{ slug
             ))}
           </ul>
 
+          <CardRow title="이 질환과 이어진 진료와 글" cards={cards} />
           <CtaBlock title={`${c.name}이 의심된다면 검사로 확인해 드립니다`} />
           <MedicalNotice />
           <Pager prev={prev} next={next} />
         </div>
       </ArticleShell>
-      <JsonLd nodes={[webPageNode(doc, { medical: true, about: { '@id': about['@id'] } }), about, articleNode(doc, { wordCount: words, about: { '@id': about['@id'] } }), breadcrumbNode(doc.path, crumbs)]} />
+      <JsonLd nodes={[webPageNode(doc, { medical: true, about: { '@id': about['@id'] } }), about, articleNode(doc, { wordCount: words, about: { '@id': about['@id'] } }), breadcrumbNode(doc.path, crumbs), ...cardListNode(`${doc.title.split(' — ')[0]} · 함께 보면 좋은 글`, cards)]} />
     </>
   );
 }

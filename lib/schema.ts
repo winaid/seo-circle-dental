@@ -229,6 +229,14 @@ export function itemListNode(name: string, items: Array<{ name: string; path: st
   };
 }
 
+/**
+ * 카드 줄 ItemList — 화면 CardRow 와 같은 cards 를 그대로. 5장 미만이면 안 낸다(네이버: 항목 적으면 안 씀).
+ * ★ 한 페이지에 목록은 하나만(서치어드바이저 「캐러셀 (ListItem)」). 이걸 쓰는 페이지는 다른 itemListNode 를 내지 않는다.
+ */
+export function cardListNode(name: string, cards: Array<{ name: string; path: string; image: string }>) {
+  return cards.length >= 5 ? [itemListNode(name, cards.map((c) => ({ name: c.name, path: c.path, image: c.image })))] : [];
+}
+
 /** 사진 묶음 — 그 페이지에 실제로 보이는 사진만. name 은 사진이 무엇인지, caption 은 alt 그대로. */
 export function imageGalleryNode(name: string, images: Array<{ src: string; name: string; caption?: string }>) {
   return {

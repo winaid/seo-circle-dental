@@ -3,7 +3,9 @@ import Link from 'next/link';
 import { CtaBlock, HubHead, JsonLd, LinkList } from '@/components/ui';
 import { docByPathStrict, treatmentImage } from '@/lib/catalog';
 import { metaFor } from '@/lib/meta';
-import { breadcrumbNode, itemListNode, webPageNode } from '@/lib/schema';
+import { breadcrumbNode, webPageNode, cardListNode } from '@/lib/schema';
+import { pathCards } from '@/lib/carousel';
+import { CardRow } from '@/components/CardRow';
 import { TREATMENTS } from '@/lib/treatments';
 import { IMPLANT_TOPICS } from '@/lib/implantTopics';
 import { JOURNEYS, COST_TOPICS } from '@/lib/insight';
@@ -17,6 +19,8 @@ export default function TreatmentHub() {
     { name: '홈', path: '/' },
     { name: '진료 안내', path: '/treatment' },
   ];
+  // 사진 카드 6장 = 화면 카드 = ItemList(사진 포함). 예전 목록은 사진이 0장이라 카드 재료가 못 됐다 (2026-09-28 네이버 캐러셀)
+  const cards = pathCards(TREATMENTS.map((t) => `/treatment/${t.slug}`), []);
   return (
     <>
       <HubHead crumbs={crumbs} eyebrow="진료 안내" title={doc.title} lead="진료 이름만 나열하지 않았습니다. 각 진료에서 검사로 먼저 확인하는 것, 살릴 수 있는 조건과 없는 조건, 자주 받는 질문까지 페이지마다 적었습니다." />
@@ -46,9 +50,10 @@ export default function TreatmentHub() {
             <LinkList items={[...JOURNEYS.slice(0, 4).map((j) => ({ label: j.question, href: `/journey/${j.slug}`, meta: j.duration })), ...COST_TOPICS.slice(0, 3).map((c) => ({ label: c.title, href: `/cost/${c.slug}`, meta: '비용' }))]} />
           </section>
         </div>
+        <CardRow title="진료 과목" cards={cards} />
         <CtaBlock />
       </div>
-      <JsonLd nodes={[webPageNode(doc, { medical: true }), breadcrumbNode('/treatment', crumbs), itemListNode('진료 과목', TREATMENTS.map((t) => ({ name: t.name, path: `/treatment/${t.slug}` })))]} />
+      <JsonLd nodes={[webPageNode(doc, { medical: true }), breadcrumbNode('/treatment', crumbs), ...cardListNode('진료 안내', cards)]} />
     </>
   );
 }

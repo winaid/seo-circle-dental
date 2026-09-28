@@ -4,7 +4,9 @@ import { Btn, HoursTable, HubHead, Icon, JsonLd, MedicalNotice } from '@/compone
 import { OpenNow } from '@/components/OpenNow';
 import { docByPathStrict } from '@/lib/catalog';
 import { metaFor } from '@/lib/meta';
-import { breadcrumbNode, webPageNode } from '@/lib/schema';
+import { breadcrumbNode, webPageNode, cardListNode } from '@/lib/schema';
+import { pathCards } from '@/lib/carousel';
+import { CardRow } from '@/components/CardRow';
 import { CLINIC, UNVERIFIED } from '@/lib/clinic';
 
 export const revalidate = 3600;
@@ -20,6 +22,8 @@ export default function BookingPage() {
     { name: '홈', path: '/' },
     { name: '예약하기', path: '/booking' },
   ];
+  // 사진 카드 6장 = 화면 카드 = ItemList(사진 포함) — 네이버 캐러셀 재료 (2026-09-28)
+  const cards = pathCards([]);
   return (
     <>
       <HubHead crumbs={crumbs} eyebrow="예약하기" title="예약하기 — 네이버 예약 · 전화 · 카카오톡 상담" lead="급한 정도에 따라 맞는 방법이 다릅니다. 지금 아프면 전화, 시간을 정하고 싶으면 네이버 예약, 짧은 질문은 카카오톡." />
@@ -59,9 +63,10 @@ export default function BookingPage() {
             </p>
           </div>
         </div>
+        <CardRow title="진료 안내" cards={cards} />
         <MedicalNotice />
       </div>
-      <JsonLd nodes={[webPageNode(doc), breadcrumbNode('/booking', crumbs)]} />
+      <JsonLd nodes={[webPageNode(doc), breadcrumbNode('/booking', crumbs), ...cardListNode('예약하기 · 진료 안내', cards)]} />
     </>
   );
 }

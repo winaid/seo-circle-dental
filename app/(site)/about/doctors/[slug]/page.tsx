@@ -5,7 +5,9 @@ import { ArticleShell, CtaBlock, JsonLd, LinkList, MedicalNotice } from '@/compo
 import { docsOfKind } from '@/lib/catalog';
 import { requireDoc, publishedSlugs } from '@/lib/gate';
 import { metaFor } from '@/lib/meta';
-import { breadcrumbNode, personNode, webPageNode, ID } from '@/lib/schema';
+import { breadcrumbNode, personNode, webPageNode, ID, cardListNode } from '@/lib/schema';
+import { pathCards } from '@/lib/carousel';
+import { CardRow } from '@/components/CardRow';
 import { DOCTORS, doctorBySlug, credentialOf, PUBLICATION_DETAIL, OUTREACH_BROADCAST } from '@/lib/doctors';
 import { TREATMENTS } from '@/lib/treatments';
 
@@ -35,6 +37,8 @@ export default async function DoctorPage({ params }: { params: Promise<{ slug: s
   const cred = credentialOf(d);
   const isDirector = d.slug === DOCTORS[0].slug;
   const focusTreatments = TREATMENTS.filter((t) => d.focus.some((f) => t.name.includes(f.replace(/\(.*\)/, '').slice(0, 2))));
+  // 사진 카드 6장 = 화면 카드 = ItemList(사진 포함) — 네이버 캐러셀 재료 (2026-09-28)
+  const cards = pathCards(DOCTORS.filter((x) => x.slug !== d.slug).map((x) => `/about/doctors/${x.slug}`));
   return (
     <>
       <ArticleShell doc={doc} crumbs={crumbs} eyebrow="의료진" hero={{ src: d.photo, alt: `${d.name} ${d.role}` }} related={docsOfKind('doctor').filter((x) => x.path !== doc.path)}>
@@ -90,11 +94,12 @@ export default async function DoctorPage({ params }: { params: Promise<{ slug: s
           <p>
             <Link href="/about">병원 소개로 돌아가기</Link>
           </p>
+          <CardRow title="함께 진료하는 의료진과 진료" cards={cards} />
           <CtaBlock title={`${d.name} ${d.role} 진료 예약`} />
           <MedicalNotice />
         </div>
       </ArticleShell>
-      <JsonLd nodes={[webPageNode(doc, { about: { '@id': ID.person(d.slug) } }), personNode(d), breadcrumbNode(doc.path, crumbs)]} />
+      <JsonLd nodes={[webPageNode(doc, { about: { '@id': ID.person(d.slug) } }), personNode(d), breadcrumbNode(doc.path, crumbs), ...cardListNode('의료진 · 함께 진료하는 의료진과 진료', cards)]} />
     </>
   );
 }

@@ -5,7 +5,9 @@ import { AnswerFirst, ArticleShell, CtaBlock, JsonLd, LinkList, MedicalNotice, P
 import { QA_ITEMS, qaBySlug, relatedDocs } from '@/lib/catalog';
 import { requireDoc, neighbors, publishedSlugs } from '@/lib/gate';
 import { metaFor } from '@/lib/meta';
-import { breadcrumbNode, qaPageNode } from '@/lib/schema';
+import { breadcrumbNode, qaPageNode, cardListNode } from '@/lib/schema';
+import { docCards } from '@/lib/carousel';
+import { CardRow } from '@/components/CardRow';
 import { treatmentBySlug } from '@/lib/treatments';
 import { specialBySlug } from '@/lib/specials';
 import { implantTopicBySlug } from '@/lib/implantTopics';
@@ -117,6 +119,8 @@ export default async function QaPage({ params }: { params: Promise<{ slug: strin
   const treatments = q.relatedTreatments.map((s) => treatmentBySlug(s)).filter(Boolean);
   const areaSlug = q.relatedTreatments.find((s) => (AREA_TREATMENTS as readonly string[]).includes(s));
   const { prev, next } = neighbors(doc);
+  // 사진 카드 6장 = 화면 카드 = ItemList(사진 포함) — 어느 문서가 검색에 떠도 카드 재료가 있게 (2026-09-28 네이버 캐러셀)
+  const cards = docCards(doc, q.relatedTreatments);
   const siblingsIdx = QA_ITEMS.filter((x) => x.parent.href === q.parent.href);
 
   return (
@@ -152,10 +156,11 @@ export default async function QaPage({ params }: { params: Promise<{ slug: strin
           {areaSlug && (
             <>
               <h2>지역별 안내</h2>
-              <Chips items={REGIONS.slice(0, 8).map((r) => ({ label: `${r.name} ${treatmentBySlug(areaSlug)!.short}`, href: `/area/${r.slug}/${areaSlug}` }))} />
+              <Chips items={REGIONS.slice(0, 8).map((r) => ({ label: `${r.name} ${treatmentBySlug(areaSlug)!.short}`, href: `/area/${r.slug}` }))} /> {/* 2026-09-28: 지역×진료는 색인 밖 — 지역 페이지로 */}
             </>
           )}
 
+          <CardRow title="함께 보면 좋은 진료와 글" cards={cards} />
           <CtaBlock title="이 질문, 진료실에서 직접 확인해 드립니다" />
           <MedicalNotice />
           <Pager prev={prev} next={next} />
@@ -164,7 +169,7 @@ export default async function QaPage({ params }: { params: Promise<{ slug: strin
           </p>
         </div>
       </ArticleShell>
-      <JsonLd nodes={[qaPageNode(doc, q.q, q.a), breadcrumbNode(q.path, crumbs)]} />
+      <JsonLd nodes={[qaPageNode(doc, q.q, q.a), breadcrumbNode(q.path, crumbs), ...cardListNode(`${doc.title.split(' — ')[0]} · 함께 보면 좋은 글`, cards)]} />
     </>
   );
 }

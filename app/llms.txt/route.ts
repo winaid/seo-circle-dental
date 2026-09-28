@@ -1,4 +1,4 @@
-import { publishedDocs } from '@/lib/catalog';
+import { indexedDocs } from '@/lib/catalog';
 import { CLINIC, UNVERIFIED } from '@/lib/clinic';
 import { DOCTORS } from '@/lib/doctors';
 import { abs, SITE_URL, MAIN_SITE_URL } from '@/lib/site';
@@ -7,7 +7,7 @@ export const revalidate = 3600;
 
 /** AI 답변 엔진용 요약 — 사실만, 확인된 값만. */
 export function GET() {
-  const docs = publishedDocs();
+  const docs = indexedDocs();
   const byKind = (k: string) => docs.filter((d) => d.kind === k);
   const lines = [
     `# ${CLINIC.name} — 화정치과 · 화정동 치과 안내`,

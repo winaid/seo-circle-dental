@@ -3,7 +3,9 @@ import Link from 'next/link';
 import { CtaBlock, DoctorCard, Faq, HubHead, JsonLd, MedicalNotice } from '@/components/ui';
 import { docByPathStrict } from '@/lib/catalog';
 import { metaFor } from '@/lib/meta';
-import { breadcrumbNode, webPageNode } from '@/lib/schema';
+import { breadcrumbNode, webPageNode, cardListNode } from '@/lib/schema';
+import { pathCards } from '@/lib/carousel';
+import { CardRow } from '@/components/CardRow';
 import { CLINIC, STRENGTHS, OUTREACH } from '@/lib/clinic';
 import { SPECIALS } from '@/lib/specials';
 import { DOCTORS, PUBLICATION_DETAIL, OUTREACH_PHOTO } from '@/lib/doctors';
@@ -21,6 +23,8 @@ export default function AboutPage() {
     { name: '홈', path: '/' },
     { name: '병원 소개', path: '/about' },
   ];
+  // 사진 카드 6장 = 화면 카드 = ItemList(사진 포함) — 네이버 캐러셀 재료 (2026-09-28)
+  const cards = pathCards(DOCTORS.map((d) => `/about/doctors/${d.slug}`));
   return (
     <>
       <HubHead crumbs={crumbs} eyebrow="병원 소개" title={doc.title} lead={CLINIC.description} />
@@ -126,6 +130,7 @@ export default function AboutPage() {
               ))}
             </div>
 
+            <CardRow title="의료진과 진료" cards={cards} />
             <CtaBlock />
             <MedicalNotice />
           </div>
@@ -152,7 +157,7 @@ export default function AboutPage() {
           </aside>
         </div>
       </div>
-      <JsonLd nodes={[webPageNode(doc), breadcrumbNode('/about', crumbs)]} />
+      <JsonLd nodes={[webPageNode(doc), breadcrumbNode('/about', crumbs), ...cardListNode('병원 소개 · 의료진과 진료', cards)]} />
     </>
   );
 }

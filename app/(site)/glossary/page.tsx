@@ -3,7 +3,9 @@ import Link from 'next/link';
 import { CtaBlock, HubHead, JsonLd } from '@/components/ui';
 import { docByPathStrict, docsOfKind, glossarySlug } from '@/lib/catalog';
 import { metaFor } from '@/lib/meta';
-import { breadcrumbNode, webPageNode } from '@/lib/schema';
+import { breadcrumbNode, webPageNode, cardListNode } from '@/lib/schema';
+import { hubCards } from '@/lib/carousel';
+import { CardRow } from '@/components/CardRow';
 import { GLOSSARY } from '@/lib/insight';
 import { abs } from '@/lib/site';
 
@@ -17,6 +19,8 @@ export default function GlossaryHub() {
     { name: '홈', path: '/' },
     { name: '용어 사전', path: '/glossary' },
   ];
+  // 사진 카드 6장 = 화면 카드 = ItemList(사진 포함). 예전 목록은 사진이 0장이라 카드 재료가 못 됐다 (2026-09-28 네이버 캐러셀)
+  const cards = hubCards(docsOfKind('glossary'));
   return (
     <>
       <HubHead crumbs={crumbs} eyebrow="용어 사전" title={doc.title} lead="진료실에서 듣게 되는 말을 한두 문장으로 풀었습니다. 어느 진료에서 나오는 말인지도 함께 적었습니다." />
@@ -35,6 +39,7 @@ export default function GlossaryHub() {
             );
           })}
         </dl>
+        <CardRow title="많이 찾으시는 용어" cards={cards} />
         <CtaBlock />
       </div>
       <JsonLd
@@ -47,7 +52,7 @@ export default function GlossaryHub() {
             '@id': abs('/glossary'),
             name: '치과 용어 사전',
             hasDefinedTerm: GLOSSARY.map((g) => ({ '@type': 'DefinedTerm', name: g.term, description: g.def, url: abs(`/glossary/${glossarySlug(g.term)}`) })),
-          },
+          }, ...cardListNode('치과 용어 사전', cards)
         ]}
       />
     </>

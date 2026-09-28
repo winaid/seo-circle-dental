@@ -3,7 +3,9 @@ import Link from 'next/link';
 import { CtaBlock, Faq, HubHead, JsonLd, LinkList, MedicalNotice } from '@/components/ui';
 import { docByPathStrict, QA_ITEMS, docsOfKind } from '@/lib/catalog';
 import { metaFor } from '@/lib/meta';
-import { breadcrumbNode, faqNode, webPageNode } from '@/lib/schema';
+import { breadcrumbNode, faqNode, webPageNode, cardListNode } from '@/lib/schema';
+import { pathCards } from '@/lib/carousel';
+import { CardRow } from '@/components/CardRow';
 import { CLINIC_QA } from '@/lib/faq';
 
 export const revalidate = 3600;
@@ -17,6 +19,8 @@ export default function FaqPage() {
   ];
   const published = new Set(docsOfKind('qa').map((d) => d.path));
   const popular = QA_ITEMS.filter((q) => q.parent.kind === 'treatment' && published.has(q.path)).slice(0, 10);
+  // 사진 카드 6장 = 화면 카드 = ItemList(사진 포함) — 네이버 캐러셀 재료 (2026-09-28)
+  const cards = pathCards([]);
   return (
     <>
       <HubHead crumbs={crumbs} eyebrow="자주 묻는 질문" title={doc.title} lead="진료시간·예약·주차·비용처럼 오시기 전에 궁금한 것입니다. 확인된 사실과 일반적인 치과 진료 정보만 적었습니다." />
@@ -31,10 +35,11 @@ export default function FaqPage() {
             </p>
           </section>
         )}
+        <CardRow title="진료 안내" cards={cards} />
         <CtaBlock />
         <MedicalNotice />
       </div>
-      <JsonLd nodes={[webPageNode(doc), faqNode(CLINIC_QA), breadcrumbNode('/faq', crumbs)]} />
+      <JsonLd nodes={[webPageNode(doc), faqNode(CLINIC_QA), breadcrumbNode('/faq', crumbs), ...cardListNode('자주 묻는 질문 · 진료 안내', cards)]} />
     </>
   );
 }

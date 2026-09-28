@@ -346,6 +346,18 @@ export const googleDocs = () => publishedDocs().filter((d) => d.googleIndex);
 export const isDocPublished = (d: Doc) => isPublished(d.publishAt);
 
 /**
+ * 검색엔진(네이버 포함) 색인에 낼 문서인가 — 2026-09-28 오너 GO: 지역×진료는 전부 뺀다.
+ * ★ 이유: 지역×진료 107쪽은 지역 이름만 바꾼 같은 틀이라 서로 65%(문장을 줄여도 50~60%) 같았다.
+ *   네이버 스팸 정책(searchadvisor.naver.com/guide/content-abusing)의 '동일·유사 템플릿에 문장 일부만 바꾼 페이지를
+ *   수십 개 이상' 에 그대로 해당한다 — 걸리면 사이트 전체(카드가 붙은 지역 페이지 포함)가 함께 빠진다.
+ *   이 쪽들이 1위이던 검색어 50개 중 49개가 월 10회 미만이었고, 카드는 한 번도 붙지 않았다(09-28 실측 172검색어).
+ * ★ 페이지는 그대로 열린다(사람은 계속 볼 수 있다). <meta robots noindex,follow> + 사이트맵·RSS·llms 에서 제외.
+ * ★ 지역 페이지 카드(ItemList)는 이 쪽이 아니라 진료 안내로 잇는다(lib/carousel.ts regionCards) — 색인 밖 주소를 카드로 내지 않는다.
+ */
+export const isSearchIndexed = (d: Doc) => d.kind !== 'area-treatment';
+export const indexedDocs = () => publishedDocs().filter(isSearchIndexed);
+
+/**
  * 이 주소로 링크를 걸어도 되는가 — 카탈로그 문서면 발행됐을 때만, 카탈로그 밖(정적 페이지·앵커·외부·전화)은 늘 true.
  * ★ 빙 사이트 검사(2026-09-11) 가 4xx 73건을 잡았다 — 전부 "아직 발행일이 안 된 문서"로 가는 내부 링크였다
  *   (문답·지역×진료·여정·비용·용어). 페이지는 requireDoc 이 404 를 내는데 링크는 발행 여부를 안 봤다.

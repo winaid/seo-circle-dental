@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import type { Doc } from './catalog';
+import { isSearchIndexed, type Doc } from './catalog';
 import { abs, SITE_NAME, SITE_URL } from './site';
 import { IMG } from './assets';
 import ogTable from '../content/og.json';
@@ -40,7 +40,9 @@ export function metaFor(doc: Doc, extra: Partial<Metadata> = {}): Metadata {
      * 2층 문서(Doc.googleIndex=false)는 구글 로봇에게만 noindex — <meta name="googlebot" content="noindex, follow">.
      * <meta name="robots"> 는 index 그대로라 네이버·Bing 색인은 변하지 않는다. follow 는 남겨 링크 신호는 흐르게 한다.
      */
-    robots: doc.googleIndex
+    robots: !isSearchIndexed(doc)
+      ? { index: false, follow: true, googleBot: { index: false, follow: true } } // 지역×진료 — 모든 검색엔진에서 뺀다(2026-09-28, lib/catalog isSearchIndexed)
+      : doc.googleIndex
       ? { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1 }
       : { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1, googleBot: { index: false, follow: true } },
     ...extra,

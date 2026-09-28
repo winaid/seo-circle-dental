@@ -3,7 +3,9 @@ import Link from 'next/link';
 import { Chips, CtaBlock, HubHead, JsonLd, MedicalNotice } from '@/components/ui';
 import { docByPathStrict } from '@/lib/catalog';
 import { metaFor } from '@/lib/meta';
-import { articleNode, breadcrumbNode, webPageNode } from '@/lib/schema';
+import { articleNode, breadcrumbNode, webPageNode, cardListNode } from '@/lib/schema';
+import { pathCards } from '@/lib/carousel';
+import { CardRow } from '@/components/CardRow';
 import { CASES } from '@/lib/emergency';
 import { CLINIC } from '@/lib/clinic';
 
@@ -16,6 +18,8 @@ export default function EmergencyPage() {
     { name: '홈', path: '/' },
     { name: '응급 상황', path: '/emergency' },
   ];
+  // 사진 카드 6장 = 화면 카드 = ItemList(사진 포함) — 네이버 캐러셀 재료 (2026-09-28)
+  const cards = pathCards(['/symptom/toothache-night', '/symptom/crown-fell-out', '/symptom/gum-boil']);
   return (
     <>
       <HubHead crumbs={crumbs} eyebrow="응급 상황" title={doc.title} lead="응급 상황에서는 좋은 뜻으로 한 행동이 오히려 상황을 나쁘게 만들기도 합니다. 병원에 오시기 전 몇 분 동안 하실 수 있는 것과 피하셔야 할 것을 상황별로 정리했습니다." />
@@ -53,11 +57,12 @@ export default function EmergencyPage() {
             <li><Link href="/condition/dry-socket">건조와(드라이소켓)</Link></li>
             <li><Link href="/visit">진료시간·오시는 길</Link></li>
           </ul>
+          <CardRow title="이어진 증상과 진료" cards={cards} />
           <CtaBlock title="진료시간 안이라면 먼저 전화해 주세요 — 그날 오셔야 하는지 바로 판단해 드립니다" />
           <MedicalNotice />
         </div>
       </div>
-      <JsonLd nodes={[webPageNode(doc, { medical: true }), articleNode(doc), breadcrumbNode('/emergency', crumbs)]} />
+      <JsonLd nodes={[webPageNode(doc, { medical: true }), articleNode(doc), breadcrumbNode('/emergency', crumbs), ...cardListNode('응급 상황 · 이어진 증상과 진료', cards)]} />
     </>
   );
 }

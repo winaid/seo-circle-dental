@@ -7,7 +7,7 @@
  *   · 항목 1개 이상. 최신 50개(전문 피드) — 너무 크면 거부된 사례가 있다.
  *   · BOM 없음, XML 특수문자 이스케이프.
  */
-import { publishedDocs, type Doc } from './catalog';
+import { indexedDocs, type Doc } from './catalog';
 import { abs, SITE_NAME, SITE_URL } from './site';
 import { CLINIC } from './clinic';
 import { IMG } from './assets';
@@ -15,7 +15,7 @@ import { escapeXml, rfc822 } from './text';
 import { stableHash as hash } from './publish';
 
 function sortedDocs() {
-  return publishedDocs()
+  return indexedDocs()
     .filter((d) => d.kind !== 'home' && d.kind !== 'page')
     .sort((a, b) => (a.publishAt === b.publishAt ? hash(a.path) - hash(b.path) : a.publishAt < b.publishAt ? 1 : -1));
 }

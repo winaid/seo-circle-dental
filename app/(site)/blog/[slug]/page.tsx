@@ -4,7 +4,9 @@ import { ArticleShell, CtaBlock, JsonLd, MedicalNotice, Pager, AnswerFirst } fro
 import { relatedDocs } from '@/lib/catalog';
 import { requireDoc, neighbors, publishedSlugs } from '@/lib/gate';
 import { metaFor } from '@/lib/meta';
-import { articleNode, breadcrumbNode, webPageNode } from '@/lib/schema';
+import { articleNode, breadcrumbNode, webPageNode, cardListNode } from '@/lib/schema';
+import { docCards } from '@/lib/carousel';
+import { CardRow } from '@/components/CardRow';
 import { blogBySlug } from '@/lib/blog';
 import { charCount, stripTags } from '@/lib/text';
 
@@ -32,18 +34,21 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
     { name: p.title, path: doc.path },
   ];
   const { prev, next } = neighbors(doc);
+  // 사진 카드 6장 = 화면 카드 = ItemList(사진 포함) — 어느 문서가 검색에 떠도 카드 재료가 있게 (2026-09-28 네이버 캐러셀)
+  const cards = docCards(doc);
   return (
     <>
       <ArticleShell doc={doc} crumbs={crumbs} eyebrow={`칼럼 · ${p.category ?? ''}`} hero={p.image ? { src: p.image, alt: p.imageAlt ?? p.title } : undefined} related={relatedDocs(doc, 6)}>
         <AnswerFirst label="요약">{p.summary}</AnswerFirst>
         <div className="prose" dangerouslySetInnerHTML={{ __html: p.html }} />
         <div className="prose">
+          <CardRow title="함께 보면 좋은 진료와 글" cards={cards} />
           <CtaBlock />
           <MedicalNotice />
           <Pager prev={prev} next={next} />
         </div>
       </ArticleShell>
-      <JsonLd nodes={[webPageNode(doc, { medical: true }), articleNode(doc, { type: 'BlogPosting', wordCount: charCount(stripTags(p.html)) }), breadcrumbNode(doc.path, crumbs)]} />
+      <JsonLd nodes={[webPageNode(doc, { medical: true }), articleNode(doc, { type: 'BlogPosting', wordCount: charCount(stripTags(p.html)) }), breadcrumbNode(doc.path, crumbs), ...cardListNode(`${doc.title.split(' — ')[0]} · 함께 보면 좋은 글`, cards)]} />
     </>
   );
 }

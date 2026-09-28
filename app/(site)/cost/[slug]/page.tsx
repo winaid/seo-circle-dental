@@ -4,7 +4,9 @@ import { AnswerFirst, ArticleShell, CtaBlock, JsonLd, LinkList, MedicalNotice, P
 import { relatedDocs } from '@/lib/catalog';
 import { requireDoc, neighbors, publishedSlugs } from '@/lib/gate';
 import { metaFor } from '@/lib/meta';
-import { articleNode, breadcrumbNode, webPageNode } from '@/lib/schema';
+import { articleNode, breadcrumbNode, webPageNode, cardListNode } from '@/lib/schema';
+import { docCards } from '@/lib/carousel';
+import { CardRow } from '@/components/CardRow';
 import { COST_TOPICS, COST_LABEL } from '@/lib/insight';
 import { REFS_COST } from '@/lib/references';
 import { UNVERIFIED } from '@/lib/clinic';
@@ -33,6 +35,8 @@ export default async function CostPage({ params }: { params: Promise<{ slug: str
     { name: c.title, path: doc.path },
   ];
   const { prev, next } = neighbors(doc);
+  // 사진 카드 6장 = 화면 카드 = ItemList(사진 포함) — 어느 문서가 검색에 떠도 카드 재료가 있게 (2026-09-28 네이버 캐러셀)
+  const cards = docCards(doc);
   return (
     <>
       <ArticleShell doc={doc} crumbs={crumbs} eyebrow={`비용 · ${COST_LABEL[c.covered]}`} related={relatedDocs(doc, 6)}>
@@ -59,12 +63,13 @@ export default async function CostPage({ params }: { params: Promise<{ slug: str
               </li>
             ))}
           </ul>
+          <CardRow title="함께 보면 좋은 진료와 글" cards={cards} />
           <CtaBlock title="내 경우엔 보험이 되는지, 검사 후 정확히 안내드립니다" />
           <MedicalNotice />
           <Pager prev={prev} next={next} />
         </div>
       </ArticleShell>
-      <JsonLd nodes={[webPageNode(doc, { medical: true }), articleNode(doc), breadcrumbNode(doc.path, crumbs)]} />
+      <JsonLd nodes={[webPageNode(doc, { medical: true }), articleNode(doc), breadcrumbNode(doc.path, crumbs), ...cardListNode(`${doc.title.split(' — ')[0]} · 함께 보면 좋은 글`, cards)]} />
     </>
   );
 }

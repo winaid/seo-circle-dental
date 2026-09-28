@@ -304,8 +304,8 @@ export default async function TreatmentPage({ params }: { params: Promise<{ slug
           {isArea && (
             <>
               <h2>지역별 {t.short} 안내</h2>
-              {/* 먼 지역(tier=far)은 지역×진료 문서가 애초에 없다(catalog) — 링크를 걸면 404 (2026-09-11 빙 검사) */}
-              <Chips items={REGIONS.filter((r) => r.tier !== 'far').map((r) => ({ label: `${r.name} ${t.short}`, href: `/area/${r.slug}/${slug}` }))} />
+              {/* 2026-09-28: 지역×진료 쪽은 검색 색인에서 뺐다(lib/catalog isSearchIndexed) — 링크는 색인되는 지역 페이지로 잇는다 */}
+              <Chips items={REGIONS.map((r) => ({ label: `${r.name} ${t.short}`, href: `/area/${r.slug}` }))} />
             </>
           )}
 

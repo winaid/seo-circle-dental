@@ -12,7 +12,7 @@
  *   · 버스 노선 번호는 바뀌므로 적지 않는다.
  *   · 좌표를 못 구한 곳(교외선 대정역)은 lat/lng 를 비워 두고 거리를 표시하지 않는다.
  */
-import { CLINIC_GEO, distanceM, stopsToHwajeong, STATION, STATION_DISTANCE_M, fmtDistance, type Line3Station } from './site';
+import { CLINIC_GEO, distanceM, stopsToHwajeong, STATION, STATION_DISTANCE_M, fmtDistance, LINE3, type Line3Station } from './site';
 
 export interface Region {
   slug: string;
@@ -463,3 +463,35 @@ export function regionNeighbors(r: Region): Region[] {
 
 /** 지역×진료 조합에 넣을 진료 — 검색량이 큰 여섯 가지. */
 export const AREA_TREATMENTS = ['implant', 'endodontic', 'cavity', 'periodontal', 'wisdom-tooth', 'save-natural-tooth'] as const;
+
+/* ────────────────────────────────────────────── 지역마다 다른 사실 (2026-09-28)
+ * 지역 페이지 26쪽이 서로 76~85% 같은 문장이었다(진료시간표·병원 강점·의료진·병원 문답을 쪽마다 되풀이).
+ * 네이버 스팸 정책의 '문장 일부만 바꾼 페이지 수십 개'로 읽히지 않게, 되풀이 블록은 링크로 줄이고
+ * 좌표·노선에서 **계산되는** 그 지역만의 사실을 싣는다. 지어낸 문장이 아니라 계산값이다.
+ */
+
+const DIR8 = ['북', '북동', '동', '남동', '남', '남서', '서', '북서'] as const;
+
+/** 그 지역에서 봤을 때 병원이 있는 방향(8방위). 좌표가 없으면 null. */
+export function regionBearingKo(r: Region): string | null {
+  if (r.lat === undefined || r.lng === undefined) return null;
+  const toRad = (d: number) => (d * Math.PI) / 180;
+  const φ1 = toRad(r.lat), φ2 = toRad(CLINIC_GEO.lat), Δλ = toRad(CLINIC_GEO.lng - r.lng);
+  const y = Math.sin(Δλ) * Math.cos(φ2);
+  const x = Math.cos(φ1) * Math.sin(φ2) - Math.sin(φ1) * Math.cos(φ2) * Math.cos(Δλ);
+  const deg = ((Math.atan2(y, x) * 180) / Math.PI + 360) % 360;
+  return DIR8[Math.round(deg / 45) % 8];
+}
+
+/** 3호선으로 오는 길의 역 이름 순서 — '원당 → 화정'. 화정역이 가장 가까운 지역이면 null. */
+export function regionLine3Path(r: Region): string[] | null {
+  if (!r.line3 || r.line3 === '화정') return null;
+  const a = LINE3.indexOf(r.line3), b = LINE3.indexOf('화정');
+  const seq = a < b ? LINE3.slice(a, b + 1) : LINE3.slice(b, a + 1).reverse();
+  return [...seq];
+}
+
+/** 이웃 지역마다 병원까지 직선거리 — 칩 옆에 붙인다. */
+export function neighborsWithDistance(r: Region): Array<{ r: Region; m: number | null }> {
+  return regionNeighbors(r).map((x) => ({ r: x, m: regionDistanceM(x) }));
+}

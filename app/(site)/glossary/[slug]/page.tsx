@@ -4,7 +4,9 @@ import { AnswerFirst, ArticleShell, CtaBlock, JsonLd, LinkList, MedicalNotice, P
 import { glossarySlug, relatedDocs } from '@/lib/catalog';
 import { requireDoc, neighbors, publishedSlugs } from '@/lib/gate';
 import { metaFor } from '@/lib/meta';
-import { articleNode, breadcrumbNode, webPageNode } from '@/lib/schema';
+import { articleNode, breadcrumbNode, webPageNode, cardListNode } from '@/lib/schema';
+import { docCards } from '@/lib/carousel';
+import { CardRow } from '@/components/CardRow';
 import { GLOSSARY } from '@/lib/insight';
 import { treatmentBySlug } from '@/lib/treatments';
 import { abs } from '@/lib/site';
@@ -37,6 +39,8 @@ export default async function TermPage({ params }: { params: Promise<{ slug: str
     { name: g.term, path: doc.path },
   ];
   const { prev, next } = neighbors(doc);
+  // 사진 카드 6장 = 화면 카드 = ItemList(사진 포함) — 어느 문서가 검색에 떠도 카드 재료가 있게 (2026-09-28 네이버 캐러셀)
+  const cards = docCards(doc, g.related ? [g.related] : []);
   return (
     <>
       <ArticleShell doc={doc} crumbs={crumbs} eyebrow="치과 용어" related={relatedDocs(doc, 6)}>
@@ -62,6 +66,7 @@ export default async function TermPage({ params }: { params: Promise<{ slug: str
               <LinkList items={same.map((x) => ({ label: x.term, href: `/glossary/${glossarySlug(x.term)}`, meta: x.reading }))} />
             </>
           )}
+          <CardRow title="함께 보면 좋은 진료와 글" cards={cards} />
           <CtaBlock title="진료실에서 들은 말이 무슨 뜻인지, 언제든 다시 물어보셔도 됩니다" />
           <MedicalNotice />
           <Pager prev={prev} next={next} />
@@ -71,7 +76,7 @@ export default async function TermPage({ params }: { params: Promise<{ slug: str
         nodes={[
           webPageNode(doc, { medical: true, about: { '@type': 'DefinedTerm', name: g.term, description: g.def, inDefinedTermSet: abs('/glossary') } }),
           articleNode(doc),
-          breadcrumbNode(doc.path, crumbs),
+          breadcrumbNode(doc.path, crumbs), ...cardListNode(`${doc.title.split(' — ')[0]} · 함께 보면 좋은 글`, cards)
         ]}
       />
     </>

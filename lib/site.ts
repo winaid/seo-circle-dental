@@ -26,12 +26,12 @@ export const SITE_SHORT = CLINIC.shortName;
 export const HOME_TITLE = '화정 치과 · 화정역 치과 동그라미치과의원 | 3호선 화정역 · 화목 야간진료';
 /** 검색어 그대로의 사이트 별칭 — WebSite.alternateName, og:site_name 보조 */
 export const SITE_ALIASES = ['화정 치과', '화정역 치과', '화정치과', '화정역치과'] as const;
-/**
- * 검색 유입을 본 홈페이지(circle-dental.co.kr)로 보내기 — components/SearchRedirect.tsx. 오너 지시 2026-09-22.
- * 끄기: 여기 false 또는 env NEXT_PUBLIC_SEARCH_REDIRECT=off. 대상 경로는 홈 + 바로가기 5쪽(lib/quicklinks 와 같은 것).
+/*
+ * 검색 유입을 본 홈페이지로 보내던 장치(components/SearchRedirect.tsx, 2026-09-22)는 2026-09-28 에 뺐다 (오너 지시).
+ * 네이버 공식 스팸 정책(searchadvisor.naver.com/guide/content-abusing)이 '레퍼러 기준으로 다른 화면'을 클로킹으로,
+ * '리다이렉트로 검색 자질 전달'을 백링크 악용으로 적어 두었다 — 걸리면 이 사이트와 본 홈페이지가 함께 불이익이다.
+ * ★ 되살리지 말 것. 본 홈페이지로 가는 길은 화면에 보이는 링크·버튼(누구에게나 같은 것)으로만 낸다.
  */
-export const SEARCH_REDIRECT_TO_MAIN = process.env.NEXT_PUBLIC_SEARCH_REDIRECT !== 'off';
-export const SEARCH_REDIRECT_PATHS = ['/', '/about', '/treatment', '/cost', '/booking', '/visit'];
 /** 내부 문서 제목 뒤에 붙는 꼬리. 검색 결과 한 줄에 지역·병원이 함께 잡히게 한다. */
 export const KEY_SUFFIX = '화정치과 동그라미치과의원';
 export const KEY_SUFFIX_SHORT = '동그라미치과의원';

@@ -23,8 +23,10 @@ for (const f of [...walk('lib', /\.tsx?$/), ...walk('app', /\.tsx?$/), ...walk('
   for (const m of t.matchAll(/(?:\$\{P\}|\/img)\/([A-Za-z0-9_./-]+\.(?:png|jpe?g|webp))/g)) srcs.add('/img/' + m[1]);
 }
 for (const v of Object.values(JSON.parse(fs.readFileSync('content/images.json', 'utf8')))) srcs.add(v.src);
+/* 칼럼 대표 사진은 content/blog/*.json 에만 적혀 있다 — 빠지면 칼럼 og:image·카드 사진이 webp 원본으로 나간다 (2026-09-28 발견) */
+for (const b of fs.readdirSync('content/blog').filter((x) => x.endsWith('.json'))) { const j = JSON.parse(fs.readFileSync(path.join('content/blog', b), 'utf8')); if (j.image) srcs.add(j.image); }
 /* og/sq 산출물·로고·SVG 성격의 자산은 제외 — 썸네일감이 아니다 */
-const skip = /^\/img\/(og|sq)\//;
+const skip = /^\/img\/(og|sq|tile)\//; // 바로가기 타일은 정사각 그대로 og 로 쓴다(lib/meta.ts)
 const list = [...srcs].filter((s) => !skip.test(s) && fs.existsSync('public' + s)).sort();
 
 const table = {};

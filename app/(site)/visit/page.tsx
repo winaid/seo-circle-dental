@@ -4,7 +4,9 @@ import { Btn, Chips, CtaBlock, Faq, HoursTable, HubHead, Icon, JsonLd, MedicalNo
 import { OpenNow } from '@/components/OpenNow';
 import { docByPathStrict } from '@/lib/catalog';
 import { metaFor } from '@/lib/meta';
-import { breadcrumbNode, webPageNode } from '@/lib/schema';
+import { breadcrumbNode, webPageNode, cardListNode } from '@/lib/schema';
+import { pathCards } from '@/lib/carousel';
+import { CardRow } from '@/components/CardRow';
 import { CLINIC, UNVERIFIED } from '@/lib/clinic';
 import { CLINIC_QA } from '@/lib/faq';
 import { REGIONS } from '@/lib/regions';
@@ -21,6 +23,8 @@ export default function VisitPage() {
     { name: '오시는 길', path: '/visit' },
   ];
   const mapSrc = `https://www.google.com/maps?q=${CLINIC_GEO.lat},${CLINIC_GEO.lng}&z=17&hl=ko&output=embed`;
+  // 사진 카드 6장 = 화면 카드 = ItemList(사진 포함) — 네이버 캐러셀 재료 (2026-09-28)
+  const cards = pathCards([]);
   return (
     <>
       <HubHead crumbs={crumbs} eyebrow="오시는 길 · 진료시간 · 예약" title={doc.title} lead={`${CLINIC.address.full}. 3호선 화정역에서 ${fmtDistance(STATION_DISTANCE_M)}, ${CLINIC.parking.type} ${CLINIC.parking.fee}.`} />
@@ -86,10 +90,11 @@ export default function VisitPage() {
             <Link href="/faq">자주 묻는 질문 전체 보기</Link>
           </p>
         </section>
+        <CardRow title="진료 안내" cards={cards} />
         <CtaBlock />
         <MedicalNotice />
       </div>
-      <JsonLd nodes={[webPageNode(doc), breadcrumbNode('/visit', crumbs)]} />
+      <JsonLd nodes={[webPageNode(doc), breadcrumbNode('/visit', crumbs), ...cardListNode('오시는 길 · 진료 안내', cards)]} />
     </>
   );
 }

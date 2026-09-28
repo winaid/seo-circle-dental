@@ -8,7 +8,8 @@
  * ★ 정사각 썸네일은 scripts/gen-square.mjs 가 만들고 content/square.json 에 표로 남긴다.
  */
 import squares from '../content/square.json';
-import { AREA_TREATMENT_LIST, docByPath, docByPathStrict, isDocPublished } from './catalog';
+import ogTable from '../content/og.json';
+import { AREA_TREATMENT_LIST, docByPath, docByPathStrict, isDocPublished, relatedDocs, type Doc, type DocKind } from './catalog';
 import { TREATMENTS, treatmentBySlug } from './treatments';
 import type { Region } from './regions';
 
@@ -96,22 +97,27 @@ function treatmentCard(r: Region | null, slug: string): Card | null {
   };
 }
 
-/** 사진이 겹치지 않게 앞에서부터 n 장 */
+/** 사진·주소가 겹치지 않게 앞에서부터 n 장 */
 function uniqueByImage(cards: Array<Card | null>, n: number): Card[] {
   const seen = new Set<string>();
   const out: Card[] = [];
   for (const c of cards) {
-    if (!c || seen.has(c.image)) continue;
+    if (!c || seen.has(c.image) || seen.has(c.path)) continue;
     seen.add(c.image);
+    seen.add(c.path);
     out.push(c);
     if (out.length === n) break;
   }
   return out;
 }
 
-/** 지역 페이지 — '화정1동 임플란트' 식 6장 (그 지역에서 많이 찾는 진료) */
+/**
+ * 지역 페이지 — '화정1동 임플란트' 식 6장 (그 지역에서 많이 찾는 진료).
+ * ★ 2026-09-28 오후: 지역×진료 쪽을 검색 색인에서 뺐으므로(lib/catalog isSearchIndexed) 카드 주소는 늘 진료 안내다.
+ *   이름·사진은 그대로('화정1동 임플란트' · /img/sq) — 오전에 네이버가 카드로 받아 준 그 값이다. 주소만 색인되는 쪽으로.
+ */
 export function regionCards(r: Region): Card[] {
-  return uniqueByImage(AREA_TREATMENT_LIST.map((t) => treatmentCard(r, t.slug)), 6);
+  return uniqueByImage(AREA_TREATMENT_LIST.map((t) => { const c = treatmentCard(r, t.slug); return c && { ...c, path: `/treatment/${t.slug}` }; }), 6);
 }
 
 /** 지역×진료 페이지 — 그 지역 대표 한 장('화정1동 치과') + 같은 지역의 다른 진료 5장 */
@@ -137,4 +143,49 @@ export function regionHubCards(regions: Region[]): Card[] {
     if (!d?.image || !isDocPublished(d)) return null;
     return { name: r.keyword, path: d.path, image: squareOf(d.image.src), alt: d.image.alt, tag: r.kind === '역' ? '지하철역' : r.kind === '단지' ? '아파트 단지' : r.kind === '기관' ? '주변 기관' : r.kind === '동' ? '행정동' : r.kind };
   }), 6);
+}
+
+/* ────────────────────────────────────────────── 나머지 모든 문서 (2026-09-28 오후)
+ * 오전 실측: 우리 결과 147개 중 카드는 지역 페이지에만 붙었다. 증상·문답·용어·의료진·칼럼 등은 ItemList 자체가 없었고,
+ * 목록 허브(증상·질환·문답·칼럼·비용·여정·진료)는 ItemList 에 사진이 0장이었다(서치어드바이저: image 필수).
+ * → 어느 문서가 검색에 떠도 카드 재료(사진 있는 항목 6개, 전부 열리는 주소)를 갖게 한다.
+ * 사진: 정사각(content/square.json)이 있으면 그것, 없으면 og 용 1200×630 jpg(content/og.json).
+ *   og jpg 는 오전 분석에서 **옛 카드가 실제로 쓴 바로 그 파일**이라 네이버가 받아 주는 것이 확인된 형식이다(webp 는 안 믿는다).
+ */
+const OG = ogTable as Record<string, string>;
+export const cardImageOf = (src: string) => SQ[src] ?? OG[src] ?? src;
+
+const KIND_TAG: Partial<Record<DocKind, string>> = {
+  symptom: '증상', condition: '질환', qa: '진료실 문답', glossary: '치과 용어', blog: '칼럼', journey: '치료 여정',
+  cost: '비용', 'implant-topic': '임플란트', doctor: '의료진', treatment: '진료 안내', area: '지역 안내',
+};
+
+/** 문서 하나 → 카드. 사진이 없거나 발행 전이면 null. 진료 문서는 '화정 ○○' 이름으로. 이름은 ' — ' 앞까지(검색 결과 카드는 두 줄에서 잘린다). */
+function docCard(d: Doc | undefined): Card | null {
+  if (!d?.image || !isDocPublished(d)) return null;
+  if (d.kind === 'treatment') return treatmentCard(null, d.path.split('/')[2]);
+  return { name: d.title.split(' — ')[0].trim(), path: d.path, image: cardImageOf(d.image.src), alt: d.image.alt, tag: KIND_TAG[d.kind] ?? d.category };
+}
+
+/**
+ * 일반 문서 — 이 글과 이어진 진료('화정 신경치료' 식)를 먼저, 그다음 같은 주제 글, 모자라면 대표 진료로 6장.
+ * treatments 는 그 문서 데이터에 적힌 관련 진료(symptom.relatedTreatments 등)를 넘긴다.
+ */
+export function docCards(doc: Doc, treatments: readonly string[] = []): Card[] {
+  const self = (c: Card | null) => (c && c.path !== doc.path ? c : null);
+  return uniqueByImage([
+    ...treatments.map((s) => self(treatmentCard(null, s))),
+    ...relatedDocs(doc, 30).map((d) => self(docCard(d))),
+    ...CAROUSEL_SLUGS.map((s) => self(treatmentCard(null, s))),
+  ], 6);
+}
+
+/** 목록 허브 — 그 목록 앞쪽 글 가운데 사진이 서로 다른 6개 */
+export function hubCards(docs: Doc[]): Card[] {
+  return uniqueByImage(docs.map(docCard), 6);
+}
+
+/** 여러 경로 → 카드(발행·사진 있는 것만) — 의료진·소개처럼 손으로 고른 묶음용 */
+export function pathCards(paths: string[], fill: readonly string[] = CAROUSEL_SLUGS): Card[] {
+  return uniqueByImage([...paths.map((p) => docCard(docByPath(p))), ...fill.map((s) => treatmentCard(null, s))], 6);
 }
