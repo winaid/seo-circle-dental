@@ -1,8 +1,10 @@
 import type { Metadata, Viewport } from 'next';
 import type { ReactNode } from 'react';
 import './globals.css';
+import './theme-warm.css'; // 따뜻한 진료실 테마(2026-09-28) — 이 한 줄을 빼면 예전 모습
 import { SiteFooter, StickyCta } from '@/components/SiteFooter';
 import { JsonLd } from '@/components/ui';
+import { Motion } from '@/components/Motion';
 import { clinicNode, websiteNode, personNode } from '@/lib/schema';
 import { DOCTORS } from '@/lib/doctors';
 import { SITE_URL, SITE_NAME, HOME_TITLE, NAVER_SITE_VERIFICATION, GOOGLE_SITE_VERIFICATION, NAVER_ANALYTICS_ID } from '@/lib/site';
@@ -39,6 +41,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         {children}
         <SiteFooter />
         <StickyCta />
+        <Motion />
         {NAVER_ANALYTICS_ID && (
           <>
             <script async src="https://wcs.pstatic.net/wcslog.js" />

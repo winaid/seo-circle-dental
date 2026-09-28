@@ -5,6 +5,7 @@
  *   각 타일이 하위 페이지의 og:image 이자 홈 화면의 <img> 였다. 사진이 아니라 '글자 타일'이라
  *   검색 결과 92px 썸네일에서도 읽힌다. 우리도 같은 조건으로 만든다(리다이렉트·위장 없이).
  * ★ 글자는 lib/quicklinks.ts 와 한 몸 — 타일 글자 = 카드 이름 = 페이지 og:image. 바꾸면 다시 돌린다.
+ * ★ 2026-09-28 따뜻한 테마: 바탕 도자기빛·선 꿀빛(app/theme-warm.css 와 같은 색). 글자·파일 이름은 그대로(사이트링크 재료).
  * ★ 렌더는 크롬(playwright, 루트 node_modules) — sharp 의 SVG 글자는 Pretendard 를 못 쓴다.
  *   실행: node scripts/gen-tiles.mjs   (AI 호출 없음, 비용 0)
  */
@@ -34,12 +35,12 @@ const html = (t) => `<!doctype html><html lang="ko"><head><meta charset="utf-8">
 <link rel="stylesheet" href="${fontCss}">
 <style>
   html,body{margin:0;width:800px;height:800px;overflow:hidden}
-  body{font-family:'Pretendard Variable',Pretendard,-apple-system,'Malgun Gothic',sans-serif;background:#e8eef6;color:#0f2542;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative}
+  body{font-family:'Pretendard Variable',Pretendard,-apple-system,'Malgun Gothic',sans-serif;background:radial-gradient(120% 90% at 85% 0%,#fbe9cf 0%,#f6ede0 55%,#f3e8d9 100%);color:#13283f;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative}
   .big{font-size:${t.big && t.big.length > 4 ? 128 : 148}px;font-weight:800;letter-spacing:-0.04em;line-height:1.05;text-align:center;word-break:keep-all}
-  .small{margin-top:46px;font-size:40px;font-weight:600;color:#39424c;display:flex;flex-direction:column;align-items:flex-start;gap:14px}
-  .line{width:330px;height:4px;background:#0f2542;position:relative;border-radius:2px}
-  .line::after{content:'';position:absolute;right:-2px;top:-11px;width:22px;height:22px;border-right:4px solid #0f2542;border-bottom:4px solid #0f2542;transform:rotate(-45deg)}
-  .ring{position:absolute;right:-120px;bottom:-120px;width:420px;height:420px;border-radius:50%;border:34px solid rgba(31,63,102,.08)}
+  .small{margin-top:46px;font-size:40px;font-weight:600;color:#5e554b;display:flex;flex-direction:column;align-items:flex-start;gap:14px}
+  .line{width:330px;height:4px;background:#b27a30;position:relative;border-radius:2px}
+  .line::after{content:'';position:absolute;right:-2px;top:-11px;width:22px;height:22px;border-right:4px solid #b27a30;border-bottom:4px solid #b27a30;transform:rotate(-45deg)}
+  .ring{position:absolute;right:-120px;bottom:-120px;width:420px;height:420px;border-radius:50%;border:34px solid rgba(178,122,48,.12)}
 </style></head><body>
 <div class="ring"></div>
 <div class="big">${t.big}</div><div class="small"><span>${t.small}</span><span class="line"></span></div>

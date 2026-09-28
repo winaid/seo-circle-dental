@@ -96,7 +96,14 @@ export default function HomePage() {
               <h1 className="enter enter-2">
                 뽑기 전에 살릴 수 있는지
                 <br />
-                먼저 보는 <em>화정동 치과</em>
+                먼저 보는{' '}
+                <em>
+                  화정동 치과
+                  {/* 병원 이름 '동그라미' — 손으로 그린 동그라미가 검색어를 감싼다(장식, 글자 아님). app/theme-warm.css */}
+                  <svg className="circ" viewBox="0 0 300 100" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+                    <path pathLength={1} d="M252 16C198 2 78 4 30 30C-4 50 26 90 150 92C268 94 312 62 282 30C262 10 196 6 138 12" />
+                  </svg>
+                </em>
               </h1>
               <p className="hero-lead enter enter-3">
                 통합치의학과 전문의 세 명이 자연치아를 남길 수 있는지부터 확인합니다. 살릴 수 있는 치아는 신경치료로, 그렇지 않은 치아는 임플란트로 — 어느 쪽이 맞는지 검사 뒤에 함께 정합니다.

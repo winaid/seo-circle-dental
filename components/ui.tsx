@@ -259,6 +259,7 @@ export function ArticleShell({
   const reviewer = DOCTORS[0];
   return (
     <div className="wrap">
+      <div className="read-bar" aria-hidden="true" />
       <header className="art-head">
         <Crumbs items={crumbs} />
         {eyebrow && <span className="eyebrow">{eyebrow}</span>}
