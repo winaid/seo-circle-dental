@@ -20,6 +20,27 @@ export const CRAWL_PROBE: Record<string, string> = {
   '/glossary/dry-socket': ' 뜻',
   '/about/doctors/kim-injin': ' 소개',
   '/area/doraeul': ' 안내',
+  // 2묶음(2026-09-29 12시대) — 1묶음에서 '수집 요청 → 2~17분 뒤 다시 읽힘 → 5쪽 모두 카드'가 나와 재현 확인용.
+  // 대표로 뜨는데 카드 없던 16쪽 + 옛 판 카드(9/28 아침 이전)가 남은 3쪽
+  '/area/deogyang-office': ' 안내',
+  '/area/eunbit': ' 안내',
+  '/area/okbit': ' 안내',
+  '/area/haetbit': ' 안내',
+  '/area/haengsin-3': ' 안내',
+  '/area/heungdo': ' 안내',
+  '/treatment/scaling-prevention': ' 안내',
+  '/treatment/cavity': ' 안내',
+  '/treatment/implant/sinus-lift': ' 안내',
+  '/qa/whitening-3': ' 답변',
+  '/symptom/tooth-gap': ' 안내',
+  '/symptom/jaw-swelling': ' 안내',
+  '/symptom/crown-fell-out': ' 안내',
+  '/symptom/loose-denture': ' 안내',
+  '/glossary/periapical-abscess': ' 뜻',
+  '/about/doctors/byun-seokho': ' 소개',
+  '/area/haengsin-1': ' 안내',
+  '/area/haengsin-4': ' 안내',
+  '/area/daejeong-station': ' 안내',
 };
 
 /** 카드 순서를 한 칸 돌릴 지역(대조군) — 맨 끝 카드를 맨 앞으로 */
