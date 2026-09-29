@@ -5,6 +5,7 @@ import { DOCTORS, type Doctor } from '@/lib/doctors';
 import { isLivePath, type Doc } from '@/lib/catalog';
 import { fmtDate } from '@/lib/text';
 import { serialize } from '@/lib/schema';
+import { probeCrumbs } from '@/lib/crawlProbe';
 import { OpenNow } from './OpenNow';
 import { SplitTitle, TrustStrip, VisitBlock } from './Landing';
 
@@ -54,7 +55,7 @@ export type Crumb = { name: string; path: string };
 export function Crumbs({ items }: { items: Crumb[] }) {
   return (
     <ol className="crumbs" aria-label="현재 위치">
-      {items.map((c, i) => (
+      {probeCrumbs(items).map((c, i) => (
         <li key={c.path}>{i === items.length - 1 ? <span aria-current="page">{c.name}</span> : <Link href={c.path}>{c.name}</Link>}</li>
       ))}
     </ol>

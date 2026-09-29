@@ -12,6 +12,7 @@ import ogTable from '../content/og.json';
 import { AREA_TREATMENT_LIST, docByPath, docByPathStrict, isDocPublished, relatedDocs, type Doc, type DocKind } from './catalog';
 import { TREATMENTS, treatmentBySlug } from './treatments';
 import type { Region } from './regions';
+import { probeRotate } from './crawlProbe';
 
 export const CAROUSEL_SLUGS = ['save-natural-tooth', 'implant', 'endodontic', 'cavity', 'periodontal', 'wisdom-tooth'] as const;
 type CarouselSlug = (typeof CAROUSEL_SLUGS)[number];
@@ -117,7 +118,8 @@ function uniqueByImage(cards: Array<Card | null>, n: number): Card[] {
  *   이름·사진은 그대로('화정1동 임플란트' · /img/sq) — 오전에 네이버가 카드로 받아 준 그 값이다. 주소만 색인되는 쪽으로.
  */
 export function regionCards(r: Region): Card[] {
-  return uniqueByImage(AREA_TREATMENT_LIST.map((t) => { const c = treatmentCard(r, t.slug); return c && { ...c, path: `/treatment/${t.slug}` }; }), 6);
+  // probeRotate: 재수집 판별 시험의 대조군(도래울)만 카드 순서를 한 칸 돌린다 — lib/crawlProbe.ts (2026-09-29)
+  return probeRotate(r.slug, uniqueByImage(AREA_TREATMENT_LIST.map((t) => { const c = treatmentCard(r, t.slug); return c && { ...c, path: `/treatment/${t.slug}` }; }), 6));
 }
 
 /** 지역×진료 페이지 — 그 지역 대표 한 장('화정1동 치과') + 같은 지역의 다른 진료 5장 */

@@ -10,6 +10,7 @@ import { DOCTORS, type Doctor } from './doctors';
 import { IMG } from './assets';
 import { SITE_URL, MAIN_SITE_URL, abs, SITE_NAME, CLINIC_GEO, SITE_ALIASES } from './site';
 import type { Doc } from './catalog';
+import { probeCrumbs } from './crawlProbe';
 import type { Treatment } from './treatments';
 import type { Condition } from './conditions';
 
@@ -110,7 +111,7 @@ export function breadcrumbNode(path: string, items: Array<{ name: string; path: 
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     '@id': ID.breadcrumb(path),
-    itemListElement: items.map((it, i) => ({ '@type': 'ListItem', position: i + 1, name: it.name, item: abs(it.path) })),
+    itemListElement: probeCrumbs(items).map((it, i) => ({ '@type': 'ListItem', position: i + 1, name: it.name, item: abs(it.path) })),
   };
 }
 
