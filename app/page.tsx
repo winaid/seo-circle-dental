@@ -138,19 +138,40 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* ───── 바로가기 타일 5장 ─────
-            ★ 네이버 웹사이트 결과 아래 '사이트링크 이미지 띠'의 재료(레퍼런스 lawcanvas.kr 실측 2026-09-22).
-            ★★ 타일 그림 = 그 페이지 og:image(같은 URL) · 큰 글자 = 카드 이름 = 페이지 제목 앞부분. lib/quicklinks 한 곳에서 나온다 */}
-        <section className="sec sec--tight" aria-labelledby="h-quick">
+        {/* ───── 진료 카드 6장 = 홈의 첫 사진 링크 묶음 ─────
+            ★★★ 2026-10-01 실측(오너 캡처 gwanghwamundental.co.kr): 홈도 카드 줄을 받는다. 그 홈은 **첫 사진 링크 6개 =
+            ItemList 6개(주소·사진·순서 동일)**. 우리는 첫 묶음이 바로가기 5칸(소개·비용·예약…)이라 네이버가 그 5칸을
+            글자 바로가기로 냈다 → 진료 카드를 첫 묶음으로 올리고 바로가기 타일은 아래로. 카드 앞에 다른 내부 링크를 두지 말 것 */}
+        <section className="sec" aria-labelledby="h-treat">
           <div className="wrap">
-            <h2 id="h-quick" className="sr">바로가기</h2>
-            <div className="q-grid">
-              {QUICK_LINKS.map((q) => (
-                <Link key={q.slug} href={q.path} className="q-tile">
-                  <img src={q.tile} alt={q.caption} width={800} height={800} loading={q.slug === 'about' ? 'eager' : 'lazy'} decoding="async" />
-                  <h3>{q.caption}</h3>
+            <div className="sec-head">
+              <div>
+                <span className="eyebrow">진료 안내</span>
+                <h2 id="h-treat">화정치과 동그라미에서 하는 진료, 무엇을 먼저 보는지까지</h2>
+                <p>진료 이름만 나열하지 않았습니다. 각 진료에서 검사로 먼저 확인하는 것과 살릴 수 있는 조건·없는 조건을 나눠 적었습니다.</p>
+              </div>
+            </div>
+            <div className="grid grid--3">
+              {/* ★ 카드 6장은 lib/carousel.ts 한 곳에서 나온다 — 화면 <h3> 와 ItemList.name 이 글자까지 같아야 검색 결과 카드 줄이 붙는다
+                  ★★ 사진도 ItemList 와 **같은 URL(정사각 800×800)** 을 써야 한다. 2026-09-14 실측:
+                     레퍼런스(1dentalsolution)는 ItemList 의 640×640 6장이 화면 <img> 에도 그대로 있어(겹침 6/6)
+                     검색 결과 블록에 카드 줄이 붙었고, 우리는 화면이 3:2 webp·구조화 데이터가 정사각 jpg 라
+                     겹침 0/6 이라 안 붙었다(네이버가 고른 썸네일도 화면에 있는 사진이었다). */}
+              {carousel.map((c) => (
+                <Link key={c.slug} href={c.path} className="t-card">
+                  <img src={c.image} alt={`${c.name} — ${c.photoAlt}`} width={800} height={800} loading="lazy" decoding="async" />
+                  <div className="t-card-in">
+                    <span className="card-tag">{c.tag}</span>
+                    <h3>{c.name}</h3>
+                    <p>{c.caption}</p>
+                  </div>
                 </Link>
               ))}
+            </div>
+            <div style={{ marginTop: 24, textAlign: 'center' }}>
+              <Link href="/treatment" className="btn btn--ghost">
+                진료 전체 보기 {Icon.arrow}
+              </Link>
             </div>
           </div>
         </section>
@@ -169,33 +190,17 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* ───── 진료 ───── */}
-        <section className="sec" aria-labelledby="h-treat">
+        {/* ───── 바로가기 타일 5장 ─────
+            ★ 2026-09-22 '사이트링크 이미지 띠' 노리고 홈 첫 묶음에 뒀으나 네이버는 글자 바로가기로만 냈다(09-22~10-01 실측).
+            2026-10-01 진료 카드 아래로 내림. 타일 그림 = 그 페이지 og:image · lib/quicklinks 한 곳에서 나온다 */}
+        <section className="sec sec--tight" aria-labelledby="h-quick">
           <div className="wrap">
-            <div className="sec-head sec-head--row">
-              <div>
-                <span className="eyebrow">진료 안내</span>
-                <h2 id="h-treat">화정치과 동그라미에서 하는 진료, 무엇을 먼저 보는지까지</h2>
-                <p>진료 이름만 나열하지 않았습니다. 각 진료에서 검사로 먼저 확인하는 것과 살릴 수 있는 조건·없는 조건을 나눠 적었습니다.</p>
-              </div>
-              <Link href="/treatment" className="btn btn--ghost">
-                진료 전체 보기 {Icon.arrow}
-              </Link>
-            </div>
-            <div className="grid grid--3">
-              {/* ★ 카드 6장은 lib/carousel.ts 한 곳에서 나온다 — 화면 <h3> 와 ItemList.name 이 글자까지 같아야 검색 결과 카드 줄이 붙는다
-                  ★★ 사진도 ItemList 와 **같은 URL(정사각 800×800)** 을 써야 한다. 2026-09-14 실측:
-                     레퍼런스(1dentalsolution)는 ItemList 의 640×640 6장이 화면 <img> 에도 그대로 있어(겹침 6/6)
-                     검색 결과 블록에 카드 줄이 붙었고, 우리는 화면이 3:2 webp·구조화 데이터가 정사각 jpg 라
-                     겹침 0/6 이라 안 붙었다(네이버가 고른 썸네일도 화면에 있는 사진이었다). */}
-              {carousel.map((c) => (
-                <Link key={c.slug} href={c.path} className="t-card">
-                  <img src={c.image} alt={`${c.name} — ${c.photoAlt}`} width={800} height={800} loading="lazy" decoding="async" />
-                  <div className="t-card-in">
-                    <span className="card-tag">{c.tag}</span>
-                    <h3>{c.name}</h3>
-                    <p>{c.caption}</p>
-                  </div>
+            <h2 id="h-quick" className="sr">바로가기</h2>
+            <div className="q-grid">
+              {QUICK_LINKS.map((q) => (
+                <Link key={q.slug} href={q.path} className="q-tile">
+                  <img src={q.tile} alt={q.caption} width={800} height={800} loading="lazy" decoding="async" />
+                  <h3>{q.caption}</h3>
                 </Link>
               ))}
             </div>
