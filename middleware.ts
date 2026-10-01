@@ -22,7 +22,8 @@ const BOTS: [RegExp, string][] = [
   [/perplexity/i, 'perplexity'],
 ];
 // ★ winaid-verify = 우리 점검 도구가 쓰는 이름 — 우리 소음
-const SKIP = /ahrefs|semrush|mj12|dotbot|blexbot|dataforseo|serpstat|zoominfo|barkrowler|seokicks|megaindex|winaid-verify/i;
+// ★ NAVER(inapp = 네이버 앱 안 브라우저로 들어온 사람(10-01 첫 2시간 115건 중 104건) — 봇 아님
+const SKIP = /ahrefs|semrush|mj12|dotbot|blexbot|dataforseo|serpstat|zoominfo|barkrowler|seokicks|megaindex|winaid-verify|NAVER\(inapp/i;
 
 function whoIs(ua: string): string | null {
   if (!ua || SKIP.test(ua)) return null;
