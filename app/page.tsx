@@ -5,7 +5,6 @@ import { Btn, Chips, DocGrid, DoctorCard, Faq, HoursTable, Icon, JsonLd, LinkLis
 import { OpenNow } from '@/components/OpenNow';
 import { CLINIC, STRENGTHS, UNVERIFIED } from '@/lib/clinic';
 import { IMG } from '@/lib/assets';
-import { QUICK_LINKS } from '@/lib/quicklinks';
 import { treatmentBySlug } from '@/lib/treatments';
 import { SYMPTOMS, SYMPTOM_GROUPS } from '@/lib/symptoms';
 import { DOCTORS } from '@/lib/doctors';
@@ -190,23 +189,8 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* ───── 바로가기 타일 5장 ─────
-            ★ 2026-09-22 '사이트링크 이미지 띠' 노리고 홈 첫 묶음에 뒀으나 네이버는 글자 바로가기로만 냈다(09-22~10-01 실측).
-            2026-10-01 진료 카드 아래로 내림. 타일 그림 = 그 페이지 og:image · lib/quicklinks 한 곳에서 나온다 */}
-        <section className="sec sec--tight" aria-labelledby="h-quick">
-          <div className="wrap">
-            <h2 id="h-quick" className="sr">바로가기</h2>
-            <div className="q-grid">
-              {QUICK_LINKS.map((q) => (
-                <Link key={q.slug} href={q.path} className="q-tile">
-                  <img src={q.tile} alt={q.caption} width={800} height={800} loading="lazy" decoding="async" />
-                  <h3>{q.caption}</h3>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </section>
-
+        {/* ★ 바로가기 타일 5장(lib/quicklinks)은 2026-10-01 홈에서 뺐다 — 검색 결과의 글자 바로가기가 이 5칸과 같았다.
+            레퍼런스(gwanghwamundental.co.kr) 홈은 메뉴성 링크 없이 카드 6장뿐이고 카드 줄을 받는다. 되살리지 말 것(결과 보고 판단) */}
         {/* ───── 왜 ───── */}
         <section className="sec sec--alt" aria-labelledby="h-why">
           <div className="wrap why">
