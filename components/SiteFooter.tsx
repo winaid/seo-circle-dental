@@ -6,6 +6,7 @@ import { DOCTORS } from '@/lib/doctors';
 import { REGIONS } from '@/lib/regions';
 import { MAIN_SITE_URL } from '@/lib/site';
 import { Icon } from './ui';
+import { NotOnHome } from './NotOnHome';
 
 export function SiteFooter() {
   return (
@@ -21,6 +22,21 @@ export function SiteFooter() {
               {UNVERIFIED.hours.closed}
             </p>
           </div>
+          {/* ★ 홈에서는 바닥 링크 목록을 빼고 바깥 링크만 둔다 — 홈 내부 링크 8개(components/NotOnHome.tsx) */}
+          <NotOnHome
+            fallback={
+              <div>
+                <h4>병원</h4>
+                <ul>
+                  <li>{CLINIC.address.full}</li>
+                  <li>전화 {CLINIC.phone}</li>
+                  <li><a href={MAIN_SITE_URL} target="_blank" rel="noopener">본원 홈페이지</a></li>
+                  <li><a href={CLINIC.social.naverBlog} target="_blank" rel="noopener">네이버 블로그</a></li>
+                  <li><a href={CLINIC.social.instagram} target="_blank" rel="noopener">인스타그램</a></li>
+                </ul>
+              </div>
+            }
+          >
           <div>
             <h4>진료</h4>
             <ul>
@@ -65,7 +81,9 @@ export function SiteFooter() {
               <li><a href={CLINIC.social.instagram} target="_blank" rel="noopener">인스타그램</a></li>
             </ul>
           </div>
+          </NotOnHome>
         </div>
+        <NotOnHome>
         <nav className="ft-regions" aria-label="지역별 안내">
           {REGIONS.map((r) => (
             <Link key={r.slug} href={`/area/${r.slug}`}>
@@ -73,6 +91,7 @@ export function SiteFooter() {
             </Link>
           ))}
         </nav>
+        </NotOnHome>
         <div className="ft-legal">
           {/* 사람에게도 관계를 분명히 (2026-09-11 오너): 구조화 데이터는 본원=co.kr 로 되어 있지만 화면에는 없었다. */}
           이 사이트는 {CLINIC.name}이 운영하는 진료 안내 사이트입니다. 공식 홈페이지는{' '}
@@ -83,7 +102,10 @@ export function SiteFooter() {
           {CLINIC.address.full} · 전화 {CLINIC.phone} · 이메일 {CLINIC.email}
           <br />
           본 사이트의 의료 정보는 일반적인 안내이며 개별 진단·치료를 대신하지 않습니다. 모든 의료 행위에는 부작용이 따를 수 있으며, 정확한 진단은 내원 후 검사를 통해 이루어집니다.
-          <br />© {new Date().getFullYear()} {CLINIC.name}. <Link href="/privacy">개인정보처리방침</Link> · <a href="/feed">RSS</a>
+          <br />© {new Date().getFullYear()} {CLINIC.name}. <Link href="/privacy">개인정보처리방침</Link>
+          <NotOnHome>
+            {' '}· <a href="/feed">RSS</a>
+          </NotOnHome>
         </div>
       </div>
     </footer>

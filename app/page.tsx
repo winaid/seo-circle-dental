@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import { SiteHeader } from '@/components/SiteHeader';
-import { Btn, Chips, DocGrid, DoctorCard, Faq, HoursTable, Icon, JsonLd, LinkList } from '@/components/ui';
+import { Btn, DoctorCard, Faq, HoursTable, Icon, JsonLd } from '@/components/ui';
 import { OpenNow } from '@/components/OpenNow';
 import { CLINIC, STRENGTHS, UNVERIFIED } from '@/lib/clinic';
 import { IMG } from '@/lib/assets';
@@ -9,8 +9,7 @@ import { treatmentBySlug } from '@/lib/treatments';
 import { SYMPTOMS, SYMPTOM_GROUPS } from '@/lib/symptoms';
 import { DOCTORS } from '@/lib/doctors';
 import { CLINIC_QA } from '@/lib/faq';
-import { REGIONS } from '@/lib/regions';
-import { docByPathStrict, latestDocs, docsOfKind, isLivePath } from '@/lib/catalog';
+import { docByPathStrict, docsOfKind } from '@/lib/catalog';
 import { metaFor } from '@/lib/meta';
 import { webPageNode, breadcrumbNode, itemListNode, imageGalleryNode } from '@/lib/schema';
 import { homeCarousel } from '@/lib/carousel';
@@ -18,6 +17,13 @@ import { STATION_DISTANCE_M, fmtDistance } from '@/lib/site';
 import { sentences } from '@/lib/text';
 
 export const revalidate = 3600;
+
+/*
+ * ★★★ 홈 카드 줄 조건(2026-10-02 오너 GO) — 네이버 검색 결과에서 홈 주소에 카드 줄이 붙은 홈 6곳은 전부
+ *   '홈 안 내부 링크 7~8개, 그중 6개가 사진 링크'였고 카드 6장 = HTML 첫 사진 링크 6개였다(49곳 실측, 안 붙은 43곳은 링크가 많거나 사진 목록이 없음).
+ *   그래서 이 홈의 내부 링크 = 로고 + 진료 카드 6장 + 개인정보처리방침 = 8개. 메뉴·바닥 목록은 components/NotOnHome 으로 홈에서만 뺀다.
+ *   ★ 새 내부 링크(Link·Btn·Chips·LinkList·DocGrid·DoctorCard 링크)를 홈에 더하지 말 것 — 카드 줄 조건이 깨진다. 전화·네이버 예약 같은 바깥 링크는 괜찮다.
+ */
 
 const doc = docByPathStrict('/');
 export const metadata: Metadata = metaFor(doc);
@@ -28,55 +34,29 @@ const FEATURES = [
     slug: 'implant',
     h2: '화정 임플란트, 마지막 선택이 되도록',
     img: { src: '/img/clinic/implant-hero.webp', alt: '상담실에서 원장이 모니터와 치아 모형을 보며 임플란트 계획을 설명하는 모습' },
-    links: [
-      { label: '임플란트 진료 안내', href: '/treatment/implant' },
-      { label: '만 65세 이상 임플란트 건강보험', href: '/cost/implant-senior' },
-      { label: '뼈이식이 필요하다고 들었다면', href: '/treatment/implant/bone-graft' },
-      { label: '임플란트는 몇 번 가고 얼마나 걸리나', href: '/journey/implant' },
-    ],
   },
   {
     slug: 'save-natural-tooth',
     h2: '화정동 신경치료·자연치아 살리기',
     img: { src: '/img/clinic/endo-surgery.webp', alt: '진료실에서 원장이 확대경을 쓰고 신경치료를 진행하는 모습' },
-    links: [
-      { label: '자연치아 살리기', href: '/treatment/save-natural-tooth' },
-      { label: '신경치료(근관치료)', href: '/treatment/endodontic' },
-      { label: '다른 치과에서 뽑자고 했는데 살릴 수 있나요', href: '/qa/save-natural-tooth-1' },
-      { label: '치아를 뽑을지 살릴지 판단 기준', href: '/blog/extract-or-save' },
-    ],
   },
   {
     slug: 'cavity',
     h2: '화정동 충치치료·잇몸치료·스케일링',
     img: { src: '/img/clinic/perio-explain.webp', alt: '상담실에서 잇몸 모형을 놓고 잇몸치료 과정을 설명하는 모습' },
-    links: [
-      { label: '충치치료 — 레진·인레이·크라운', href: '/treatment/cavity' },
-      { label: '잇몸치료(치주치료)', href: '/treatment/periodontal' },
-      { label: '스케일링·예방치료', href: '/treatment/scaling-prevention' },
-      { label: '스케일링은 보험이 되나요', href: '/cost/scaling' },
-    ],
   },
   {
     slug: 'wisdom-tooth',
     h2: '화정동 사랑니 발치',
     img: { src: '/img/clinic/wisdom-room.webp', alt: '사랑니 발치를 준비하는 진료실' },
-    links: [
-      { label: '사랑니 발치 안내', href: '/treatment/wisdom-tooth' },
-      { label: '사랑니 쪽 잇몸이 붓고 아파요', href: '/symptom/wisdom-tooth-pain' },
-      { label: '사랑니 발치 비용은 어떻게 정해지나요', href: '/cost/wisdom-cost' },
-      { label: '사랑니, 언제 뽑는 것이 좋을까', href: '/blog/wisdom-tooth-timing' },
-    ],
   },
 ];
 
 export default function HomePage() {
   const carousel = homeCarousel();
-  const latest = latestDocs(8);
   const popularSymptoms = ['toothache-night', 'cold-sensitivity', 'bleeding-gums', 'missing-tooth', 'wisdom-tooth-pain', 'cracked-tooth', 'loose-tooth', 'crown-fell-out']
     .map((s) => SYMPTOMS.find((x) => x.slug === s)!)
     .filter(Boolean);
-  const blogDocs = docsOfKind('blog').slice(0, 3);
 
   return (
     <>
@@ -167,11 +147,6 @@ export default function HomePage() {
                 </Link>
               ))}
             </div>
-            <div style={{ marginTop: 24, textAlign: 'center' }}>
-              <Link href="/treatment" className="btn btn--ghost">
-                진료 전체 보기 {Icon.arrow}
-              </Link>
-            </div>
           </div>
         </section>
 
@@ -182,10 +157,6 @@ export default function HomePage() {
             <span className="muted">
               {UNVERIFIED.hours.display.map((d) => `${d.label} ${d.time}`).join(' · ')} · {UNVERIFIED.hours.closed}
             </span>
-            <span className="spacer" />
-            <Link href="/visit" className="btn btn--ghost btn--sm">
-              {Icon.pin} 오시는 길
-            </Link>
           </div>
         </div>
 
@@ -200,7 +171,7 @@ export default function HomePage() {
                 화정치과 동그라미치과의원이 진료를 대하는 다섯 가지 기준
               </h2>
               <p className="muted" style={{ marginBottom: 28 }}>
-                병원이 스스로 밝히고 있는 내용 그대로입니다. 근거가 되는 자격·인증은 <Link href="/about" style={{ color: 'var(--brand)', fontWeight: 600 }}>병원 소개</Link>에서 실물 사진으로 확인하실 수 있습니다.
+                병원이 스스로 밝히고 있는 내용 그대로입니다. 근거가 되는 자격·인증은 병원 소개 페이지에서 실물 사진으로 확인하실 수 있습니다.
               </p>
               <div className="why-list">
                 {STRENGTHS.map((s) => (
@@ -237,13 +208,6 @@ export default function HomePage() {
                     <h2>{f.h2}</h2>
                     <p>{t.summary}</p>
                     <p>{intro.slice(0, 3).join(' ')}</p>
-                    <div className="feature-links">
-                      {f.links.filter((l) => isLivePath(l.href)).map((l) => (
-                        <Link key={l.href} href={l.href}>
-                          {l.label}
-                        </Link>
-                      ))}
-                    </div>
                   </div>
                 </article>
               );
@@ -261,12 +225,20 @@ export default function HomePage() {
             </div>
             <div className="two">
               <div>
-                <Chips items={SYMPTOM_GROUPS.map((g) => ({ label: g.title, href: `/symptom#${g.slug}` }))} />
+                <p className="muted">{SYMPTOM_GROUPS.map((g) => g.title).join(' · ')}</p>
                 <p className="muted small" style={{ marginTop: 16 }}>
                   증상 {SYMPTOMS.length}가지 · 질환 15가지 · 진료실 문답 {docsOfKind('qa').length}편
                 </p>
               </div>
-              <LinkList items={popularSymptoms.map((s) => ({ label: s.title, href: `/symptom/${s.slug}`, meta: s.short }))} />
+              {/* 홈에서는 링크 없이 글로만 — 홈 내부 링크 8개 */}
+              <dl className="home-sym">
+                {popularSymptoms.map((s) => (
+                  <div key={s.slug}>
+                    <dt>{s.title}</dt>
+                    <dd>{s.short}</dd>
+                  </div>
+                ))}
+              </dl>
             </div>
           </div>
         </section>
@@ -280,16 +252,13 @@ export default function HomePage() {
                 <h2 id="h-team">세 명 모두 보건복지부인증 통합치의학과 전문의입니다</h2>
                 <p>학력·경력은 병원이 공개한 원문 그대로이며 요약하거나 고쳐 쓰지 않았습니다. 진단이 애매한 경우 원장들이 서로 의견을 나눕니다.</p>
               </div>
-              <Link href="/about" className="btn btn--ghost">
-                병원 소개 {Icon.arrow}
-              </Link>
             </div>
             <div className="team-photo">
               <img src={IMG.doctorsTeam} alt="동그라미치과의원 의료진 — 김인진 원장, 변석호 대표원장, 김동주 원장" loading="lazy" decoding="async" width={1200} height={800} />
             </div>
             <div className="team-cards">
               {DOCTORS.map((d) => (
-                <DoctorCard key={d.slug} d={d} />
+                <DoctorCard key={d.slug} d={d} link={false} />
               ))}
             </div>
           </div>
@@ -315,21 +284,12 @@ export default function HomePage() {
                   <Btn href={`https://map.naver.com/p/search/${encodeURIComponent('동그라미치과의원 화정동')}`} kind="primary" size="sm">
                     {Icon.pin} 네이버 지도
                   </Btn>
-                  <Btn href="/visit" kind="ghost" size="sm">
-                    자세한 안내
-                  </Btn>
                 </div>
               </div>
               <div className="visit-box">
                 <h3>진료시간</h3>
                 <HoursTable />
                 <p className="small muted">점심시간 {UNVERIFIED.hours.lunch.start}–{UNVERIFIED.hours.lunch.end} (토요일 제외)</p>
-              </div>
-            </div>
-            <div style={{ marginTop: 36 }}>
-              <span className="eyebrow">이 동네에서 오신다면</span>
-              <div style={{ marginTop: 14 }}>
-                <Chips items={REGIONS.map((r) => ({ label: r.keyword, href: `/area/${r.slug}` }))} />
               </div>
             </div>
           </div>
@@ -342,36 +302,11 @@ export default function HomePage() {
               <span className="eyebrow">자주 묻는 질문</span>
               <h2 id="h-faq">내원 전에 자주 물으시는 것</h2>
               <p>진료시간·예약·주차·비용처럼 오시기 전에 궁금한 것부터 답합니다. 진료 내용에 대한 질문은 진료실 문답에 따로 모았습니다.</p>
-              <div>
-                <Link href="/faq" className="btn btn--ghost btn--sm">
-                  전체 보기 {Icon.arrow}
-                </Link>
-              </div>
             </div>
-            <Faq items={CLINIC_QA.slice(0, 6).map((q, i) => ({ q: q.q, a: q.a, href: `/qa/visit-${i + 1}` }))} />
+            <Faq items={CLINIC_QA.slice(0, 6).map((q) => ({ q: q.q, a: q.a }))} />
           </div>
         </section>
 
-        {/* ───── 새 글 ───── */}
-        <section className="sec sec--alt" aria-labelledby="h-new">
-          <div className="wrap">
-            <div className="sec-head sec-head--row">
-              <div>
-                <span className="eyebrow">새로 올라온 글</span>
-                <h2 id="h-new">진료실에서 실제로 받는 질문에 답합니다</h2>
-              </div>
-              <div style={{ display: 'flex', gap: 8 }}>
-                <Link href="/qa" className="btn btn--ghost btn--sm">
-                  문답 전체
-                </Link>
-                <Link href="/blog" className="btn btn--ghost btn--sm">
-                  칼럼
-                </Link>
-              </div>
-            </div>
-            <DocGrid docs={[...blogDocs, ...latest.filter((d) => d.kind !== 'blog')].slice(0, 8)} cols={4} />
-          </div>
-        </section>
       </main>
       <JsonLd
         nodes={[

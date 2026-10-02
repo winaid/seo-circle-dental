@@ -191,9 +191,10 @@ export function HoursTable() {
 }
 
 /* ───── 의료진 카드 ───── */
-export function DoctorCard({ d, sub }: { d: Doctor; sub?: string }) {
-  return (
-    <Link href={`/about/doctors/${d.slug}`} className="doc-card">
+/** link=false 는 홈 전용 — 홈의 사진 링크는 진료 카드 6장뿐이어야 한다(app/page.tsx 홈 카드 줄 주석). */
+export function DoctorCard({ d, sub, link = true }: { d: Doctor; sub?: string; link?: boolean }) {
+  const inner = (
+    <>
       <img src={d.photo} alt={`${d.name} ${d.role}`} loading="lazy" width={76} height={76} />
       <span>
         <b>
@@ -202,7 +203,14 @@ export function DoctorCard({ d, sub }: { d: Doctor; sub?: string }) {
         <small>{sub ?? d.license}</small>
         <small>{d.keyCareer[0]}</small>
       </span>
+    </>
+  );
+  return link ? (
+    <Link href={`/about/doctors/${d.slug}`} className="doc-card">
+      {inner}
     </Link>
+  ) : (
+    <div className="doc-card">{inner}</div>
   );
 }
 

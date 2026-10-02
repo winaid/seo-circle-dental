@@ -440,3 +440,9 @@ button { font: inherit; }
   .t-card--sm .t-card-in { padding: 12px; }
   .t-card--sm .t-card-in h3 { font-size: 15px; }
 }
+
+/* 홈 증상 목록 — 홈은 내부 링크 8개로 묶여 있어(app/page.tsx 홈 카드 줄 조건) 링크 없는 글 목록으로 보인다 */
+.home-sym { margin: 0; border-top: 1px solid var(--line); }
+.home-sym > div { display: grid; gap: 2px; padding: 14px 2px; border-bottom: 1px solid var(--line); }
+.home-sym dt { font-weight: 600; color: var(--ink); }
+.home-sym dd { margin: 0; color: var(--mute); font-size: 15px; line-height: 1.7; }
