@@ -14,7 +14,7 @@ import { docByPathStrict, docsOfKind } from '@/lib/catalog';
 import { metaFor } from '@/lib/meta';
 import { webPageNode, breadcrumbNode, itemListNode, imageGalleryNode } from '@/lib/schema';
 import { homeCarousel } from '@/lib/carousel';
-import { STATION_DISTANCE_M, fmtDistance } from '@/lib/site';
+import { SITE_URL, STATION_DISTANCE_M, fmtDistance } from '@/lib/site';
 import { sentences } from '@/lib/text';
 
 export const revalidate = 3600;
@@ -61,6 +61,9 @@ export default function HomePage() {
 
   return (
     <>
+      {/* ★ 홈 정규 주소는 끝에 '/' — 네이버에서 홈에 카드가 붙은 홈 6곳 모두 이 꼴(2026-10-02). Next 메타데이터가 '/' 를 떼므로 직접 낸다 */}
+      <link rel="canonical" href={`${SITE_URL}/`} />
+      <meta property="og:url" content={`${SITE_URL}/`} />
       <SiteHeader overlay nav={false} />
       <main id="main">
         {/* ───── 히어로 ───── */}

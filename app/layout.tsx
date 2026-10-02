@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   title: { default: HOME_TITLE, template: `%s | ${SITE_NAME}` },
   description: CLINIC.description,
   applicationName: SITE_NAME,
-  alternates: { canonical: SITE_URL, types: { 'application/rss+xml': `${SITE_URL}/feed` } },
+  alternates: { canonical: `${SITE_URL}/`, types: { 'application/rss+xml': `${SITE_URL}/feed` } },
   openGraph: { type: 'website', siteName: SITE_NAME, locale: 'ko_KR' },
   robots: { index: true, follow: true, 'max-image-preview': 'large' },
   verification: {

@@ -71,7 +71,7 @@ export function clinicNode() {
     medicalSpecialty: 'Dentistry',
     isAcceptingNewPatients: true,
     currenciesAccepted: 'KRW',
-    sameAs: [MAIN_SITE_URL, SITE_URL, CLINIC.social.instagram, CLINIC.social.naverBlog, CLINIC.booking.naver].filter(Boolean),
+    sameAs: [MAIN_SITE_URL, `${SITE_URL}/`, CLINIC.social.instagram, CLINIC.social.naverBlog, CLINIC.booking.naver].filter(Boolean),
     employee: DOCTORS.map((d) => ({ '@id': ID.person(d.slug) })),
   };
 }
@@ -81,7 +81,7 @@ export function websiteNode() {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     '@id': ID.website,
-    url: SITE_URL,
+    url: `${SITE_URL}/`,
     name: `${SITE_NAME} — 화정 치과 · 화정역 치과`,
     alternateName: [...SITE_ALIASES],
     inLanguage: 'ko-KR',

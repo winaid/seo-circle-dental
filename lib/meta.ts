@@ -19,15 +19,17 @@ export const DEFAULT_OG = { src: IMG.doctorsTeam, alt: '동그라미치과의원
 export function metaFor(doc: Doc, extra: Partial<Metadata> = {}): Metadata {
   const img = doc.image ?? DEFAULT_OG;
   const og = ogImageOf(img.src);
+  // ★★ 홈의 canonical · og:url 은 app/page.tsx 가 직접 낸다('…/' 꼴, lib/site.ts abs 주석). Next 메타데이터는 루트 주소의 '/' 를 떼어 버린다.
+  const home = doc.path === '/';
   return {
     metadataBase: new URL(SITE_URL),
     title: { absolute: doc.seoTitle },
     description: doc.description,
     keywords: doc.keywords,
-    alternates: { canonical: abs(doc.path), types: { 'application/rss+xml': `${SITE_URL}/feed` } },
+    alternates: home ? { types: { 'application/rss+xml': `${SITE_URL}/feed` } } : { canonical: abs(doc.path), types: { 'application/rss+xml': `${SITE_URL}/feed` } },
     openGraph: {
       type: doc.kind === 'home' || doc.kind === 'page' || doc.kind === 'area' ? 'website' : 'article',
-      url: abs(doc.path),
+      ...(home ? {} : { url: abs(doc.path) }),
       title: doc.seoTitle,
       description: doc.description,
       siteName: SITE_NAME,

@@ -65,7 +65,9 @@ export const NAVER_SITE_VERIFICATION = process.env.NAVER_SITE_VERIFICATION ?? 'd
 export const GOOGLE_SITE_VERIFICATION = process.env.GOOGLE_SITE_VERIFICATION ?? '';
 export const NAVER_ANALYTICS_ID = process.env.NAVER_ANALYTICS_ID ?? '';
 
-export const abs = (path: string) => (path === '/' ? SITE_URL : `${SITE_URL}${path}`);
+// ★ 홈은 끝에 '/' 를 붙인다(https://circle-dental.shop/) — 2026-10-02: 네이버에서 홈에 카드 줄이 붙은 홈 6곳은 모두 canonical 이 '…/' 꼴,
+//   우리 두 홈(shop·store)만 '/' 가 없었다. 네이버가 읽는 주소(…/)와 선언한 주소(…)가 달라 홈이 사본처럼 보였을 수 있다(하위 쪽은 원래 같음).
+export const abs = (path: string) => `${SITE_URL}${path}`;
 
 /** 가장 가까운 지하철역 — 좌표는 OSM Nominatim 실측(2026-09-08). */
 export const STATION = {
