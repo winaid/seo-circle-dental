@@ -8,6 +8,7 @@ import { IMG } from '@/lib/assets';
 import { treatmentBySlug } from '@/lib/treatments';
 import { SYMPTOMS, SYMPTOM_GROUPS } from '@/lib/symptoms';
 import { DOCTORS } from '@/lib/doctors';
+import { REGIONS } from '@/lib/regions';
 import { CLINIC_QA } from '@/lib/faq';
 import { docByPathStrict, docsOfKind } from '@/lib/catalog';
 import { metaFor } from '@/lib/meta';
@@ -290,6 +291,15 @@ export default function HomePage() {
                 <h3>진료시간</h3>
                 <HoursTable />
                 <p className="small muted">점심시간 {UNVERIFIED.hours.lunch.start}–{UNVERIFIED.hours.lunch.end} (토요일 제외)</p>
+              </div>
+            </div>
+            {/* ★ 10-02 시험: 링크를 뺄 때 같이 빠진 지역 이름을 '링크 없는 글자'로 되살린다 — 순위가 링크 때문인지 글 때문인지 가르기 */}
+            <div style={{ marginTop: 36 }}>
+              <span className="eyebrow">이 동네에서 오신다면</span>
+              <div className="chips" style={{ marginTop: 14 }}>
+                {REGIONS.map((r) => (
+                  <span key={r.slug}>{r.keyword}</span>
+                ))}
               </div>
             </div>
           </div>

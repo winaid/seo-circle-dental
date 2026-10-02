@@ -25,6 +25,15 @@ export function SiteFooter() {
           {/* ★ 홈에서는 바닥 링크 목록을 빼고 바깥 링크만 둔다 — 홈 내부 링크 8개(components/NotOnHome.tsx) */}
           <NotOnHome
             fallback={
+              <>
+              <div>
+                <h4>진료</h4>
+                <ul>
+                  {TREATMENTS.map((t) => (
+                    <li key={t.slug}>{t.name}</li>
+                  ))}
+                </ul>
+              </div>
               <div>
                 <h4>병원</h4>
                 <ul>
@@ -35,6 +44,7 @@ export function SiteFooter() {
                   <li><a href={CLINIC.social.instagram} target="_blank" rel="noopener">인스타그램</a></li>
                 </ul>
               </div>
+              </>
             }
           >
           <div>
@@ -83,7 +93,15 @@ export function SiteFooter() {
           </div>
           </NotOnHome>
         </div>
-        <NotOnHome>
+        <NotOnHome
+          fallback={
+            <div className="ft-regions">
+              {REGIONS.map((r) => (
+                <span key={r.slug}>{r.keyword}</span>
+              ))}
+            </div>
+          }
+        >
         <nav className="ft-regions" aria-label="지역별 안내">
           {REGIONS.map((r) => (
             <Link key={r.slug} href={`/area/${r.slug}`}>
