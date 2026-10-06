@@ -14,14 +14,16 @@ const { chromium } = require('playwright');
 const sharp = require('sharp');
 const ROOT = process.cwd();
 
-// lib/carousel.ts CAROUSEL_SLUGS 순서 · LABEL 문장(쉼표 앞 = 큰 제목, 뒤 = 아랫줄)
+// lib/carousel.ts CAROUSEL_SLUGS 순서 · LABEL 문장(쉼표 앞 = 큰 제목, 뒤 = 아랫줄) — 글자까지 같아야 한다.
+// ★ 10-06 '화정 치과/화정치과' 넣음(카드 붙은 홈 17곳은 카드 이름에 '치과' 72%, 우리 홈 0%). 그림 파일 접두 PREFIX 도 올렸다.
+const PREFIX = '2-';
 const CARDS = [
-  { slug: 'save-natural-tooth', title: '화정 자연치아 살리기, 뽑기 전에 먼저 봅니다', bg: '/img/clinic/save-surgery.webp', pos: '50% 45%' },
-  { slug: 'implant', title: '화정 임플란트, 마지막 선택이 되도록', bg: '/img/clinic/implant-simulation.webp', pos: '50% 45%' },
-  { slug: 'endodontic', title: '화정 신경치료, 치아 속 염증을 치료합니다', bg: '/img/clinic/endo-surgery.webp', pos: '45% 50%' },
-  { slug: 'cavity', title: '화정 충치치료, 깊이에 따라 다른 방법', bg: '/img/clinic/cavity-field.webp', pos: '50% 50%' },
-  { slug: 'periodontal', title: '화정 잇몸치료, 피가 나면 먼저 확인', bg: '/img/clinic/perio-model.webp', pos: '50% 50%' },
-  { slug: 'wisdom-tooth', title: '화정 사랑니 발치, 뽑기 전에 위치부터', bg: '/img/clinic/wisdom-surgery.webp', pos: '55% 45%' },
+  { slug: 'save-natural-tooth', title: '화정치과 자연치아 살리기, 뽑기 전에 먼저 봅니다', bg: '/img/clinic/save-surgery.webp', pos: '50% 45%' },
+  { slug: 'implant', title: '화정 치과 임플란트, 마지막 선택이 되도록', bg: '/img/clinic/implant-simulation.webp', pos: '50% 45%' },
+  { slug: 'endodontic', title: '화정치과 신경치료, 치아 속 염증을 치료합니다', bg: '/img/clinic/endo-surgery.webp', pos: '45% 50%' },
+  { slug: 'cavity', title: '화정 치과 충치치료, 깊이에 따라 다른 방법', bg: '/img/clinic/cavity-field.webp', pos: '50% 50%' },
+  { slug: 'periodontal', title: '화정치과 잇몸치료, 피가 나면 먼저 확인', bg: '/img/clinic/perio-model.webp', pos: '50% 50%' },
+  { slug: 'wisdom-tooth', title: '화정 치과 사랑니 발치, 뽑기 전에 위치부터', bg: '/img/clinic/wisdom-surgery.webp', pos: '55% 45%' },
 ];
 const html = (bg, pos, l1, l2) => `<!doctype html><html><head><meta charset="utf-8">
 <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet">
@@ -32,7 +34,7 @@ const html = (bg, pos, l1, l2) => `<!doctype html><html><head><meta charset="utf
 .ring{position:absolute;right:-150px;top:-150px;width:460px;height:460px;border-radius:50%;border:2px solid rgba(255,250,242,.45)}
 .no{position:absolute;left:60px;top:56px;font-size:28px;font-weight:700;letter-spacing:.12em;color:rgba(255,250,242,.92)}
 .txt{position:absolute;left:60px;right:60px;bottom:62px}
-.t{font-weight:800;font-size:84px;line-height:1.14;letter-spacing:-.03em}
+.t{font-weight:800;font-size:72px;line-height:1.14;letter-spacing:-.03em}
 .s{margin-top:22px;font-size:40px;font-weight:600;line-height:1.35;color:#f3e6cf}
 </style></head><body><div class="c"><div class="ph"></div><span class="ring"></span>
 <div class="no">동그라미치과의원 · 화정</div>
@@ -47,10 +49,10 @@ for (const c of CARDS) {
   await pg.goto(pathToFileURL(tmp).href, { waitUntil: 'networkidle' });
   await pg.evaluate(() => document.fonts.ready);
   await pg.waitForTimeout(150);
-  await sharp(await pg.screenshot({ type: 'png' })).jpeg({ quality: 84, mozjpeg: true }).toFile(path.join(ROOT, 'public/img/home-card', `${c.slug}.jpg`));
+  await sharp(await pg.screenshot({ type: 'png' })).jpeg({ quality: 84, mozjpeg: true }).toFile(path.join(ROOT, 'public/img/home-card', `${PREFIX}${c.slug}.jpg`));
   console.log('만듦', c.slug, '|', l1, '/', l2);
 }
 fs.rmSync(tmp, { force: true });
 await b.close();
-const tiles = await Promise.all(CARDS.map((c) => sharp(path.join(ROOT, 'public/img/home-card', `${c.slug}.jpg`)).resize(260).toBuffer()));
+const tiles = await Promise.all(CARDS.map((c) => sharp(path.join(ROOT, 'public/img/home-card', `${PREFIX}${c.slug}.jpg`)).resize(260).toBuffer()));
 await sharp({ create: { width: 780, height: 520, channels: 3, background: '#fff' } }).composite(tiles.map((t, i) => ({ input: t, left: (i % 3) * 260, top: Math.floor(i / 3) * 260 }))).jpeg().toFile('C:/tmp/shop-home-card-sheet.jpg');
