@@ -17,13 +17,20 @@ import { probeRotate } from './crawlProbe';
 export const CAROUSEL_SLUGS = ['save-natural-tooth', 'implant', 'endodontic', 'cavity', 'periodontal', 'wisdom-tooth'] as const;
 type CarouselSlug = (typeof CAROUSEL_SLUGS)[number];
 
+/*
+ * ★★ 홈 전용 문장(2026-10-06) — 진료·지역 쪽 카드 목록은 '화정 임플란트' 같은 짧은 이름 + /img/sq 사진을 쓴다.
+ *   홈 카드가 그것과 같으면(10-06 실측: 진료 쪽마다 홈 카드와 이름·사진 5/6 같음) 네이버 Aurora 가 사이트 공통 틀로 보고
+ *   홈 목록을 본문에서 뺀다(공식 블로그 222930445562, 형제 문서 클러스터링). 카드가 붙은 홈(광화문 등)은 홈 카드가 하위 쪽에 0번.
+ *   그래서 홈 카드 이름은 홈에만 쓰는 문장, 그림도 홈 전용(public/img/home-card, scripts/home-card-art.mjs — 문장을 바꾸면 그림도 다시).
+ *   쉼표 앞 = 검색어 모양(지역+진료). 가운뎃점·괄호는 쓰지 않는다.
+ */
 const LABEL: Record<CarouselSlug, string> = {
-  'save-natural-tooth': '화정 자연치아 살리기',
-  implant: '화정 임플란트',
-  endodontic: '화정 신경치료',
-  cavity: '화정 충치치료',
-  periodontal: '화정 잇몸치료',
-  'wisdom-tooth': '화정 사랑니 발치',
+  'save-natural-tooth': '화정 자연치아 살리기, 뽑기 전에 먼저 봅니다',
+  implant: '화정 임플란트, 마지막 선택이 되도록',
+  endodontic: '화정 신경치료, 치아 속 염증을 치료합니다',
+  cavity: '화정 충치치료, 깊이에 따라 다른 방법',
+  periodontal: '화정 잇몸치료, 피가 나면 먼저 확인',
+  'wisdom-tooth': '화정 사랑니 발치, 뽑기 전에 위치부터',
 };
 
 const SQ = squares as Record<string, string>;
@@ -54,7 +61,8 @@ export function homeCarousel(): CarouselItem[] {
   return CAROUSEL_SLUGS.map((slug) => {
     const d = docByPathStrict(`/treatment/${slug}`);
     const t = treatmentBySlug(slug)!;
-    return { slug, name: LABEL[slug], path: d.path, image: squareOf(d.image!.src), photo: d.image!.src, photoAlt: d.image!.alt, tag: t.whoFor[0], caption: t.summary };
+    // 그림 = 홈 전용(public/img/home-card/<slug>.jpg) — 위 LABEL 주석
+    return { slug, name: LABEL[slug], path: d.path, image: `/img/home-card/${slug}.jpg`, photo: d.image!.src, photoAlt: d.image!.alt, tag: t.whoFor[0], caption: t.summary };
   });
 }
 

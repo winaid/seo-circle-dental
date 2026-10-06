@@ -142,7 +142,7 @@ export default function HomePage() {
                      겹침 0/6 이라 안 붙었다(네이버가 고른 썸네일도 화면에 있는 사진이었다). */}
               {carousel.map((c) => (
                 <Link key={c.slug} href={c.path} className="t-card">
-                  <img src={c.image} alt={`${c.name} — ${c.photoAlt}`} width={800} height={800} loading="lazy" decoding="async" />
+                  <img src={c.image} alt={c.name} width={800} height={800} loading="lazy" decoding="async" />
                   <div className="t-card-in">
                     <span className="card-tag">{c.tag}</span>
                     <h3>{c.name}</h3>
