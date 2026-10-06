@@ -24,6 +24,11 @@ export const revalidate = 3600;
  *   '홈 안 내부 링크 7~8개, 그중 6개가 사진 링크'였고 카드 6장 = HTML 첫 사진 링크 6개였다(49곳 실측, 안 붙은 43곳은 링크가 많거나 사진 목록이 없음).
  *   그래서 이 홈의 내부 링크 = 로고 + 진료 카드 6장 + 개인정보처리방침 = 8개. 메뉴·바닥 목록은 components/NotOnHome 으로 홈에서만 뺀다.
  *   ★ 새 내부 링크(Link·Btn·Chips·LinkList·DocGrid·DoctorCard 링크)를 홈에 더하지 말 것 — 카드 줄 조건이 깨진다. 전화·네이버 예약 같은 바깥 링크는 괜찮다.
+ *   (10-06 정정: 링크 수는 갈림길이 아니었다 — 카드 붙은 홈 중 31·37링크도 있음. 위 8개는 그대로 둔 것)
+ * ★★★★ 2026-10-06 첫 화면 = 카드 6장(오너 GO "테스트 해봐") — 1280×1000 렌더 실측(C:/tmp/carousel-study/layout-check.mjs):
+ *   카드 붙은 홈(목록 5+) 15곳 전부 카드 줄이 맨 위 33~383px·그 위 큰 사진 0. 이 홈은 히어로 사진 뒤 1,188px 이라 안 붙었고,
+ *   같은 이름·그림인 store 홈(123px)은 붙었다. 그래서 헤더 바로 아래 카드 → 그 다음 히어로(제목·사진·연락). 글자는 빼지 않고 순서만.
+ *   카드 위에 큰 사진·긴 글을 두지 말 것.
  */
 
 const doc = docByPathStrict('/');
@@ -64,10 +69,44 @@ export default function HomePage() {
       {/* ★ 홈 정규 주소는 끝에 '/' — 네이버에서 홈에 카드가 붙은 홈 6곳 모두 이 꼴(2026-10-02). Next 메타데이터가 '/' 를 떼므로 직접 낸다 */}
       <link rel="canonical" href={`${SITE_URL}/`} />
       <meta property="og:url" content={`${SITE_URL}/`} />
-      <SiteHeader overlay nav={false} />
+      <SiteHeader nav={false} />
       <main id="main">
-        {/* ───── 히어로 ───── */}
-        <section className="hero" aria-label="소개">
+        {/* ───── 진료 카드 6장 = 첫 화면 ─────
+            ★★★ 2026-10-01 실측(오너 캡처 gwanghwamundental.co.kr): 홈도 카드 줄을 받는다. 그 홈은 **첫 사진 링크 6개 =
+            ItemList 6개(주소·사진·순서 동일)**. 카드 앞에 다른 내부 링크를 두지 말 것.
+            ★★★★ 10-06: 카드 위에는 헤더만 — 히어로 사진·제목은 카드 아래(파일 위 주석). 제목 h2 도 카드 아래로 옮겼다(카드 위 글자 줄이기) */}
+        <section className="home-cards" aria-label="화정치과 진료 안내">
+          <div className="wrap">
+            <div className="grid grid--3 home-cards-grid">
+              {/* ★ 카드 6장은 lib/carousel.ts 한 곳에서 나온다 — 화면 <h3> 와 ItemList.name 이 글자까지 같아야 검색 결과 카드 줄이 붙는다
+                  ★★ 사진도 ItemList 와 **같은 URL(정사각 800×800)** 을 써야 한다. 2026-09-14 실측:
+                     레퍼런스(1dentalsolution)는 ItemList 의 640×640 6장이 화면 <img> 에도 그대로 있어(겹침 6/6)
+                     검색 결과 블록에 카드 줄이 붙었고, 우리는 화면이 3:2 webp·구조화 데이터가 정사각 jpg 라
+                     겹침 0/6 이라 안 붙었다(네이버가 고른 썸네일도 화면에 있는 사진이었다). */}
+              {/* 그림 속에 제목 글자가 이미 있어(scripts/home-card-art.mjs) 이름·설명은 그림 아래에 — 겹쳐 올리면 글자가 이중으로 보인다 */}
+              {carousel.map((c, i) => (
+                <Link key={c.slug} href={c.path} className="h-card">
+                  <span className="h-card-img">
+                    <img src={c.image} alt={c.name} width={800} height={800} loading={i < 3 ? 'eager' : 'lazy'} decoding="async" />
+                  </span>
+                  <span className="h-card-in">
+                    <span className="card-tag">{c.tag}</span>
+                    <h3>{c.name}</h3>
+                    <p>{c.caption}</p>
+                  </span>
+                </Link>
+              ))}
+            </div>
+            <div className="sec-head home-cards-head">
+              <span className="eyebrow">진료 안내</span>
+              <h2 id="h-treat">화정치과 동그라미에서 하는 진료, 무엇을 먼저 보는지까지</h2>
+              <p>진료 이름만 나열하지 않았습니다. 각 진료에서 검사로 먼저 확인하는 것과 살릴 수 있는 조건·없는 조건을 나눠 적었습니다.</p>
+            </div>
+          </div>
+        </section>
+
+        {/* ───── 히어로 (카드 아래) ───── */}
+        <section className="hero hero--after" aria-label="소개">
           <div className="hero-bg">
             <img src={HERO.src} alt={HERO.alt} fetchPriority="high" decoding="async" width={1920} height={1280} />
           </div>
@@ -118,39 +157,6 @@ export default function HomePage() {
                 <dd><b>건물 내 주차 무료</b><span>기계식 · 큰 차량은 전화 문의</span></dd>
               </div>
             </dl>
-          </div>
-        </section>
-
-        {/* ───── 진료 카드 6장 = 홈의 첫 사진 링크 묶음 ─────
-            ★★★ 2026-10-01 실측(오너 캡처 gwanghwamundental.co.kr): 홈도 카드 줄을 받는다. 그 홈은 **첫 사진 링크 6개 =
-            ItemList 6개(주소·사진·순서 동일)**. 우리는 첫 묶음이 바로가기 5칸(소개·비용·예약…)이라 네이버가 그 5칸을
-            글자 바로가기로 냈다 → 진료 카드를 첫 묶음으로 올리고 바로가기 타일은 아래로. 카드 앞에 다른 내부 링크를 두지 말 것 */}
-        <section className="sec" aria-labelledby="h-treat">
-          <div className="wrap">
-            <div className="sec-head">
-              <div>
-                <span className="eyebrow">진료 안내</span>
-                <h2 id="h-treat">화정치과 동그라미에서 하는 진료, 무엇을 먼저 보는지까지</h2>
-                <p>진료 이름만 나열하지 않았습니다. 각 진료에서 검사로 먼저 확인하는 것과 살릴 수 있는 조건·없는 조건을 나눠 적었습니다.</p>
-              </div>
-            </div>
-            <div className="grid grid--3">
-              {/* ★ 카드 6장은 lib/carousel.ts 한 곳에서 나온다 — 화면 <h3> 와 ItemList.name 이 글자까지 같아야 검색 결과 카드 줄이 붙는다
-                  ★★ 사진도 ItemList 와 **같은 URL(정사각 800×800)** 을 써야 한다. 2026-09-14 실측:
-                     레퍼런스(1dentalsolution)는 ItemList 의 640×640 6장이 화면 <img> 에도 그대로 있어(겹침 6/6)
-                     검색 결과 블록에 카드 줄이 붙었고, 우리는 화면이 3:2 webp·구조화 데이터가 정사각 jpg 라
-                     겹침 0/6 이라 안 붙었다(네이버가 고른 썸네일도 화면에 있는 사진이었다). */}
-              {carousel.map((c) => (
-                <Link key={c.slug} href={c.path} className="t-card">
-                  <img src={c.image} alt={c.name} width={800} height={800} loading="lazy" decoding="async" />
-                  <div className="t-card-in">
-                    <span className="card-tag">{c.tag}</span>
-                    <h3>{c.name}</h3>
-                    <p>{c.caption}</p>
-                  </div>
-                </Link>
-              ))}
-            </div>
           </div>
         </section>
 
