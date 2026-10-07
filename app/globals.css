@@ -155,6 +155,14 @@ button { font: inherit; }
 .hero-fact span { display: block; font-size: 13.5px; color: rgba(255, 255, 255, 0.72); margin-top: 4px; }
 /* 홈 첫 화면 = 카드 6장, 히어로는 그 아래(2026-10-06 app/page.tsx 주석 — 카드 붙은 홈은 모두 카드 줄이 맨 위) */
 .home-cards { padding: 28px 0 64px; }
+/* 10-07 시험: 큰 제목 한 줄을 카드 위에 — 카드 시작은 첫 화면 안(약 200px)에 둔다 */
+.home-top { display: grid; gap: 8px; margin: 0 0 24px; }
+.home-top h1 { font-size: clamp(22px, 2.5vw, 31px); line-height: 1.32; letter-spacing: -0.025em; color: var(--ink); text-wrap: balance; }
+.home-top h1 em { position: relative; display: inline-block; font-style: normal; color: var(--brand); white-space: nowrap; }
+.home-top .circ { position: absolute; left: -7%; top: -22%; width: 114%; height: 146%; overflow: visible; pointer-events: none; }
+.home-top .circ path { fill: none; stroke: #e2b170; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; stroke-dasharray: 1; stroke-dashoffset: 1; animation: circ-draw 1.5s 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) forwards; }
+@media (max-width: 600px) { .home-top { margin-bottom: 16px; } .home-top h1 { font-size: 20px; } }
+.hero--after .hero-lead { margin-top: 0; font-size: clamp(17px, 1.8vw, 21px); }
 .home-cards-head { margin: 44px 0 0; }
 .h-card { display: flex; flex-direction: column; border-radius: var(--r); overflow: hidden; background: #fff; border: 1px solid var(--line); color: var(--ink); box-shadow: 0 1px 2px rgba(58, 40, 20, 0.05), 0 14px 30px -24px rgba(40, 28, 16, 0.5); transition: transform 0.45s var(--ease, ease), box-shadow 0.45s var(--ease, ease); }
 .h-card:hover { transform: translateY(-4px); box-shadow: 0 28px 46px -30px rgba(40, 28, 16, 0.55); color: var(--ink); }

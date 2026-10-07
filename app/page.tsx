@@ -77,6 +77,22 @@ export default function HomePage() {
             ★★★★ 10-06: 카드 위에는 헤더만 — 히어로 사진·제목은 카드 아래(파일 위 주석). 제목 h2 도 카드 아래로 옮겼다(카드 위 글자 줄이기) */}
         <section className="home-cards" aria-label="화정치과 진료 안내">
           <div className="wrap">
+            {/* ★ 10-07 시험(오너 GO "shop 홈 시험해보자"): 큰 제목 한 줄만 카드 위로 — 문구는 그대로, 위치만.
+                10-06 22:58 '화정 치과' 통합에서 빠지고 웹탭 11→16. 첫 화면을 카드로 바꿀 때 h1 이 1,699px 로 내려간 것이 후보.
+                카드 조건(맨 위 400px 안·위에 큰 사진 0·위 글자 ≤103자 — 카드 붙은 홈 15곳 실측)은 지킨다 */}
+            <div className="home-top">
+              <span className="eyebrow">화정치과 · 고양시 덕양구 화정동 · 3호선 화정역</span>
+              <h1>
+                뽑기 전에 살릴 수 있는지 먼저 보는{' '}
+                <em>
+                  화정동 치과
+                  {/* 병원 이름 '동그라미' — 손으로 그린 동그라미가 검색어를 감싼다(장식, 글자 아님). app/globals.css .home-top .circ */}
+                  <svg className="circ" viewBox="0 0 300 100" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+                    <path pathLength={1} d="M252 16C198 2 78 4 30 30C-4 50 26 90 150 92C268 94 312 62 282 30C262 10 196 6 138 12" />
+                  </svg>
+                </em>
+              </h1>
+            </div>
             <div className="grid grid--3 home-cards-grid">
               {/* ★ 카드 6장은 lib/carousel.ts 한 곳에서 나온다 — 화면 <h3> 와 ItemList.name 이 글자까지 같아야 검색 결과 카드 줄이 붙는다
                   ★★ 사진도 ItemList 와 **같은 URL(정사각 800×800)** 을 써야 한다. 2026-09-14 실측:
@@ -114,19 +130,7 @@ export default function HomePage() {
           <div className="hero-ring" aria-hidden="true" />
           <div className="wrap hero-in">
             <div className="hero-copy">
-              <span className="eyebrow eyebrow--light enter">화정치과 · 고양시 덕양구 화정동 · 3호선 화정역</span>
-              <h1 className="enter enter-2">
-                뽑기 전에 살릴 수 있는지
-                <br />
-                먼저 보는{' '}
-                <em>
-                  화정동 치과
-                  {/* 병원 이름 '동그라미' — 손으로 그린 동그라미가 검색어를 감싼다(장식, 글자 아님). app/theme-warm.css */}
-                  <svg className="circ" viewBox="0 0 300 100" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-                    <path pathLength={1} d="M252 16C198 2 78 4 30 30C-4 50 26 90 150 92C268 94 312 62 282 30C262 10 196 6 138 12" />
-                  </svg>
-                </em>
-              </h1>
+              {/* 10-07: 제목(h1)과 위 작은 줄은 카드 위(.home-top)로 옮겼다 — 같은 글자가 두 번 나오지 않게 여기서는 뺀다 */}
               <p className="hero-lead enter enter-3">
                 통합치의학과 전문의 세 명이 자연치아를 남길 수 있는지부터 확인합니다. 살릴 수 있는 치아는 신경치료로, 그렇지 않은 치아는 임플란트로 — 어느 쪽이 맞는지 검사 뒤에 함께 정합니다.
               </p>
