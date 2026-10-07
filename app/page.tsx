@@ -38,7 +38,7 @@ const HERO = { src: '/img/20210923_ed347b4ffee21.jpg', alt: IMG.interior[8].alt 
 const FEATURES = [
   {
     slug: 'implant',
-    h2: '화정 임플란트, 마지막 선택이 되도록',
+    h2: '화정치과 임플란트, 마지막 선택이 되도록',
     img: { src: '/img/clinic/implant-hero.webp', alt: '상담실에서 원장이 모니터와 치아 모형을 보며 임플란트 계획을 설명하는 모습' },
   },
   {
@@ -48,12 +48,12 @@ const FEATURES = [
   },
   {
     slug: 'cavity',
-    h2: '화정동 충치치료·잇몸치료·스케일링',
+    h2: '화정 치과 충치치료·잇몸치료·스케일링',
     img: { src: '/img/clinic/perio-explain.webp', alt: '상담실에서 잇몸 모형을 놓고 잇몸치료 과정을 설명하는 모습' },
   },
   {
     slug: 'wisdom-tooth',
-    h2: '화정동 사랑니 발치',
+    h2: '화정치과 사랑니 발치',
     img: { src: '/img/clinic/wisdom-room.webp', alt: '사랑니 발치를 준비하는 진료실' },
   },
 ];
@@ -84,10 +84,14 @@ export default function HomePage() {
                 ★ 10-07 2차 시험(cd9639c, 오너 GO "해보자"): h1 낱말을 '화정 치과'로, '화정동 치과'는 위 작은 줄로 → 11:24 재독,
                 12:20 '화정동 치과' 홈 11위 → 45밖(3회 같음), '화정 치과' 17 → 16(변화 없음). 실패 → 1차로 되돌림.
                 ⛔ 결론: 그 검색어 홈 순위는 '맨 위 h1 안의 그 낱말'이 정한다(맨 위 작은 줄로는 안 됨, h1 을 아래로 내려도 안 됨).
-                '화정 치과'는 h1 으로 움직이지 않는다 — 플랫폼·블로그 끼어듦과 위 병원 홈들이 막는 검색어 */}
+                '화정 치과'는 h1 으로 움직이지 않는다 — 플랫폼·블로그 끼어듦과 위 병원 홈들이 막는 검색어
+                ★ 10-07 3차(오너 GO "광화문 선치과 그 업체처럼"): gwanghwamundental.co.kr 홈 = h1 이 검색어로 시작('광화문치과 찾으신다면…'),
+                h2 8개 중 6개·본문 44회, 플레이스 홈페이지 아님(플레이스는 dentalsun)인데 통합 1~4위·카드. 우리 홈은 플레이스 미연결이라 같은 길.
+                h1 맨 앞에 '화정치과 동그라미치과의원' 줄, '…화정동 치과'는 그대로 둔다(화정동 11위 유지). h2 2/10 → 7/10, 본문 10 → 20회 남짓 */}
             <div className="home-top">
-              <span className="eyebrow">화정치과 · 고양시 덕양구 화정동 · 3호선 화정역</span>
+              <span className="eyebrow">고양시 덕양구 화정동 · 3호선 화정역</span>
               <h1>
+                <span className="h1-kw">화정치과 동그라미치과의원</span>
                 뽑기 전에 살릴 수 있는지 먼저 보는{' '}
                 <em>
                   화정동 치과
@@ -121,7 +125,7 @@ export default function HomePage() {
             <div className="sec-head home-cards-head">
               <span className="eyebrow">진료 안내</span>
               <h2 id="h-treat">화정치과 동그라미에서 하는 진료, 무엇을 먼저 보는지까지</h2>
-              <p>진료 이름만 나열하지 않았습니다. 각 진료에서 검사로 먼저 확인하는 것과 살릴 수 있는 조건·없는 조건을 나눠 적었습니다.</p>
+              <p>화정치과를 알아보고 계시다면 진료 이름보다 진단 순서를 먼저 보시면 좋습니다. 각 진료에서 검사로 먼저 확인하는 것과 살릴 수 있는 조건·없는 조건을 나눠 적었습니다.</p>
             </div>
           </div>
         </section>
@@ -137,7 +141,7 @@ export default function HomePage() {
             <div className="hero-copy">
               {/* 10-07: 제목(h1)과 위 작은 줄은 카드 위(.home-top)로 옮겼다 — 같은 글자가 두 번 나오지 않게 여기서는 뺀다 */}
               <p className="hero-lead enter enter-3">
-                통합치의학과 전문의 세 명이 자연치아를 남길 수 있는지부터 확인합니다. 살릴 수 있는 치아는 신경치료로, 그렇지 않은 치아는 임플란트로 — 어느 쪽이 맞는지 검사 뒤에 함께 정합니다.
+                화정 치과 동그라미치과의원은 통합치의학과 전문의 세 명이 자연치아를 남길 수 있는지부터 확인합니다. 살릴 수 있는 치아는 신경치료로, 그렇지 않은 치아는 임플란트로 — 어느 쪽이 맞는지 검사 뒤에 함께 정합니다.
               </p>
               <div className="hero-cta enter enter-4">
                 <Btn href={CLINIC.phoneHref} kind="white" size="lg">
@@ -223,7 +227,7 @@ export default function HomePage() {
                     <img src={f.img.src} alt={f.img.alt} loading="lazy" decoding="async" />
                   </div>
                   <div className="feature-copy">
-                    <span className="eyebrow">{t.name}</span>
+                    <span className="eyebrow">화정치과 · {t.name}</span>
                     <h2>{f.h2}</h2>
                     <p>{t.summary}</p>
                     <p>{intro.slice(0, 3).join(' ')}</p>
@@ -268,7 +272,7 @@ export default function HomePage() {
             <div className="sec-head sec-head--row">
               <div>
                 <span className="eyebrow">의료진</span>
-                <h2 id="h-team">세 명 모두 보건복지부인증 통합치의학과 전문의입니다</h2>
+                <h2 id="h-team">화정치과 의료진, 세 명 모두 보건복지부인증 통합치의학과 전문의입니다</h2>
                 <p>학력·경력은 병원이 공개한 원문 그대로이며 요약하거나 고쳐 쓰지 않았습니다. 진단이 애매한 경우 원장들이 서로 의견을 나눕니다.</p>
               </div>
             </div>
@@ -328,7 +332,7 @@ export default function HomePage() {
           <div className="wrap two">
             <div className="sec-head" style={{ marginBottom: 0 }}>
               <span className="eyebrow">자주 묻는 질문</span>
-              <h2 id="h-faq">내원 전에 자주 물으시는 것</h2>
+              <h2 id="h-faq">화정치과 내원 전에 자주 물으시는 것</h2>
               <p>진료시간·예약·주차·비용처럼 오시기 전에 궁금한 것부터 답합니다. 진료 내용에 대한 질문은 진료실 문답에 따로 모았습니다.</p>
             </div>
             <Faq items={CLINIC_QA.slice(0, 6).map((q) => ({ q: q.q, a: q.a }))} />

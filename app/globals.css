@@ -158,6 +158,7 @@ button { font: inherit; }
 /* 10-07 시험: 큰 제목 한 줄을 카드 위에 — 카드 시작은 첫 화면 안(약 200px)에 둔다 */
 .home-top { display: grid; gap: 8px; margin: 0 0 24px; }
 .home-top h1 { font-size: clamp(22px, 2.5vw, 31px); line-height: 1.32; letter-spacing: -0.025em; color: var(--ink); text-wrap: balance; }
+.home-top h1 .h1-kw { display: block; font-size: 0.62em; font-weight: 700; color: var(--brand); letter-spacing: -0.01em; margin-bottom: 4px; }
 .home-top h1 em { position: relative; display: inline-block; font-style: normal; color: var(--brand); white-space: nowrap; }
 .home-top .circ { position: absolute; left: -7%; top: -22%; width: 114%; height: 146%; overflow: visible; pointer-events: none; }
 .home-top .circ path { fill: none; stroke: #e2b170; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; stroke-dasharray: 1; stroke-dashoffset: 1; animation: circ-draw 1.5s 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) forwards; }
