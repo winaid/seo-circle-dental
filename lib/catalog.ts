@@ -18,12 +18,13 @@ import { IMG } from './assets';
 import { CLINIC } from './clinic';
 import { REGIONS, AREA_TREATMENTS, regionDistanceM, type Region } from './regions';
 import { allBlogPosts } from './blog';
-import { HOME_TITLE, KEY_SUFFIX, KEY_SUFFIX_SHORT, LAUNCH_DATE } from './site';
+import { HOME_TITLE, KEY_SUFFIX, KEY_SUFFIX_SHORT, LAUNCH_DATE, SITE_URL } from './site';
 import { isPublished, scheduleDate, stableHash } from './publish';
 import { clampText, stripTags } from './text';
 import { fmtDistance } from './site';
 import { generatedImageFor } from './generatedImages';
 import { KEEP_PATHS, isKeptHref } from './focus';
+import { POSTS, type Post } from './posts';
 
 export type DocKind =
   | 'home'
@@ -374,6 +375,14 @@ const FOCUS_OVERRIDE: Record<string, Partial<Doc>> = {
     description: desc('화정치과 동그라미치과의원 의료진. 보건복지부인증 통합치의학과 전문의 세 명과 진료 원칙, 장비, 위생 관리.'),
     keywords: ['화정치과 의료진', '동그라미치과의원 원장'],
   },
+  '/blog': {
+    title: '화정치과 이야기 — 진료 전에 읽어 보는 안내',
+    seoTitle: '화정치과 이야기 | 화정치과 동그라미치과의원',
+    description: desc('화정치과 동그라미치과의원이 진료 전에 알아 두면 좋은 것을 글로 정리했습니다. 증상과 진료, 관리 습관, 오시는 길.'),
+    excerpt: '진료 전에 알아 두면 좋은 것을 글로 정리했습니다.',
+    keywords: ['화정치과', '화정 치과'],
+    category: '화정치과 이야기',
+  },
   '/visit': {
     title: '진료시간과 오시는 길 — 예약 방법까지',
     seoTitle: '진료시간 · 오시는 길 · 예약 | 화정치과 동그라미치과의원',
@@ -381,9 +390,39 @@ const FOCUS_OVERRIDE: Record<string, Partial<Doc>> = {
   },
 };
 
-export const DOCS: Doc[] = buildDocs()
-  .filter((d) => KEEP_PATHS.has(d.path))
-  .map((d) => ({ ...d, ...FOCUS_OVERRIDE[d.path], publishAt: LAUNCH_DATE, updated: d.path === '/privacy' ? d.updated : FOCUS_UPDATED, googleIndex: d.path !== '/privacy', core: true }));
+const esc = (t: string) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+/** RSS 전문 — 네이버 RSS 는 본문을 읽는다. 끝에 홈(지역 글이면 그 지역 쪽)으로 가는 링크 */
+function postRss(p: Post) {
+  const body = p.sections.map((x) => `<h2>${esc(x.h2)}</h2>${x.paras.map((t) => `<p>${esc(t)}</p>`).join('')}`).join('');
+  const back = p.area ? `<p><a href="${SITE_URL}${p.area.path}">${esc(p.area.label)}</a></p>` : '';
+  return `<p><img src="${SITE_URL}${p.image.src}" alt="${esc(p.image.alt)}" /></p><p>${esc(p.summary)}</p>${body}${back}<p><a href="${SITE_URL}/">화정치과 동그라미치과의원</a> · ${esc(CLINIC.address.full)} · ${CLINIC.phone}</p>`;
+}
+
+/** 화정치과 이야기 글(lib/posts.ts) — 공개일은 글마다(첫날 30편, 그 뒤 하루 6편) */
+const POST_DOCS: Doc[] = POSTS.map((p) => ({
+  path: p.path,
+  kind: 'blog',
+  title: p.title,
+  seoTitle: seoTitle(p.title),
+  description: desc(p.summary),
+  excerpt: p.summary,
+  image: p.image,
+  keywords: [p.kw, '동그라미치과의원'],
+  category: p.kw,
+  publishAt: p.publishAt,
+  updated: p.publishAt,
+  priority: 0.6,
+  core: false,
+  googleIndex: true,
+  rssHtml: postRss(p),
+}));
+
+export const DOCS: Doc[] = [
+  ...buildDocs()
+    .filter((d) => KEEP_PATHS.has(d.path) || d.path === '/blog')
+    .map((d) => ({ ...d, ...FOCUS_OVERRIDE[d.path], publishAt: LAUNCH_DATE, updated: d.path === '/privacy' ? d.updated : FOCUS_UPDATED, googleIndex: d.path !== '/privacy', core: true })),
+  ...POST_DOCS,
+];
 
 const byPath = new Map(DOCS.map((d) => [d.path, d]));
 export const docByPath = (path: string) => byPath.get(path);

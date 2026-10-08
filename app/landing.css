@@ -264,3 +264,36 @@
 }
 .fc-table td { white-space: nowrap; }
 .fc-table td.fc-wrap { white-space: normal; }
+
+/* ─────────────────────────────────────────────────────────────
+   화정치과 이야기 (블로그, 2026-10-08, lib/posts.ts)
+   ───────────────────────────────────────────────────────────── */
+.post { padding: 28px 0 88px; background: linear-gradient(180deg, var(--paper-2) 0, var(--paper) 420px); }
+.post-wrap { max-width: 820px; }
+.post-eyebrow { display: inline-flex; margin-top: 22px; }
+.post-h1 { margin: 12px 0 10px; font-size: clamp(28px, 3.6vw, 42px); line-height: 1.22; letter-spacing: -0.04em; color: var(--ink); text-wrap: balance; }
+.post-meta { font-size: 14px; color: var(--mute); }
+.post-photo { margin: 26px 0 28px; border-radius: 22px; overflow: hidden; aspect-ratio: 3 / 2; background: var(--paper-3); box-shadow: var(--shadow); }
+.post-photo img { width: 100%; height: 100%; object-fit: cover; }
+.post-body section { padding: 26px 0 6px; border-top: 1px solid var(--line); }
+.post-body section:first-child { border-top: 0; }
+.post-body h2 { position: relative; padding-left: 16px; font-size: clamp(21px, 2.2vw, 25px); line-height: 1.35; color: var(--ink); margin-bottom: 14px; text-wrap: pretty; }
+.post-body h2::before { content: ''; position: absolute; left: 0; top: 0.2em; bottom: 0.2em; width: 4px; border-radius: 2px; background: linear-gradient(180deg, var(--brand), var(--accent-2)); }
+.post-body p { font-size: 17px; line-height: 1.9; color: var(--ink-2); margin-bottom: 14px; text-wrap: pretty; }
+.post-cta { margin: 40px 0 28px; padding: 30px 30px 28px; border-radius: 22px; background: linear-gradient(135deg, var(--brand-2), var(--brand)); color: #fff; }
+.post-cta h2 { font-size: clamp(21px, 2.3vw, 26px); color: #fff; margin-bottom: 10px; }
+.post-cta p { color: rgba(255, 255, 255, 0.86); font-size: 16px; line-height: 1.75; text-wrap: pretty; }
+.post-cta-btns { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 10px; }
+.post-back { display: grid; gap: 10px; margin-bottom: 28px; }
+.post-back a { display: block; padding: 14px 18px; border-radius: var(--r-sm); background: #fff; border: 1px solid var(--line); font-weight: 600; color: var(--ink); }
+.post-back a:first-child { border-left: 4px solid var(--brand); }
+.post-back a:hover { color: var(--brand); border-color: var(--line-2); }
+
+.post-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+@media (min-width: 900px) { .post-list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.post-list a { display: grid; gap: 6px; height: 100%; padding: 20px 22px; border-radius: var(--r); background: #fff; border: 1px solid var(--line); color: var(--ink); box-shadow: var(--shadow); transition: transform 0.3s var(--ease), border-color 0.3s; }
+.post-list a:hover { transform: translateY(-2px); border-color: var(--accent-2); color: var(--ink); }
+.post-list-kw { font-size: 12px; font-weight: 700; color: var(--accent); letter-spacing: 0.02em; }
+.post-list b { font-size: 17.5px; line-height: 1.45; text-wrap: pretty; }
+.post-list-sum { font-size: 14.5px; line-height: 1.65; color: var(--mute); }
+.post-list small { font-size: 12.5px; color: var(--mute); }

@@ -1,0 +1,82 @@
+/**
+ * 화정치과 이야기 — 블로그 글 (2026-10-08 오너: "광화문 업체처럼 수십 수백 개 붙여").
+ *
+ * ★ 근거(10-08 실측, C:/tmp/focus4/gh-serp.mjs): 같은 업체 세 사이트(광화문·수원·부산)는 홈이 '지역 + 치과'를 받는데,
+ *   뒤에 그 검색어를 제목에 넣은 생활형 글이 90·247·169개 붙어 있다. 글은 1,400~2,100자, 소제목 4~6개, 끝에 예약 권유, 홈으로 가는 링크 하나.
+ * ★ 우리 글은 content/posts/batch-*.json(사람이 읽고 고칠 수 있는 원문). 사실은 lib 의 병원 자료에서만, 의료광고 금칙은 빌드 게이트가 거른다.
+ * ★ 주소 = /blog/<한글 제목>. 예전 /blog/<영문>(칼럼 10편)은 410 그대로 — lib/focus.ts routeOf 가 한글 주소만 살린다.
+ * ★ 공개 = 첫날 30편, 그 뒤 하루 6편(묶음을 번갈아 섞는다). 날짜가 되면 ISR 로 저절로 사이트맵·RSS 에 들어간다.
+ */
+import { POST_BATCHES } from '../content/posts';
+import { addDays, isPublished } from './publish';
+import { IMG } from './assets';
+
+export type PostKw = '화정치과' | '화정 치과' | '화정역 치과' | '화정동 치과' | '덕양구 치과';
+export interface PostSection { h2: string; paras: string[] }
+export interface Post {
+  slug: string;
+  path: string;
+  title: string;
+  kw: PostKw;
+  summary: string;
+  sections: PostSection[];
+  publishAt: string;
+  image: { src: string; alt: string };
+  /** 지역 검색어 글이면 그 지역 쪽 */
+  area?: { path: string; label: string };
+}
+
+export const POST_START = '2026-10-08';
+const FIRST = 30;
+const PER_DAY = 6;
+
+/** 글 사진 — 병원 공간·상담 사진만(진료 중인 장면 빼고). 글마다 돌려 쓴다 */
+const PHOTOS: Array<{ src: string; alt: string }> = [
+  ...IMG.interior.filter((_, i) => i !== 10).map((x) => ({ src: x.src, alt: x.alt })),
+  { src: '/img/clinic/implant-hero.webp', alt: '상담실에서 원장이 모니터와 치아 모형을 보며 설명하는 모습' },
+  { src: '/img/clinic/perio-explain.webp', alt: '잇몸 모형과 칫솔을 들고 관리 방법을 설명하는 모습' },
+  { src: '/img/clinic/doctor-desk.webp', alt: '초록 진료복을 입은 원장이 책상에 앉아 차트를 적는 모습' },
+  { src: '/img/clinic/aes-chairside.webp', alt: '진료 의자 앞 모니터에 띄운 파노라마 사진' },
+  { src: '/img/clinic/implant-aftercare.webp', alt: '모니터의 파노라마 사진을 보며 치아 모형으로 설명하는 원장' },
+];
+
+const AREA: Partial<Record<PostKw, { path: string; label: string }>> = {
+  '화정역 치과': { path: '/area/hwajeong-station', label: '화정역 치과 오시는 길' },
+  '화정동 치과': { path: '/area/hwajeong-1', label: '화정동 치과 안내' },
+  '덕양구 치과': { path: '/area/deogyang', label: '덕양구 치과 안내' },
+};
+
+export const postSlug = (title: string) =>
+  title.replace(/[·,?!.:'"“”‘’()]/g, ' ').trim().replace(/\s+/g, '-').slice(0, 60);
+
+function build(): Post[] {
+  // 묶음을 번갈아 섞는다(A1 B1 C1 D1 A2 …) — 하루에 공개되는 글의 주제가 한쪽으로 몰리지 않게
+  const lists = Object.values(POST_BATCHES);
+  const max = Math.max(0, ...lists.map((l) => l.length));
+  const order: Array<{ title: string; kw: string; summary: string; sections: PostSection[] }> = [];
+  for (let i = 0; i < max; i++) for (const l of lists) if (l[i]) order.push(l[i]);
+  const seen = new Set<string>();
+  return order.map((p, i) => {
+    let slug = postSlug(p.title);
+    while (seen.has(slug)) slug += '-2';
+    seen.add(slug);
+    const kw = p.kw as PostKw;
+    return {
+      slug,
+      path: `/blog/${slug}`,
+      title: p.title,
+      kw,
+      summary: p.summary,
+      sections: p.sections,
+      publishAt: i < FIRST ? POST_START : addDays(POST_START, 1 + Math.floor((i - FIRST) / PER_DAY)),
+      image: PHOTOS[i % PHOTOS.length],
+      area: AREA[kw],
+    };
+  });
+}
+
+export const POSTS: Post[] = build();
+const bySlug = new Map(POSTS.map((p) => [p.slug, p]));
+export const postBySlug = (slug: string) => bySlug.get(slug);
+export const publishedPosts = () => POSTS.filter((p) => isPublished(p.publishAt)).sort((a, b) => (a.publishAt === b.publishAt ? POSTS.indexOf(a) - POSTS.indexOf(b) : a.publishAt < b.publishAt ? 1 : -1));
+export const postText = (p: Post) => p.sections.flatMap((s) => [s.h2, ...s.paras]).join(' ');

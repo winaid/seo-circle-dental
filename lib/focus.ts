@@ -60,6 +60,13 @@ export function routeOf(rawPath: string): Route {
   const path = rawPath.replace(/\/+$/, '') || '/';
   if (KEEP_PATHS.has(path) || PASS.has(path)) return { kind: 'keep' };
   if (/^\/(_next|api)(\/|$)/.test(path) || /\.[a-z0-9]{2,5}$/i.test(path)) return { kind: 'keep' };
+  // 화정치과 이야기(블로그, 2026-10-08 오후) — 목록과 한글 주소 글만 산다. 예전 영문 주소 칼럼 10편은 410 그대로(lib/posts.ts)
+  if (path === '/blog') return { kind: 'keep' };
+  if (/^\/blog\/[^/]+$/.test(path)) {
+    let s = path.slice(6);
+    try { s = decodeURIComponent(s); } catch { /* 깨진 주소는 아래에서 410 */ }
+    if (/[가-힣]/.test(s)) return { kind: 'keep' };
+  }
   // 같은 내용이 남은 쪽에 있는 주소 → 301
   if (path === '/area/hwajeong' || path === '/area/hwajeong-2') return { kind: 'move', to: FOCUS_PATH.dong };
   if (/^\/area\/[^/]+$/.test(path)) return { kind: 'move', to: FOCUS_PATH.gu }; // 다른 동네 = 모두 덕양구·고양 안

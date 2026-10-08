@@ -11,6 +11,7 @@ export const NAV = [
   { label: '진료 안내', href: '/treatment', desc: '자연치아·임플란트·신경치료' },
   { label: '의료진', href: '/about', desc: '통합치의학과 전문의 3인' },
   { label: '오시는 길', href: '/visit', desc: '진료시간·주차·예약' },
+  { label: '이야기', href: '/blog', desc: '진료 전에 읽어 보는 글' },
 ];
 
 /**
