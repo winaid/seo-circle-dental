@@ -73,7 +73,9 @@ function build(): Post[] {
     return {
       id: p.id,
       slug,
-      path: `/blog/${slug}`,
+      // ★ 주소는 퍼센트 인코딩 꼴로 — canonical·네이버가 가져간 주소가 이 꼴이다. 한글 그대로 쓴 카드 링크·ItemList 는 '색인된 주소'와 다르게 보여
+      //   카드에서 빠진 것으로 본다(10-08 14시: 홈 카드 0, 한글 주소 글에 카드가 붙는 blog.hjudh.com 은 링크가 전부 인코딩 꼴)
+      path: `/blog/${encodeURIComponent(slug)}`,
       title: p.title,
       kw,
       summary: p.summary,
