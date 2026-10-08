@@ -341,7 +341,7 @@ function fmtDistanceLabel(r: Region) {
 const FOCUS_UPDATED = '2026-10-08';
 const FOCUS_OVERRIDE: Record<string, Partial<Doc>> = {
   '/': {
-    title: '화정치과 동그라미치과의원 — 뽑기 전에 살릴 수 있는지 먼저 보는 화정 치과',
+    title: '화정치과 동그라미치과의원 — 뽑기 전에 살릴 수 있는지 먼저 보는 화정동 치과',
     keywords: ['화정치과', '화정 치과', '동그라미치과의원'],
   },
   '/blog': {
