@@ -3,16 +3,17 @@ import { CLINIC } from '@/lib/clinic';
 import { IMG } from '@/lib/assets';
 import { Icon } from './ui';
 
-// ★ 2026-10-08 네 검색어 집중판(lib/focus.ts) — 메뉴도 남긴 쪽 여섯 개만
-export const NAV = [
-  { label: '화정역 치과', href: '/area/hwajeong-station', desc: '3호선 화정역에서 오시는 길' },
-  { label: '화정동 치과', href: '/area/hwajeong-1', desc: '화정1동·화정2동 단지에서' },
-  { label: '덕양구 치과', href: '/area/deogyang', desc: '덕양구 동네별 거리' },
-  { label: '진료 안내', href: '/treatment', desc: '자연치아·임플란트·신경치료' },
-  { label: '의료진', href: '/about', desc: '통합치의학과 전문의 3인' },
-  { label: '오시는 길', href: '/visit', desc: '진료시간·주차·예약' },
-  { label: '이야기', href: '/blog', desc: '진료 전에 읽어 보는 글' },
-];
+/**
+ * ★ 2026-10-08 오후 한 쪽 판(오너: "줄이고 한 페이지로 하라고 한 건데") — 화정역·화정동·덕양구 쪽과 진료·의료진·오시는 길 쪽을 지우고
+ *   모두 홈으로 301(lib/focus.ts). 메뉴에는 글 목록만 남는다. 홈은 메뉴를 그리지 않는다(nav=false).
+ */
+export const NAV = [{ label: '화정치과 이야기', href: '/blog', desc: '진료 전에 읽어 보는 글' }];
+
+/**
+ * 홈 바닥 '안내' 칸의 글자(링크 없음) — 홈은 손대지 않는다(10-08 홈 동결: 홈이 다시 읽힐 때마다 통합에서 흔들렸다).
+ * 예전 메뉴 이름 그대로라 홈 HTML 이 바뀌지 않는다. 홈을 고칠 때 같이 정리할 것.
+ */
+export const HOME_FOOTER_LABELS = ['화정역 치과', '화정동 치과', '덕양구 치과', '진료 안내', '의료진', '오시는 길', '이야기'];
 
 /**
  * nav=false 는 홈 전용 — 홈 첫 링크 묶음이 메뉴가 아니라 바로가기 타일이 되게 한다.

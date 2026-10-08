@@ -4,7 +4,7 @@ import { IMG } from '@/lib/assets';
 import { TREATMENTS } from '@/lib/treatments';
 import { MAIN_SITE_URL } from '@/lib/site';
 import { Icon } from './ui';
-import { NAV } from './SiteHeader';
+import { HOME_FOOTER_LABELS, NAV } from './SiteHeader';
 import { NotOnHome } from './NotOnHome';
 
 export function SiteFooter() {
@@ -21,10 +21,10 @@ export function SiteFooter() {
               {UNVERIFIED.hours.closed}
             </p>
           </div>
-          {/* ★ 2026-10-08 네 검색어 집중판(lib/focus.ts) — 바닥 목록도 남긴 쪽만. 홈에서는 글자만(홈 첫 링크 묶음 = 카드 6장, components/NotOnHome.tsx) */}
+          {/* ★ 2026-10-08 한 쪽 판(lib/focus.ts) — 바닥 링크는 홈과 글 목록뿐. 홈에서는 글자만(홈 첫 링크 묶음 = 카드 6장, components/NotOnHome.tsx) */}
           <div>
             <h4>안내</h4>
-            <NotOnHome fallback={<ul>{NAV.map((n) => <li key={n.href}>{n.label}</li>)}</ul>}>
+            <NotOnHome fallback={<ul>{HOME_FOOTER_LABELS.map((l) => <li key={l}>{l}</li>)}</ul>}>
               <ul>
                 <li><Link href="/">화정치과 동그라미치과의원</Link></li>
                 {NAV.map((n) => (

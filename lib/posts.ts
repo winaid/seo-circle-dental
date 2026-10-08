@@ -45,10 +45,11 @@ const PHOTOS: Array<{ src: string; alt: string }> = [
   { src: '/img/clinic/implant-aftercare.webp', alt: '모니터의 파노라마 사진을 보며 치아 모형으로 설명하는 원장' },
 ];
 
+/** 지역 검색어 글 끝의 홈 링크 글자 — 2026-10-08 오후 한 쪽 판: 지역 쪽을 지우고 네 검색어 모두 홈이 받는다(lib/focus.ts) */
 const AREA: Partial<Record<PostKw, { path: string; label: string }>> = {
-  '화정역 치과': { path: '/area/hwajeong-station', label: '화정역 치과 오시는 길' },
-  '화정동 치과': { path: '/area/hwajeong-1', label: '화정동 치과 안내' },
-  '덕양구 치과': { path: '/area/deogyang', label: '덕양구 치과 안내' },
+  '화정역 치과': { path: '/', label: '화정역 치과 동그라미치과의원 안내' },
+  '화정동 치과': { path: '/', label: '화정동 치과 동그라미치과의원 안내' },
+  '덕양구 치과': { path: '/', label: '덕양구 치과 동그라미치과의원 안내' },
 };
 
 export const postSlug = (title: string) =>

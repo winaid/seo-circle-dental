@@ -15,12 +15,8 @@ export default function NotFound() {
           <div style={{ marginTop: 24 }}>
             <Chips
               items={[
-                { label: '홈', href: '/' },
-                { label: '진료 안내', href: '/treatment' },
-                { label: '화정역 치과', href: '/area/hwajeong-station' },
-                { label: '화정동 치과', href: '/area/hwajeong-1' },
-                { label: '덕양구 치과', href: '/area/deogyang' },
-                { label: '오시는 길', href: '/visit' },
+                { label: '화정치과 동그라미치과의원', href: '/' },
+                { label: '화정치과 이야기', href: '/blog' },
               ]}
             />
           </div>
