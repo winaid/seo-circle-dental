@@ -1,71 +1,232 @@
 {
-  "_": "2026-10-08 네 검색어 집중판 — 남기는 쪽 7개와 쪽마다 카드 6장. 화면 카드·ItemList·카드 그림(scripts/focus-card-art.mjs)이 모두 이 표를 읽는다. 이름을 바꾸면 그림도 다시 만들고 v 를 올린다.",
-  "v": 1,
+  "_": "2026-10-08 네 검색어 집중판 — 남기는 쪽 7개(pages)와 쪽마다 카드 6장(lists). ★v2(10-08 오후): 카드가 메뉴형 쪽(홈·의료진·오시는 길…)을 가리키자 다시 읽힌 쪽마다 카드가 빠졌다(site: 실측) → 카드는 블로그 글(post = 묶음+번호, content/posts)을 가리킨다. 쪽마다 겹치지 않는 글 6편. 화면 카드·ItemList·카드 그림(scripts/focus-card-art.mjs)이 모두 이 표를 읽는다. 이름을 바꾸면 그림도 다시 만들고 v 를 올린다.",
+  "v": 2,
   "pages": {
-    "home": { "path": "/", "tag": "병원 안내", "bg": "/img/20210923_ed347b4ffee21.jpg", "pos": "50% 50%" },
-    "station": { "path": "/area/hwajeong-station", "tag": "3호선 화정역", "bg": "/img/20210923_43d85ec16a0eb.jpg", "pos": "50% 50%" },
-    "dong": { "path": "/area/hwajeong-1", "tag": "화정동", "bg": "/img/20210902_c9d4c8d8ff172.jpg", "pos": "60% 50%" },
-    "gu": { "path": "/area/deogyang", "tag": "고양시 덕양구", "bg": "/img/20210923_6b7e0b66df9e0.jpg", "pos": "50% 40%" },
-    "treat": { "path": "/treatment", "tag": "진료", "bg": "/img/clinic/implant-hero.webp", "pos": "45% 50%" },
-    "doctors": { "path": "/about", "tag": "의료진", "bg": "/img/clinic/doctors-team.webp", "pos": "50% 25%" },
-    "visit": { "path": "/visit", "tag": "진료시간", "bg": "/img/20210923_5e82b10a99850.jpg", "pos": "50% 50%" }
+    "home": {
+      "path": "/",
+      "tag": "병원 안내",
+      "bg": "/img/20210923_ed347b4ffee21.jpg",
+      "pos": "50% 50%"
+    },
+    "station": {
+      "path": "/area/hwajeong-station",
+      "tag": "3호선 화정역",
+      "bg": "/img/20210923_43d85ec16a0eb.jpg",
+      "pos": "50% 50%"
+    },
+    "dong": {
+      "path": "/area/hwajeong-1",
+      "tag": "화정동",
+      "bg": "/img/20210902_c9d4c8d8ff172.jpg",
+      "pos": "60% 50%"
+    },
+    "gu": {
+      "path": "/area/deogyang",
+      "tag": "고양시 덕양구",
+      "bg": "/img/20210923_6b7e0b66df9e0.jpg",
+      "pos": "50% 40%"
+    },
+    "treat": {
+      "path": "/treatment",
+      "tag": "진료",
+      "bg": "/img/clinic/implant-hero.webp",
+      "pos": "45% 50%"
+    },
+    "doctors": {
+      "path": "/about",
+      "tag": "의료진",
+      "bg": "/img/clinic/doctors-team.webp",
+      "pos": "50% 25%"
+    },
+    "visit": {
+      "path": "/visit",
+      "tag": "진료시간",
+      "bg": "/img/20210923_5e82b10a99850.jpg",
+      "pos": "50% 50%"
+    }
   },
   "lists": {
     "home": [
-      { "to": "station", "name": "화정역 치과, 역에서 덕양구청 방면으로", "bg": "/img/20210923_14482879bf993.jpg", "pos": "50% 50%" },
-      { "to": "dong", "name": "화정동 치과, 단지에서 걸어서 오시는 분께", "bg": "/img/20210923_595f40b6ee28f.jpg", "pos": "50% 50%" },
-      { "to": "gu", "name": "덕양구 치과, 3호선 한 노선으로", "bg": "/img/20210923_956b5d44b57ef.jpg", "pos": "50% 50%" },
-      { "to": "treat", "name": "화정치과 진료 안내, 살릴 수 있는지부터", "bg": "/img/clinic/aes-chairside.webp", "pos": "40% 50%" },
-      { "to": "doctors", "name": "화정 치과 의료진, 전문의 세 명이 진료", "bg": "/img/clinic/doctor-desk.webp", "pos": "50% 35%" },
-      { "to": "visit", "name": "화정치과 진료시간, 화목 저녁 8시 30분까지", "bg": "/img/20210902_c9d4c8d8ff172.jpg", "pos": "60% 50%" }
+      {
+        "post": "C1",
+        "name": "화정치과 자연치아, 뽑기 전에 살리는 순서"
+      },
+      {
+        "post": "C2",
+        "name": "화정 치과 신경치료, 몇 번 오나요"
+      },
+      {
+        "post": "C3",
+        "name": "화정치과 임플란트, 상담부터 보철까지"
+      },
+      {
+        "post": "B1",
+        "name": "화정 치과 시린 이, 찬물에 시릴 때"
+      },
+      {
+        "post": "C6",
+        "name": "화정치과 잇몸치료, 스케일링과 다른 점"
+      },
+      {
+        "post": "A1",
+        "name": "화정 치과 첫 방문, 챙겨 두면 좋은 것"
+      }
     ],
     "station": [
-      { "to": "home", "name": "화정역 치과 동그라미치과의원" },
-      { "to": "dong", "name": "화정동 치과 안내" },
-      { "to": "gu", "name": "덕양구 치과 안내" },
-      { "to": "treat", "name": "화정역 치과 진료 안내" },
-      { "to": "doctors", "name": "화정역 치과 의료진" },
-      { "to": "visit", "name": "화정역 치과 진료시간" }
+      {
+        "post": "A21",
+        "name": "화정역 치과, 퇴근길 화목 저녁 진료"
+      },
+      {
+        "post": "A22",
+        "name": "화정역 치과, 덕양구청 방면으로 오는 길"
+      },
+      {
+        "post": "A23",
+        "name": "화정역 치과, 3호선 타고 오시는 분께"
+      },
+      {
+        "post": "A24",
+        "name": "화정역 치과, 대곡역에서 갈아타기"
+      },
+      {
+        "post": "A25",
+        "name": "화정역 치과, 진료 뒤 집에 가는 길"
+      },
+      {
+        "post": "A26",
+        "name": "화정역 치과, 점심시간 피해서 들르기"
+      }
     ],
     "dong": [
-      { "to": "home", "name": "화정동 치과 동그라미치과의원" },
-      { "to": "station", "name": "화정역 치과 안내" },
-      { "to": "gu", "name": "덕양구 치과 안내" },
-      { "to": "treat", "name": "화정동 치과 진료 안내" },
-      { "to": "doctors", "name": "화정동 치과 의료진" },
-      { "to": "visit", "name": "화정동 치과 진료시간" }
+      {
+        "post": "A28",
+        "name": "화정동 치과, 고를 때 먼저 보는 것"
+      },
+      {
+        "post": "A29",
+        "name": "화정동 치과, 저녁 진료 이용하기"
+      },
+      {
+        "post": "A30",
+        "name": "화정동 치과, 차로 올 때"
+      },
+      {
+        "post": "B29",
+        "name": "화정동 치과, 별빛마을에서 걸어서"
+      },
+      {
+        "post": "B30",
+        "name": "화정동 치과, 은빛마을과 옥빛마을에서"
+      },
+      {
+        "post": "C29",
+        "name": "화정동 치과, 달빛마을과 화정1동에서"
+      }
     ],
     "gu": [
-      { "to": "home", "name": "덕양구 치과 동그라미치과의원" },
-      { "to": "station", "name": "화정역 치과 안내" },
-      { "to": "dong", "name": "화정동 치과 안내" },
-      { "to": "treat", "name": "덕양구 치과 진료 안내" },
-      { "to": "doctors", "name": "덕양구 치과 의료진" },
-      { "to": "visit", "name": "덕양구 치과 진료시간" }
+      {
+        "post": "D23",
+        "name": "덕양구 치과, 원당에서 한 정거장"
+      },
+      {
+        "post": "D24",
+        "name": "덕양구 치과, 행신동에서 오는 길"
+      },
+      {
+        "post": "D25",
+        "name": "덕양구 치과, 삼송과 원흥에서"
+      },
+      {
+        "post": "D27",
+        "name": "덕양구 치과, 흥도동과 도래울에서"
+      },
+      {
+        "post": "D28",
+        "name": "덕양구 치과, 능곡에서 대곡역 환승"
+      },
+      {
+        "post": "D29",
+        "name": "덕양구 치과, 야간 진료 이용하기"
+      }
     ],
     "treat": [
-      { "to": "home", "name": "화정치과 동그라미치과의원" },
-      { "to": "station", "name": "화정역 치과 안내" },
-      { "to": "dong", "name": "화정동 치과 안내" },
-      { "to": "gu", "name": "덕양구 치과 안내" },
-      { "to": "doctors", "name": "화정치과 의료진" },
-      { "to": "visit", "name": "화정치과 진료시간" }
+      {
+        "post": "C4",
+        "name": "화정 치과 임플란트, CT를 찍는 이유"
+      },
+      {
+        "post": "C5",
+        "name": "화정치과 네비게이션 임플란트"
+      },
+      {
+        "post": "C8",
+        "name": "화정 치과 충치치료, 깊이에 따라"
+      },
+      {
+        "post": "C9",
+        "name": "화정치과 사랑니, 위치부터 봅니다"
+      },
+      {
+        "post": "C10",
+        "name": "화정 치과 라미네이트, 전에 확인할 것"
+      },
+      {
+        "post": "C12",
+        "name": "화정 치과 크라운, 재료 고르는 기준"
+      }
     ],
     "doctors": [
-      { "to": "home", "name": "화정 치과 동그라미치과의원" },
-      { "to": "station", "name": "화정역 치과 안내" },
-      { "to": "dong", "name": "화정동 치과 안내" },
-      { "to": "gu", "name": "덕양구 치과 안내" },
-      { "to": "treat", "name": "화정 치과 진료 안내" },
-      { "to": "visit", "name": "화정 치과 진료시간" }
+      {
+        "post": "C20",
+        "name": "화정 치과 마취, 걱정될 때"
+      },
+      {
+        "post": "C21",
+        "name": "화정치과 보증제도, 보증서 확인"
+      },
+      {
+        "post": "C22",
+        "name": "화정 치과 위생, 기구 소독"
+      },
+      {
+        "post": "C23",
+        "name": "화정치과 통합치의학과 전문의"
+      },
+      {
+        "post": "C24",
+        "name": "화정 치과 구강스캐너, 본뜨기"
+      },
+      {
+        "post": "C25",
+        "name": "화정치과 저선량 CT 촬영"
+      }
     ],
     "visit": [
-      { "to": "home", "name": "화정치과 병원 안내" },
-      { "to": "station", "name": "화정역 치과 안내" },
-      { "to": "dong", "name": "화정동 치과 안내" },
-      { "to": "gu", "name": "덕양구 치과 안내" },
-      { "to": "treat", "name": "화정치과 진료 과목" },
-      { "to": "doctors", "name": "화정치과 원장 소개" }
+      {
+        "post": "A2",
+        "name": "화정치과 예약, 증상을 짧게 전하는 법"
+      },
+      {
+        "post": "A3",
+        "name": "화정치과 엑스레이, 가져오면 좋은 이유"
+      },
+      {
+        "post": "A5",
+        "name": "화정 치과 화목 저녁, 진료 잡을 때"
+      },
+      {
+        "post": "A6",
+        "name": "화정 치과 토요일, 진료 전에"
+      },
+      {
+        "post": "A8",
+        "name": "화정치과 주차, 기계식 주차장"
+      },
+      {
+        "post": "A15",
+        "name": "화정치과 예약, 네이버와 전화"
+      }
     ]
   }
 }

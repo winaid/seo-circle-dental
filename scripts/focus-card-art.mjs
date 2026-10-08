@@ -3,7 +3,7 @@
  * content/focus-cards.json 한 표를 읽는다(화면 카드·ItemList 와 같은 표). 이름을 바꾸면 표의 v 를 올리고 다시 돌릴 것
  * (같은 파일 이름에 내용만 바꾸면 네이버·next/image 가 옛 그림을 쥐고 있다 — 10-01 store 함정).
  * ★ 쪽마다 카드 이름이 달라 그림도 쪽마다 다르다 — 같은 덩어리(이름+그림)가 여러 쪽에 되풀이되면 네이버가 공통 틀로 보고 뺀다(10-06).
- * ★ 바탕 사진은 병원 공간·상담 사진만(진료 중인 장면 금지).
+ * ★ 바탕 사진은 병원 공간·상담 사진만(진료 중인 장면 금지). v2(10-08 오후): 카드 = 블로그 글, 파일 = v<v>-<쪽>-<순번>.jpg, 사진은 쪽 안에서 겹치지 않게 돌려 쓴다.
  *   node scripts/focus-card-art.mjs
  */
 import { createRequire } from 'node:module';
@@ -16,6 +16,13 @@ const sharp = require('sharp');
 const ROOT = process.cwd();
 const T = JSON.parse(fs.readFileSync(path.join(ROOT, 'content/focus-cards.json'), 'utf8'));
 const OUT = path.join(ROOT, 'public/img/fc');
+// 병원 공간·상담 사진(lib/assets IMG.interior 중 엑스레이 촬영 장면 뺀 11장 + 상담 사진 5장)
+const POOL = [
+  '/img/20210923_5e82b10a99850.jpg', '/img/20210923_6b7e0b66df9e0.jpg', '/img/20210923_43d85ec16a0eb.jpg', '/img/20210923_217b53ad1570b.jpg',
+  '/img/20210923_595f40b6ee28f.jpg', '/img/20210923_72fa74e154297.jpg', '/img/20210923_956b5d44b57ef.jpg', '/img/20210923_14482879bf993.jpg',
+  '/img/20210923_ed347b4ffee21.jpg', '/img/20210923_bfab24c2d7395.jpg', '/img/20210902_c9d4c8d8ff172.jpg',
+  '/img/clinic/implant-hero.webp', '/img/clinic/perio-explain.webp', '/img/clinic/doctor-desk.webp', '/img/clinic/aes-chairside.webp', '/img/clinic/doctors-team.webp',
+];
 
 const split = (name) => {
   if (name.includes(', ')) { const i = name.indexOf(', '); return [name.slice(0, i), name.slice(i + 2)]; }
@@ -44,20 +51,20 @@ const b = await chromium.launch();
 const pg = await (await b.newContext({ viewport: { width: 800, height: 800 } })).newPage();
 const tmp = path.join(ROOT, '.focus-card-art.html');
 const made = [];
+const listKeys = Object.keys(T.lists);
 for (const [list, cards] of Object.entries(T.lists)) {
-  for (const c of cards) {
-    const page = T.pages[c.to];
-    const bg = c.bg ?? page.bg;
-    const pos = c.pos ?? page.pos;
+  for (const [i, c] of cards.entries()) {
+    const bg = POOL[(listKeys.indexOf(list) * 5 + i) % POOL.length];
+    const pos = '50% 40%';
     const [l1, l2] = split(c.name);
     fs.writeFileSync(tmp, html(pathToFileURL(path.join(ROOT, 'public', bg)).href, pos, l1, l2, list === 'home'));
     await pg.goto(pathToFileURL(tmp).href, { waitUntil: 'networkidle' });
     await pg.evaluate(() => document.fonts.ready);
     await pg.waitForTimeout(120);
-    const file = path.join(OUT, `v${T.v}-${list}-${c.to}.jpg`);
+    const file = path.join(OUT, `v${T.v}-${list}-${i + 1}.jpg`);
     await sharp(await pg.screenshot({ type: 'png' })).jpeg({ quality: 84, mozjpeg: true }).toFile(file);
     made.push(file);
-    console.log('만듦', `v${T.v}-${list}-${c.to}`, '|', l1, '/', l2);
+    console.log('만듦', `v${T.v}-${list}-${i + 1}`, c.post, '|', l1, '/', l2);
   }
 }
 fs.rmSync(tmp, { force: true });

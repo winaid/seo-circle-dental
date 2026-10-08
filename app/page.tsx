@@ -13,7 +13,7 @@ import { CLINIC_QA } from '@/lib/faq';
 import { docByPathStrict } from '@/lib/catalog';
 import { metaFor } from '@/lib/meta';
 import { webPageNode, breadcrumbNode, itemListNode, imageGalleryNode } from '@/lib/schema';
-import { focusCards, type FocusKey } from '@/lib/focus';
+import { focusCards } from '@/lib/focusCards';
 import { SITE_URL, STATION_DISTANCE_M, fmtDistance } from '@/lib/site';
 import { sentences } from '@/lib/text';
 
@@ -58,21 +58,11 @@ const FEATURES = [
   },
 ];
 
-/* 홈 카드 아래 한 줄 — 카드 이름·그림은 content/focus-cards.json(홈 전용 문장) */
 const walk = fmtDistance(STATION_DISTANCE_M);
-const CAPTION: Partial<Record<FocusKey, string>> = {
-  station: `3호선 화정역에서 덕양구청 방면으로 직선거리 ${walk}입니다.`,
-  dong: '화정2동 현창빌딩 3층, 화정동 단지에서 걸어서 오실 수 있습니다.',
-  gu: '원당과 원흥, 삼송에서도 3호선 한 노선으로 오십니다.',
-  treat: '진료 열 가지와 진료마다 먼저 확인하는 것을 적었습니다.',
-  doctors: '세 명 모두 보건복지부인증 통합치의학과 전문의입니다.',
-  visit: '월·수·금 18:30, 화·목 20:30, 토요일 14:00까지입니다.',
-};
-const KEY_OF_PATH: Record<string, FocusKey> = { '/area/hwajeong-station': 'station', '/area/hwajeong-1': 'dong', '/area/deogyang': 'gu', '/treatment': 'treat', '/about': 'doctors', '/visit': 'visit' };
 
 export default function HomePage() {
-  // ★ 2026-10-08 네 검색어 집중판 — 홈 카드 6장 = 남긴 쪽 여섯(lib/focus.ts). 이름 앞은 늘 '지역+치과'(10-06 홈 카드 조건)
-  const carousel = focusCards('home').map((c) => ({ ...c, caption: CAPTION[KEY_OF_PATH[c.path]] ?? '' }));
+  // ★ 2026-10-08 홈 카드 6장 = '화정치과…' 블로그 글 여섯 편(lib/focusCards.ts v2 — 메뉴형 쪽을 가리키면 카드가 빠졌다). 이름 앞은 늘 '지역+치과'(10-06 홈 카드 조건)
+  const carousel = focusCards('home');
 
   return (
     <>
@@ -137,7 +127,7 @@ export default function HomePage() {
             <div className="sec-head home-cards-head">
               <span className="eyebrow">화정 치과 안내</span>
               <h2 id="h-treat">화정치과를 알아보고 계신다면, 진료 이름보다 진단 순서를 먼저</h2>
-              <p>화정 치과 동그라미치과의원은 뽑을지 살릴지를 검사로 먼저 확인합니다. 오시는 길과 진료시간, 의료진, 진료마다 먼저 보는 것을 위 여섯 쪽에 나눠 적었습니다.</p>
+              <p>화정 치과 동그라미치과의원은 뽑을지 살릴지를 검사로 먼저 확인합니다. 진료마다 먼저 보는 것과 오시기 전에 알아 두면 좋은 것을 글로 나눠 적었습니다.</p>
             </div>
           </div>
         </section>

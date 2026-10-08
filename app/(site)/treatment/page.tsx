@@ -3,7 +3,7 @@ import { CtaBlock, Faq, HubHead, JsonLd, MedicalNotice } from '@/components/ui';
 import { docByPathStrict } from '@/lib/catalog';
 import { metaFor } from '@/lib/meta';
 import { breadcrumbNode, webPageNode, itemListNode } from '@/lib/schema';
-import { focusCards } from '@/lib/focus';
+import { focusCards } from '@/lib/focusCards';
 import { CardRow } from '@/components/CardRow';
 import { TREATMENTS } from '@/lib/treatments';
 import { sentences } from '@/lib/text';
@@ -64,11 +64,11 @@ export default function TreatmentPage() {
           ))}
         </div>
 
-        <CardRow title="화정 치과 동그라미치과의원 안내" cards={cards} />
+        <CardRow title="진료 전에 읽어 보는 화정 치과 이야기" cards={cards} />
         <CtaBlock />
         <MedicalNotice />
       </div>
-      <JsonLd nodes={[webPageNode(doc, { medical: true }), breadcrumbNode('/treatment', crumbs), itemListNode('화정 치과 진료 안내', cards.map((c) => ({ name: c.name, path: c.path, image: c.image })))]} />
+      <JsonLd nodes={[webPageNode(doc, { medical: true }), breadcrumbNode('/treatment', crumbs), itemListNode("화정 치과 진료 이야기", cards.map((c) => ({ name: c.name, path: c.path, image: c.image })))]} />
     </>
   );
 }

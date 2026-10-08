@@ -15,39 +15,16 @@ import table from '../content/focus-cards.json';
 
 export type FocusKey = 'home' | 'station' | 'dong' | 'gu' | 'treat' | 'doctors' | 'visit';
 
-interface PageRow { path: string; tag: string; bg: string; pos: string }
-interface ListRow { to: FocusKey; name: string; bg?: string; pos?: string }
+interface PageRow { path: string; tag: string }
 
 const PAGES = table.pages as Record<FocusKey, PageRow>;
-const LISTS = table.lists as Record<FocusKey, ListRow[]>;
 
 export const FOCUS_PATH: Record<FocusKey, string> = Object.fromEntries(Object.entries(PAGES).map(([k, p]) => [k, p.path])) as Record<FocusKey, string>;
 
-/** 남기는 쪽 — 사이트맵·RSS·카탈로그가 이 집합만 낸다. */
+/** 남기는 쪽 — 사이트맵·RSS·카탈로그가 이 집합만 낸다(블로그 글은 lib/posts.ts 가 따로 더한다). */
 export const KEEP_PATHS = new Set<string>([...Object.values(FOCUS_PATH), '/privacy']);
 
-export interface FocusCard {
-  name: string;
-  path: string;
-  /** 800×800 카드 그림 — 화면 <img> 와 ItemList.image 가 같은 파일 */
-  image: string;
-  alt: string;
-  tag: string;
-}
-
-/** 카드 그림 파일 — scripts/focus-card-art.mjs 가 같은 규칙으로 만든다 */
-export const focusCardImage = (list: FocusKey, to: FocusKey) => `/img/fc/v${table.v}-${list}-${to}.jpg`;
-
-/** 그 쪽에 싣는 카드 6장(자기 자신 빼고 나머지 여섯 쪽). 이름은 쪽마다 다르다 — 같은 덩어리가 여러 쪽에 되풀이되지 않게. */
-export function focusCards(list: FocusKey): FocusCard[] {
-  return LISTS[list].map((c) => ({
-    name: c.name,
-    path: FOCUS_PATH[c.to],
-    image: focusCardImage(list, c.to),
-    alt: c.name,
-    tag: PAGES[c.to].tag,
-  }));
-}
+// 카드 6장(focusCards)은 lib/focusCards.ts — 블로그 글을 읽어야 해서 여기(엣지 middleware 가 읽는 파일)에 두지 않는다
 
 /* ────────────────────────────────────────────── 지운 주소 가르기 */
 

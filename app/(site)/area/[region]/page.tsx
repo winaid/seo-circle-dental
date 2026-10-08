@@ -7,7 +7,7 @@ import { metaFor } from '@/lib/meta';
 import { breadcrumbNode, itemListNode, webPageNode } from '@/lib/schema';
 import { regionBySlug, regionDistanceM, regionBearingKo } from '@/lib/regions';
 import { fmtDistance, LINE3, STATION_DISTANCE_M, stopsToHwajeong } from '@/lib/site';
-import { focusCards } from '@/lib/focus';
+import { focusCards } from '@/lib/focusCards';
 import { AREA_COPY, areaCopyBySlug, DANJI_ROWS, GU_ROWS, type AreaCopy } from '@/lib/focusCopy';
 import { treatmentBySlug } from '@/lib/treatments';
 import { sentences } from '@/lib/text';
@@ -120,7 +120,7 @@ export default async function RegionPage({ params }: { params: Promise<{ region:
     { name: '홈', path: '/' },
     { name: c.kw, path: doc.path },
   ];
-  // 카드 6장 = 화면 카드 = ItemList(같은 그림). 이름은 이 쪽 전용(lib/focus.ts · content/focus-cards.json)
+  // 카드 6장 = 화면 카드 = ItemList(같은 그림) = 이 검색어 블로그 글 여섯 편(lib/focusCards.ts v2, content/focus-cards.json)
   const cards = focusCards(c.key);
   const toc = [...c.sections.map((s) => ({ id: s.id, t: s.h2 })), { id: 'care', t: `${c.kw}에서 하는 진료` }, { id: 'faq', t: `${c.kw} 자주 묻는 질문` }];
 
@@ -133,7 +133,7 @@ export default async function RegionPage({ params }: { params: Promise<{ region:
         <section className="lp-sec fc-top">
           <div className="wrap">
             <AnswerFirst label={`${c.kw} 한눈에`}>{c.summary}</AnswerFirst>
-            <CardRow title={`${c.kw} 동그라미치과의원 안내`} cards={cards} />
+            <CardRow title={`${c.kw} 이야기, 오시기 전에 읽어 보세요`} cards={cards} />
             <nav className="fc-toc" aria-label="이 쪽 차례">
               <b>차례</b>
               <ol>
@@ -185,7 +185,7 @@ export default async function RegionPage({ params }: { params: Promise<{ region:
           <MedicalNotice />
         </LpSection>
       </div>
-      <JsonLd nodes={[webPageNode(doc), breadcrumbNode(doc.path, crumbs), itemListNode(`${c.kw} 동그라미치과의원 안내`, cards.map((x) => ({ name: x.name, path: x.path, image: x.image })))]} />
+      <JsonLd nodes={[webPageNode(doc), breadcrumbNode(doc.path, crumbs), itemListNode(`${c.kw} 이야기`, cards.map((x) => ({ name: x.name, path: x.path, image: x.image })))]} />
     </>
   );
 }
