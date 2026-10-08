@@ -1,15 +1,13 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
-import { Btn, Chips, CtaBlock, Faq, HoursTable, HubHead, Icon, JsonLd, MedicalNotice } from '@/components/ui';
+import { Btn, CtaBlock, Faq, HoursTable, HubHead, Icon, JsonLd, MedicalNotice } from '@/components/ui';
 import { OpenNow } from '@/components/OpenNow';
 import { docByPathStrict } from '@/lib/catalog';
 import { metaFor } from '@/lib/meta';
-import { breadcrumbNode, webPageNode, cardListNode } from '@/lib/schema';
-import { pathCards } from '@/lib/carousel';
+import { breadcrumbNode, webPageNode, itemListNode } from '@/lib/schema';
+import { focusCards } from '@/lib/focus';
 import { CardRow } from '@/components/CardRow';
 import { CLINIC, UNVERIFIED } from '@/lib/clinic';
 import { CLINIC_QA } from '@/lib/faq';
-import { REGIONS } from '@/lib/regions';
 import { CLINIC_GEO, fmtDistance, STATION_DISTANCE_M } from '@/lib/site';
 import { IMG } from '@/lib/assets';
 
@@ -23,8 +21,8 @@ export default function VisitPage() {
     { name: '오시는 길', path: '/visit' },
   ];
   const mapSrc = `https://www.google.com/maps?q=${CLINIC_GEO.lat},${CLINIC_GEO.lng}&z=17&hl=ko&output=embed`;
-  // 사진 카드 6장 = 화면 카드 = ItemList(사진 포함) — 네이버 캐러셀 재료 (2026-09-28)
-  const cards = pathCards([]);
+  // 사진 카드 6장 = 화면 카드 = ItemList(같은 그림) — 2026-10-08 네 검색어 집중판(lib/focus.ts)
+  const cards = focusCards('visit');
   return (
     <>
       <HubHead crumbs={crumbs} eyebrow="오시는 길 · 진료시간 · 예약" title={doc.title} lead={`${CLINIC.address.full}. 3호선 화정역에서 ${fmtDistance(STATION_DISTANCE_M)}, ${CLINIC.parking.type} ${CLINIC.parking.fee}.`} />
@@ -78,23 +76,16 @@ export default function VisitPage() {
           <figcaption>{IMG.interior[11].alt}</figcaption>
         </figure>
 
-        <section>
-          <h2 style={{ fontSize: 24, marginBottom: 14 }}>이 동네에서 오신다면</h2>
-          <Chips items={REGIONS.map((r) => ({ label: r.keyword, href: `/area/${r.slug}` }))} />
-        </section>
-
+        {/* 2026-10-08: 동네 칩 26개 → 남긴 세 쪽(화정역·화정동·덕양구)으로 가는 길은 위 카드와 머리 메뉴에 */}
         <section style={{ maxWidth: 820 }}>
           <h2 style={{ fontSize: 24, marginBottom: 14 }}>내원 전에 자주 묻는 것</h2>
-          <Faq items={CLINIC_QA.map((q, i) => ({ q: q.q, a: q.a, href: `/qa/visit-${i + 1}` }))} />
-          <p className="small muted" style={{ marginTop: 12 }}>
-            <Link href="/faq">자주 묻는 질문 전체 보기</Link>
-          </p>
+          <Faq items={CLINIC_QA.map((q) => ({ q: q.q, a: q.a }))} />
         </section>
-        <CardRow title="진료 안내" cards={cards} />
+        <CardRow title="화정치과 동그라미치과의원 안내" cards={cards} />
         <CtaBlock />
         <MedicalNotice />
       </div>
-      <JsonLd nodes={[webPageNode(doc), breadcrumbNode('/visit', crumbs), ...cardListNode('오시는 길 · 진료 안내', cards)]} />
+      <JsonLd nodes={[webPageNode(doc), breadcrumbNode('/visit', crumbs), itemListNode('화정치과 동그라미치과의원 안내', cards.map((c) => ({ name: c.name, path: c.path, image: c.image })))]} />
     </>
   );
 }

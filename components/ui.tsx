@@ -206,7 +206,7 @@ export function DoctorCard({ d, sub, link = true }: { d: Doctor; sub?: string; l
     </>
   );
   return link ? (
-    <Link href={`/about/doctors/${d.slug}`} className="doc-card">
+    <Link href="/about" className="doc-card">
       {inner}
     </Link>
   ) : (

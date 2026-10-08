@@ -6,14 +6,14 @@ import { OpenNow } from '@/components/OpenNow';
 import { CLINIC, STRENGTHS, UNVERIFIED } from '@/lib/clinic';
 import { IMG } from '@/lib/assets';
 import { treatmentBySlug } from '@/lib/treatments';
-import { SYMPTOMS, SYMPTOM_GROUPS } from '@/lib/symptoms';
+import { TREATMENTS } from '@/lib/treatments';
+import { FIRST_VISIT_FLOW } from '@/lib/firstVisit';
 import { DOCTORS } from '@/lib/doctors';
-import { REGIONS } from '@/lib/regions';
 import { CLINIC_QA } from '@/lib/faq';
-import { docByPathStrict, docsOfKind } from '@/lib/catalog';
+import { docByPathStrict } from '@/lib/catalog';
 import { metaFor } from '@/lib/meta';
 import { webPageNode, breadcrumbNode, itemListNode, imageGalleryNode } from '@/lib/schema';
-import { homeCarousel } from '@/lib/carousel';
+import { focusCards, type FocusKey } from '@/lib/focus';
 import { SITE_URL, STATION_DISTANCE_M, fmtDistance } from '@/lib/site';
 import { sentences } from '@/lib/text';
 
@@ -44,7 +44,7 @@ const FEATURES = [
   {
     slug: 'save-natural-tooth',
     h2: '화정동 신경치료·자연치아 살리기',
-    img: { src: '/img/clinic/endo-surgery.webp', alt: '진료실에서 원장이 확대경을 쓰고 신경치료를 진행하는 모습' },
+    img: { src: '/img/20210923_217b53ad1570b.jpg', alt: '파노라마 엑스레이 화면과 태블릿의 구강 사진을 나란히 놓고 설명하는 모습' },
   },
   {
     slug: 'cavity',
@@ -54,15 +54,25 @@ const FEATURES = [
   {
     slug: 'wisdom-tooth',
     h2: '화정치과 사랑니 발치',
-    img: { src: '/img/clinic/wisdom-room.webp', alt: '사랑니 발치를 준비하는 진료실' },
+    img: { src: '/img/20210923_956b5d44b57ef.jpg', alt: '상담실에서 파노라마 엑스레이 화면과 치아 모형으로 설명하는 모습' },
   },
 ];
 
+/* 홈 카드 아래 한 줄 — 카드 이름·그림은 content/focus-cards.json(홈 전용 문장) */
+const walk = fmtDistance(STATION_DISTANCE_M);
+const CAPTION: Partial<Record<FocusKey, string>> = {
+  station: `3호선 화정역에서 덕양구청 방면으로 직선거리 ${walk}입니다.`,
+  dong: '화정2동 현창빌딩 3층, 화정동 단지에서 걸어서 오실 수 있습니다.',
+  gu: '원당과 원흥, 삼송에서도 3호선 한 노선으로 오십니다.',
+  treat: '진료 열 가지와 진료마다 먼저 확인하는 것을 적었습니다.',
+  doctors: '세 명 모두 보건복지부인증 통합치의학과 전문의입니다.',
+  visit: '월·수·금 18:30, 화·목 20:30, 토요일 14:00까지입니다.',
+};
+const KEY_OF_PATH: Record<string, FocusKey> = { '/area/hwajeong-station': 'station', '/area/hwajeong-1': 'dong', '/area/deogyang': 'gu', '/treatment': 'treat', '/about': 'doctors', '/visit': 'visit' };
+
 export default function HomePage() {
-  const carousel = homeCarousel();
-  const popularSymptoms = ['toothache-night', 'cold-sensitivity', 'bleeding-gums', 'missing-tooth', 'wisdom-tooth-pain', 'cracked-tooth', 'loose-tooth', 'crown-fell-out']
-    .map((s) => SYMPTOMS.find((x) => x.slug === s)!)
-    .filter(Boolean);
+  // ★ 2026-10-08 네 검색어 집중판 — 홈 카드 6장 = 남긴 쪽 여섯(lib/focus.ts). 이름 앞은 늘 '지역+치과'(10-06 홈 카드 조건)
+  const carousel = focusCards('home').map((c) => ({ ...c, caption: CAPTION[KEY_OF_PATH[c.path]] ?? '' }));
 
   return (
     <>
@@ -87,14 +97,16 @@ export default function HomePage() {
                 '화정 치과'는 h1 으로 움직이지 않는다 — 플랫폼·블로그 끼어듦과 위 병원 홈들이 막는 검색어
                 ★ 10-07 3차(오너 GO "광화문 선치과 그 업체처럼"): gwanghwamundental.co.kr 홈 = h1 이 검색어로 시작('광화문치과 찾으신다면…'),
                 h2 8개 중 6개·본문 44회, 플레이스 홈페이지 아님(플레이스는 dentalsun)인데 통합 1~4위·카드. 우리 홈은 플레이스 미연결이라 같은 길.
-                h1 맨 앞에 '화정치과 동그라미치과의원' 줄, '…화정동 치과'는 그대로 둔다(화정동 11위 유지). h2 2/10 → 7/10, 본문 10 → 20회 남짓 */}
+                h1 맨 앞에 '화정치과 동그라미치과의원' 줄, '…화정동 치과'는 그대로 둔다(화정동 11위 유지). h2 2/10 → 7/10, 본문 10 → 20회 남짓
+                ★ 2026-10-08 네 검색어 집중판(오너 "다 없애고 네 개만"): '화정동 치과'는 /area/hwajeong-1 이 맡는다 → 홈 h1 끝 낱말을 '화정 치과'로.
+                홈 = 화정치과·화정 치과 둘(h1 두 줄에 하나씩). 제목(title)은 바꾸지 않았다 — 잦은 제목 변경은 네이버가 불이익을 준다고 적어 둔 것 */}
             <div className="home-top">
               <span className="eyebrow">고양시 덕양구 화정동 · 3호선 화정역</span>
               <h1>
                 <span className="h1-kw">화정치과 동그라미치과의원</span>
                 뽑기 전에 살릴 수 있는지 먼저 보는{' '}
                 <em>
-                  화정동 치과
+                  화정 치과
                   {/* 병원 이름 '동그라미' — 손으로 그린 동그라미가 검색어를 감싼다(장식, 글자 아님). app/globals.css .home-top .circ */}
                   <svg className="circ" viewBox="0 0 300 100" preserveAspectRatio="none" aria-hidden="true" focusable="false">
                     <path pathLength={1} d="M252 16C198 2 78 4 30 30C-4 50 26 90 150 92C268 94 312 62 282 30C262 10 196 6 138 12" />
@@ -103,16 +115,16 @@ export default function HomePage() {
               </h1>
             </div>
             <div className="grid grid--3 home-cards-grid">
-              {/* ★ 카드 6장은 lib/carousel.ts 한 곳에서 나온다 — 화면 <h3> 와 ItemList.name 이 글자까지 같아야 검색 결과 카드 줄이 붙는다
+              {/* ★ 카드 6장은 content/focus-cards.json(lib/focus.ts) 한 곳에서 나온다 — 화면 <h3> 와 ItemList.name 이 글자까지 같아야 검색 결과 카드 줄이 붙는다
                   ★★ 사진도 ItemList 와 **같은 URL(정사각 800×800)** 을 써야 한다. 2026-09-14 실측:
                      레퍼런스(1dentalsolution)는 ItemList 의 640×640 6장이 화면 <img> 에도 그대로 있어(겹침 6/6)
                      검색 결과 블록에 카드 줄이 붙었고, 우리는 화면이 3:2 webp·구조화 데이터가 정사각 jpg 라
                      겹침 0/6 이라 안 붙었다(네이버가 고른 썸네일도 화면에 있는 사진이었다). */}
-              {/* 그림 속에 제목 글자가 이미 있어(scripts/home-card-art.mjs) 이름·설명은 그림 아래에 — 겹쳐 올리면 글자가 이중으로 보인다 */}
+              {/* 그림 속에 제목 글자가 이미 있어(scripts/focus-card-art.mjs) 이름·설명은 그림 아래에 — 겹쳐 올리면 글자가 이중으로 보인다 */}
               {carousel.map((c, i) => (
-                <Link key={c.slug} href={c.path} className="h-card">
+                <Link key={c.path} href={c.path} className="h-card">
                   <span className="h-card-img">
-                    <img src={c.image} alt={c.name} width={800} height={800} loading={i < 3 ? 'eager' : 'lazy'} decoding="async" />
+                    <img src={c.image} alt={c.alt} width={800} height={800} loading={i < 3 ? 'eager' : 'lazy'} decoding="async" />
                   </span>
                   <span className="h-card-in">
                     <span className="card-tag">{c.tag}</span>
@@ -123,9 +135,9 @@ export default function HomePage() {
               ))}
             </div>
             <div className="sec-head home-cards-head">
-              <span className="eyebrow">진료 안내</span>
-              <h2 id="h-treat">화정치과 동그라미에서 하는 진료, 무엇을 먼저 보는지까지</h2>
-              <p>화정치과를 알아보고 계시다면 진료 이름보다 진단 순서를 먼저 보시면 좋습니다. 각 진료에서 검사로 먼저 확인하는 것과 살릴 수 있는 조건·없는 조건을 나눠 적었습니다.</p>
+              <span className="eyebrow">화정 치과 안내</span>
+              <h2 id="h-treat">화정치과를 알아보고 계신다면, 진료 이름보다 진단 순서를 먼저</h2>
+              <p>화정 치과 동그라미치과의원은 뽑을지 살릴지를 검사로 먼저 확인합니다. 오시는 길과 진료시간, 의료진, 진료마다 먼저 보는 것을 위 여섯 쪽에 나눠 적었습니다.</p>
             </div>
           </div>
         </section>
@@ -238,36 +250,49 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* ───── 증상 ───── */}
-        <section className="sec sec--alt" aria-labelledby="h-sym">
+        {/* ───── 진료 열 가지 (2026-10-08 — 증상 구획 자리. 증상·질환 쪽은 지웠다) ───── */}
+        <section className="sec sec--alt" aria-labelledby="h-all">
           <div className="wrap">
             <div className="sec-head">
-              <span className="eyebrow">증상으로 찾기</span>
-              <h2 id="h-sym">이가 아프고 시릴 때, 잇몸에서 피가 날 때 — 지금 느끼는 불편으로 원인 짚어보기</h2>
-              <p>진료과목 이름을 몰라도 됩니다. 느끼시는 증상과 가장 가까운 항목부터 읽어 보세요. 원인 후보, 내원 전 할 수 있는 것, 바로 와야 하는 신호를 나눠 적었습니다.</p>
+              <span className="eyebrow">진료 과목</span>
+              <h2 id="h-all">화정 치과 동그라미치과의원에서 하는 진료 열 가지</h2>
+              <p>진료 이름만 늘어놓지 않고, 진료마다 무엇을 먼저 확인하는지 한 줄씩 적었습니다. 진료별 자세한 내용은 진료 안내 쪽에 있습니다.</p>
             </div>
-            <div className="two">
-              <div>
-                <p className="muted">{SYMPTOM_GROUPS.map((g) => g.title).join(' · ')}</p>
-                <p className="muted small" style={{ marginTop: 16 }}>
-                  증상 {SYMPTOMS.length}가지 · 질환 15가지 · 진료실 문답 {docsOfKind('qa').length}편
-                </p>
-              </div>
-              {/* 홈에서는 링크 없이 글로만 — 홈 내부 링크 8개 */}
-              <dl className="home-sym">
-                {popularSymptoms.map((s) => (
-                  <div key={s.slug}>
-                    <dt>{s.title}</dt>
-                    <dd>{s.short}</dd>
+            {/* 홈에서는 링크 없이 글로만 — 홈 첫 링크 묶음은 카드 6장 */}
+            <dl className="home-sym home-all">
+              {TREATMENTS.map((t) => (
+                <div key={t.slug}>
+                  <dt>{t.name}</dt>
+                  <dd>{t.summary}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        </section>
+
+        {/* ───── 첫 진료 ───── */}
+        <section className="sec" aria-labelledby="h-first">
+          <div className="wrap two">
+            <div className="sec-head" style={{ marginBottom: 0 }}>
+              <span className="eyebrow">처음 오시면</span>
+              <h2 id="h-first">화정치과 첫 진료는 이렇게 진행됩니다</h2>
+              <p>처음 오신 날 바로 치료부터 하지 않습니다. 복용 중인 약을 확인하고 사진을 찍은 뒤, 그 사진을 함께 보면서 지금 상태와 선택지를 설명합니다.</p>
+            </div>
+            <ol className="steps">
+              {FIRST_VISIT_FLOW.map((x) => (
+                <li key={x.n}>
+                  <div>
+                    <b>{x.t}</b>
+                    <p>{x.d}</p>
                   </div>
-                ))}
-              </dl>
-            </div>
+                </li>
+              ))}
+            </ol>
           </div>
         </section>
 
         {/* ───── 의료진 ───── */}
-        <section className="sec" aria-labelledby="h-team">
+        <section className="sec sec--alt" aria-labelledby="h-team">
           <div className="wrap team">
             <div className="sec-head sec-head--row">
               <div>
@@ -288,7 +313,7 @@ export default function HomePage() {
         </section>
 
         {/* ───── 오시는 길 ───── */}
-        <section className="sec sec--alt" aria-labelledby="h-visit">
+        <section className="sec" aria-labelledby="h-visit">
           <div className="wrap">
             <div className="sec-head">
               <span className="eyebrow">오시는 길 · 진료시간</span>
@@ -315,14 +340,35 @@ export default function HomePage() {
                 <p className="small muted">점심시간 {UNVERIFIED.hours.lunch.start}–{UNVERIFIED.hours.lunch.end} (토요일 제외)</p>
               </div>
             </div>
-            {/* ★ 10-02 시험: 링크를 뺄 때 같이 빠진 지역 이름을 '링크 없는 글자'로 되살린다 — 순위가 링크 때문인지 글 때문인지 가르기 */}
-            <div style={{ marginTop: 36 }}>
-              <span className="eyebrow">이 동네에서 오신다면</span>
-              <div className="chips" style={{ marginTop: 14 }}>
-                {REGIONS.map((r) => (
-                  <span key={r.slug}>{r.keyword}</span>
-                ))}
+            {/* ★ 2026-10-08: 지역 칩 26개(다른 동네 검색어)는 뺐다 — 네 검색어만. 그 셋의 길은 글로 */}
+            <div className="home-ways">
+              <div>
+                <h3>화정역에서</h3>
+                <p>3호선 화정역에서 덕양구청 방면으로 나와 화중로를 따라 남쪽으로 내려오시면 됩니다. 역에서 직선거리 {walk}입니다.</p>
               </div>
+              <div>
+                <h3>화정동에서</h3>
+                <p>병원은 화정2동 한가운데에 있어 화정동 단지 대부분에서 걸어서 오실 수 있습니다. 화정1동에서는 화정역을 지나 남쪽으로 내려오시면 됩니다.</p>
+              </div>
+              <div>
+                <h3>덕양구에서</h3>
+                <p>원당과 원흥, 삼송에서는 3호선 한 노선으로 오시고, 행신동과 능곡에서는 화정역 방면 버스나 대곡역 환승으로 오시면 됩니다.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ───── 고르실 때 (2026-10-08 — 광화문 업체 홈의 '광화문치과를 알아보고 계신다면' 구획과 같은 자리) ───── */}
+        <section className="sec sec--alt" aria-labelledby="h-pick">
+          <div className="wrap">
+            <div className="sec-head">
+              <span className="eyebrow">고르실 때</span>
+              <h2 id="h-pick">화정치과를 알아보고 계신다면</h2>
+            </div>
+            <div className="fc-body">
+              <p>화정 치과를 고르실 때는 집이나 회사에서 오가기 편한지, 저녁이나 토요일에 시간을 낼 수 있는지부터 보시게 됩니다. 동그라미치과의원은 3호선 화정역에서 덕양구청 방면으로 직선거리 {walk}이고, 화요일과 목요일은 저녁 8시 30분까지, 토요일은 오후 2시까지 진료합니다.</p>
+              <p>그다음은 누가 어떤 순서로 진단하는지입니다. 화정치과 동그라미치과의원은 보건복지부인증 통합치의학과 전문의 세 명이 진료하고, 저선량으로 촬영하는 CT와 구강스캐너로 찍은 사진을 함께 보며 지금 상태를 설명합니다.</p>
+              <p>치료를 정할 때는 그 치아를 남길 수 있는지부터 확인하고, 남길 수 없을 때 임플란트를 말씀드립니다. 비용은 검사 뒤에 건강보험 적용 여부와 함께 설명합니다.</p>
             </div>
           </div>
         </section>
@@ -333,7 +379,7 @@ export default function HomePage() {
             <div className="sec-head" style={{ marginBottom: 0 }}>
               <span className="eyebrow">자주 묻는 질문</span>
               <h2 id="h-faq">화정치과 내원 전에 자주 물으시는 것</h2>
-              <p>진료시간·예약·주차·비용처럼 오시기 전에 궁금한 것부터 답합니다. 진료 내용에 대한 질문은 진료실 문답에 따로 모았습니다.</p>
+              <p>진료시간·예약·주차·비용처럼 오시기 전에 궁금한 것부터 답합니다. 진료 내용은 진료 안내 쪽에 진료마다 적었습니다.</p>
             </div>
             <Faq items={CLINIC_QA.slice(0, 6).map((q) => ({ q: q.q, a: q.a }))} />
           </div>
@@ -344,7 +390,7 @@ export default function HomePage() {
         nodes={[
           webPageNode(doc),
           breadcrumbNode('/', [{ name: '홈', path: '/' }]),
-          itemListNode('화정치과 동그라미치과의원 진료 안내', carousel.map((c) => ({ name: c.name, path: c.path, image: c.image }))),
+          itemListNode('화정치과 동그라미치과의원 안내', carousel.map((c) => ({ name: c.name, path: c.path, image: c.image }))),
           imageGalleryNode('동그라미치과의원 화정동 진료실과 진료 안내', [
             { src: HERO.src, name: '동그라미치과의원 진료실', caption: HERO.alt },
             { src: IMG.interior[3].src, name: '검사 결과 설명', caption: IMG.interior[3].alt },

@@ -3,8 +3,8 @@ import Link from 'next/link';
 import { CtaBlock, DoctorCard, Faq, HubHead, JsonLd, MedicalNotice } from '@/components/ui';
 import { docByPathStrict } from '@/lib/catalog';
 import { metaFor } from '@/lib/meta';
-import { breadcrumbNode, webPageNode, cardListNode } from '@/lib/schema';
-import { pathCards } from '@/lib/carousel';
+import { breadcrumbNode, webPageNode, itemListNode } from '@/lib/schema';
+import { focusCards } from '@/lib/focus';
 import { CardRow } from '@/components/CardRow';
 import { CLINIC, STRENGTHS, OUTREACH } from '@/lib/clinic';
 import { SPECIALS } from '@/lib/specials';
@@ -18,16 +18,19 @@ export const revalidate = 3600;
 const doc = docByPathStrict('/about');
 export const metadata: Metadata = metaFor(doc);
 
+/** 진료 중인 장면(환자·시술) 사진 — 공개 쪽에서 뺀다 */
+const SCENE = new Set(['/img/special/20210927_ab779fb49387d.jpg', '/img/special/20210906_a99cb036e51c0.jpg']);
+
 export default function AboutPage() {
   const crumbs = [
     { name: '홈', path: '/' },
     { name: '병원 소개', path: '/about' },
   ];
-  // 사진 카드 6장 = 화면 카드 = ItemList(사진 포함) — 네이버 캐러셀 재료 (2026-09-28)
-  const cards = pathCards(DOCTORS.map((d) => `/about/doctors/${d.slug}`));
+  // 사진 카드 6장 = 화면 카드 = ItemList(같은 그림) — 2026-10-08 네 검색어 집중판(lib/focus.ts). 원장별 쪽은 지웠다(이 쪽으로 301)
+  const cards = focusCards('doctors');
   return (
     <>
-      <HubHead crumbs={crumbs} eyebrow="병원 소개" title={doc.title} lead={CLINIC.description} />
+      <HubHead crumbs={crumbs} eyebrow="화정치과 의료진 · 병원 소개" title={doc.title} lead={CLINIC.description} />
       <div className="wrap" style={{ paddingBottom: 88 }}>
         <div className="team-photo" style={{ marginBottom: 48 }}>
           <img src={IMG.doctorsTeam} alt="동그라미치과의원 의료진 세 명" width={1200} height={800} fetchPriority="high" />
@@ -39,7 +42,9 @@ export default function AboutPage() {
             <p>학력·경력은 병원이 공개한 원문 그대로이며 요약하거나 고쳐 쓰지 않았습니다. 대표원장은 경희대학교 치의학전문대학원 외래교수이자 치의학박사입니다.</p>
             <div className="team-cards">
               {DOCTORS.map((d) => (
-                <DoctorCard key={d.slug} d={d} />
+                <div key={d.slug} id={d.slug}>
+                  <DoctorCard d={d} link={false} />
+                </div>
               ))}
             </div>
             <div className="stat-row">
@@ -69,17 +74,23 @@ export default function AboutPage() {
               <section key={s.slug} id={s.slug}>
                 <h2>{s.title}</h2>
                 <p>{s.body}</p>
-                <figure>
-                  <img src={s.image} alt={s.alt} loading="lazy" decoding="async" />
-                  <figcaption>{s.alt}</figcaption>
-                </figure>
+                {/* 진료 중인 장면 사진은 공개 쪽에 싣지 않는다(2026-10-08) — 있으면 작은 사진(thumb)으로, 없으면 뺀다 */}
+                {(() => {
+                  const im = SCENE.has(s.image) ? s.thumb : { src: s.image, alt: s.alt };
+                  return im ? (
+                    <figure>
+                      <img src={im.src} alt={im.alt} loading="lazy" decoding="async" />
+                      <figcaption>{im.alt}</figcaption>
+                    </figure>
+                  ) : null;
+                })()}
                 {s.context.map((c) => (
                   <div key={c.h}>
                     <h3>{c.h}</h3>
                     <p>{c.p}</p>
                   </div>
                 ))}
-                <Faq openFirst={false} items={s.faq.map((f, i) => ({ q: f.q, a: f.a, href: `/qa/${s.slug}-${i + 1}` }))} />
+                <Faq openFirst={false} items={s.faq.map((f) => ({ q: f.q, a: f.a }))} />
               </section>
             ))}
 
@@ -130,7 +141,7 @@ export default function AboutPage() {
               ))}
             </div>
 
-            <CardRow title="의료진과 진료" cards={cards} />
+            <CardRow title="화정 치과 동그라미치과의원 안내" cards={cards} />
             <CtaBlock />
             <MedicalNotice />
           </div>
@@ -157,7 +168,7 @@ export default function AboutPage() {
           </aside>
         </div>
       </div>
-      <JsonLd nodes={[webPageNode(doc), breadcrumbNode('/about', crumbs), ...cardListNode('병원 소개 · 의료진과 진료', cards)]} />
+      <JsonLd nodes={[webPageNode(doc), breadcrumbNode('/about', crumbs), itemListNode('화정 치과 동그라미치과의원 안내', cards.map((c) => ({ name: c.name, path: c.path, image: c.image })))]} />
     </>
   );
 }

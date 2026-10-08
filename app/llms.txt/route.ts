@@ -1,6 +1,7 @@
 import { indexedDocs } from '@/lib/catalog';
 import { CLINIC, UNVERIFIED } from '@/lib/clinic';
 import { DOCTORS } from '@/lib/doctors';
+import { TREATMENTS } from '@/lib/treatments';
 import { abs, SITE_URL, MAIN_SITE_URL } from '@/lib/site';
 
 export const revalidate = 3600;
@@ -8,9 +9,8 @@ export const revalidate = 3600;
 /** AI 답변 엔진용 요약 — 사실만, 확인된 값만. */
 export function GET() {
   const docs = indexedDocs();
-  const byKind = (k: string) => docs.filter((d) => d.kind === k);
   const lines = [
-    `# ${CLINIC.name} — 화정치과 · 화정동 치과 안내`,
+    `# ${CLINIC.name} — 화정 치과 · 화정역 치과 · 화정동 치과 · 덕양구 치과 안내`,
     '',
     `> ${CLINIC.description}`,
     '',
@@ -23,26 +23,12 @@ export function GET() {
     `- 본원 홈페이지: ${MAIN_SITE_URL}`,
     `- 이 사이트: ${SITE_URL}`,
     '',
+    // 2026-10-08 네 검색어 집중판(lib/focus.ts) — 남긴 쪽만
+    '## 안내',
+    ...docs.filter((d) => d.path !== '/privacy').map((d) => `- [${d.title}](${abs(d.path)}): ${d.description}`),
+    '',
     '## 진료',
-    ...byKind('treatment').map((d) => `- [${d.title}](${abs(d.path)}): ${d.excerpt}`),
-    '',
-    '## 증상',
-    ...byKind('symptom').map((d) => `- [${d.title}](${abs(d.path)})`),
-    '',
-    '## 질환',
-    ...byKind('condition').map((d) => `- [${d.title}](${abs(d.path)})`),
-    '',
-    '## 비용 · 기간',
-    ...[...byKind('cost'), ...byKind('journey')].map((d) => `- [${d.title}](${abs(d.path)})`),
-    '',
-    '## 진료실 문답',
-    ...byKind('qa').map((d) => `- [${d.title}](${abs(d.path)})`),
-    '',
-    '## 칼럼',
-    ...byKind('blog').map((d) => `- [${d.title}](${abs(d.path)})`),
-    '',
-    '## 지역',
-    ...byKind('area').map((d) => `- [${d.title}](${abs(d.path)})`),
+    ...TREATMENTS.map((t) => `- ${t.name}: ${t.summary}`),
     '',
     '본 문서의 의료 정보는 일반적인 안내이며 개별 진단을 대신하지 않습니다.',
   ];

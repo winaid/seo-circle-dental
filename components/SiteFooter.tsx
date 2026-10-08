@@ -2,10 +2,9 @@ import Link from 'next/link';
 import { CLINIC, UNVERIFIED } from '@/lib/clinic';
 import { IMG } from '@/lib/assets';
 import { TREATMENTS } from '@/lib/treatments';
-import { DOCTORS } from '@/lib/doctors';
-import { REGIONS } from '@/lib/regions';
 import { MAIN_SITE_URL } from '@/lib/site';
 import { Icon } from './ui';
+import { NAV } from './SiteHeader';
 import { NotOnHome } from './NotOnHome';
 
 export function SiteFooter() {
@@ -22,94 +21,37 @@ export function SiteFooter() {
               {UNVERIFIED.hours.closed}
             </p>
           </div>
-          {/* ★ 홈에서는 바닥 링크 목록을 빼고 바깥 링크만 둔다 — 홈 내부 링크 8개(components/NotOnHome.tsx) */}
-          <NotOnHome
-            fallback={
-              <>
-              <div>
-                <h4>진료</h4>
-                <ul>
-                  {TREATMENTS.map((t) => (
-                    <li key={t.slug}>{t.name}</li>
-                  ))}
-                </ul>
-              </div>
-              <div>
-                <h4>병원</h4>
-                <ul>
-                  <li>{CLINIC.address.full}</li>
-                  <li>전화 {CLINIC.phone}</li>
-                  <li><a href={MAIN_SITE_URL} target="_blank" rel="noopener">본원 홈페이지</a></li>
-                  <li><a href={CLINIC.social.naverBlog} target="_blank" rel="noopener">네이버 블로그</a></li>
-                  <li><a href={CLINIC.social.instagram} target="_blank" rel="noopener">인스타그램</a></li>
-                </ul>
-              </div>
-              </>
-            }
-          >
+          {/* ★ 2026-10-08 네 검색어 집중판(lib/focus.ts) — 바닥 목록도 남긴 쪽만. 홈에서는 글자만(홈 첫 링크 묶음 = 카드 6장, components/NotOnHome.tsx) */}
+          <div>
+            <h4>안내</h4>
+            <NotOnHome fallback={<ul>{NAV.map((n) => <li key={n.href}>{n.label}</li>)}</ul>}>
+              <ul>
+                <li><Link href="/">화정치과 동그라미치과의원</Link></li>
+                {NAV.map((n) => (
+                  <li key={n.href}><Link href={n.href}>{n.label}</Link></li>
+                ))}
+              </ul>
+            </NotOnHome>
+          </div>
           <div>
             <h4>진료</h4>
             <ul>
               {TREATMENTS.map((t) => (
-                <li key={t.slug}>
-                  <Link href={`/treatment/${t.slug}`}>{t.name}</Link>
-                </li>
+                <li key={t.slug}>{t.name}</li>
               ))}
-            </ul>
-          </div>
-          <div>
-            <h4>미리 알아두기</h4>
-            <ul>
-              <li><Link href="/treatment">진료 안내</Link></li>
-              <li><Link href="/symptom">증상으로 찾기</Link></li>
-              <li><Link href="/condition">질환 안내</Link></li>
-              <li><Link href="/qa">진료실 문답</Link></li>
-              <li><Link href="/journey">치료 기간·횟수</Link></li>
-              <li><Link href="/cost">비용 기준</Link></li>
-              <li><Link href="/glossary">용어 사전</Link></li>
-              <li><Link href="/emergency">응급 상황</Link></li>
-              <li><Link href="/blog">칼럼</Link></li>
             </ul>
           </div>
           <div>
             <h4>병원</h4>
             <ul>
-              <li><Link href="/about">병원 소개</Link></li>
-              {DOCTORS.map((d) => (
-                <li key={d.slug}>
-                  <Link href={`/about/doctors/${d.slug}`}>
-                    {d.name} {d.role}
-                  </Link>
-                </li>
-              ))}
-              <li><Link href="/visit">오시는 길·진료시간</Link></li>
-              <li><Link href="/booking">예약하기</Link></li>
-              <li><Link href="/area">지역별 오시는 길</Link></li>
-              <li><Link href="/faq">자주 묻는 질문</Link></li>
+              <li>{CLINIC.address.full}</li>
+              <li>전화 {CLINIC.phone}</li>
               <li><a href={MAIN_SITE_URL} target="_blank" rel="noopener">본원 홈페이지</a></li>
               <li><a href={CLINIC.social.naverBlog} target="_blank" rel="noopener">네이버 블로그</a></li>
               <li><a href={CLINIC.social.instagram} target="_blank" rel="noopener">인스타그램</a></li>
             </ul>
           </div>
-          </NotOnHome>
         </div>
-        <NotOnHome
-          fallback={
-            <div className="ft-regions">
-              {REGIONS.map((r) => (
-                <span key={r.slug}>{r.keyword}</span>
-              ))}
-            </div>
-          }
-        >
-        <nav className="ft-regions" aria-label="지역별 안내">
-          {REGIONS.map((r) => (
-            <Link key={r.slug} href={`/area/${r.slug}`}>
-              {r.keyword}
-            </Link>
-          ))}
-        </nav>
-        </NotOnHome>
         <div className="ft-legal">
           {/* 사람에게도 관계를 분명히 (2026-09-11 오너): 구조화 데이터는 본원=co.kr 로 되어 있지만 화면에는 없었다. */}
           이 사이트는 {CLINIC.name}이 운영하는 진료 안내 사이트입니다. 공식 홈페이지는{' '}

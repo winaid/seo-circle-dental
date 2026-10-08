@@ -1,0 +1,71 @@
+{
+  "_": "2026-10-08 네 검색어 집중판 — 남기는 쪽 7개와 쪽마다 카드 6장. 화면 카드·ItemList·카드 그림(scripts/focus-card-art.mjs)이 모두 이 표를 읽는다. 이름을 바꾸면 그림도 다시 만들고 v 를 올린다.",
+  "v": 1,
+  "pages": {
+    "home": { "path": "/", "tag": "병원 안내", "bg": "/img/20210923_ed347b4ffee21.jpg", "pos": "50% 50%" },
+    "station": { "path": "/area/hwajeong-station", "tag": "3호선 화정역", "bg": "/img/20210923_43d85ec16a0eb.jpg", "pos": "50% 50%" },
+    "dong": { "path": "/area/hwajeong-1", "tag": "화정동", "bg": "/img/20210902_c9d4c8d8ff172.jpg", "pos": "60% 50%" },
+    "gu": { "path": "/area/deogyang", "tag": "고양시 덕양구", "bg": "/img/20210923_6b7e0b66df9e0.jpg", "pos": "50% 40%" },
+    "treat": { "path": "/treatment", "tag": "진료", "bg": "/img/clinic/implant-hero.webp", "pos": "45% 50%" },
+    "doctors": { "path": "/about", "tag": "의료진", "bg": "/img/clinic/doctors-team.webp", "pos": "50% 25%" },
+    "visit": { "path": "/visit", "tag": "진료시간", "bg": "/img/20210923_5e82b10a99850.jpg", "pos": "50% 50%" }
+  },
+  "lists": {
+    "home": [
+      { "to": "station", "name": "화정역 치과, 역에서 덕양구청 방면으로", "bg": "/img/20210923_14482879bf993.jpg", "pos": "50% 50%" },
+      { "to": "dong", "name": "화정동 치과, 단지에서 걸어서 오시는 분께", "bg": "/img/20210923_595f40b6ee28f.jpg", "pos": "50% 50%" },
+      { "to": "gu", "name": "덕양구 치과, 3호선 한 노선으로", "bg": "/img/20210923_956b5d44b57ef.jpg", "pos": "50% 50%" },
+      { "to": "treat", "name": "화정치과 진료 안내, 살릴 수 있는지부터", "bg": "/img/clinic/aes-chairside.webp", "pos": "40% 50%" },
+      { "to": "doctors", "name": "화정 치과 의료진, 전문의 세 명이 진료", "bg": "/img/clinic/doctor-desk.webp", "pos": "50% 35%" },
+      { "to": "visit", "name": "화정치과 진료시간, 화목 저녁 8시 30분까지", "bg": "/img/20210902_c9d4c8d8ff172.jpg", "pos": "60% 50%" }
+    ],
+    "station": [
+      { "to": "home", "name": "화정역 치과 동그라미치과의원" },
+      { "to": "dong", "name": "화정동 치과 안내" },
+      { "to": "gu", "name": "덕양구 치과 안내" },
+      { "to": "treat", "name": "화정역 치과 진료 안내" },
+      { "to": "doctors", "name": "화정역 치과 의료진" },
+      { "to": "visit", "name": "화정역 치과 진료시간" }
+    ],
+    "dong": [
+      { "to": "home", "name": "화정동 치과 동그라미치과의원" },
+      { "to": "station", "name": "화정역 치과 안내" },
+      { "to": "gu", "name": "덕양구 치과 안내" },
+      { "to": "treat", "name": "화정동 치과 진료 안내" },
+      { "to": "doctors", "name": "화정동 치과 의료진" },
+      { "to": "visit", "name": "화정동 치과 진료시간" }
+    ],
+    "gu": [
+      { "to": "home", "name": "덕양구 치과 동그라미치과의원" },
+      { "to": "station", "name": "화정역 치과 안내" },
+      { "to": "dong", "name": "화정동 치과 안내" },
+      { "to": "treat", "name": "덕양구 치과 진료 안내" },
+      { "to": "doctors", "name": "덕양구 치과 의료진" },
+      { "to": "visit", "name": "덕양구 치과 진료시간" }
+    ],
+    "treat": [
+      { "to": "home", "name": "화정치과 동그라미치과의원" },
+      { "to": "station", "name": "화정역 치과 안내" },
+      { "to": "dong", "name": "화정동 치과 안내" },
+      { "to": "gu", "name": "덕양구 치과 안내" },
+      { "to": "doctors", "name": "화정치과 의료진" },
+      { "to": "visit", "name": "화정치과 진료시간" }
+    ],
+    "doctors": [
+      { "to": "home", "name": "화정 치과 동그라미치과의원" },
+      { "to": "station", "name": "화정역 치과 안내" },
+      { "to": "dong", "name": "화정동 치과 안내" },
+      { "to": "gu", "name": "덕양구 치과 안내" },
+      { "to": "treat", "name": "화정 치과 진료 안내" },
+      { "to": "visit", "name": "화정 치과 진료시간" }
+    ],
+    "visit": [
+      { "to": "home", "name": "화정치과 병원 안내" },
+      { "to": "station", "name": "화정역 치과 안내" },
+      { "to": "dong", "name": "화정동 치과 안내" },
+      { "to": "gu", "name": "덕양구 치과 안내" },
+      { "to": "treat", "name": "화정치과 진료 과목" },
+      { "to": "doctors", "name": "화정치과 원장 소개" }
+    ]
+  }
+}

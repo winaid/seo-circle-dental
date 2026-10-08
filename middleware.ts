@@ -1,5 +1,6 @@
 import { NextResponse, type NextFetchEvent, type NextRequest } from 'next/server';
 import { put } from '@vercel/blob';
+import { routeOf } from './lib/focus';
 
 /**
  * 수집 기록 — 검색·AI 봇이 가져간 요청을 Vercel Blob(비공개 저장소 shop-crawl-log)에 한 건씩 남긴다.
@@ -65,8 +66,14 @@ export function middleware(req: NextRequest, event: NextFetchEvent) {
     const bot = whoIs(req.headers.get('user-agent') || '');
     if (bot) event.waitUntil(record(req, bot));
   }
+  // ★ 2026-10-08 네 검색어 집중판 — 남긴 쪽 8개 말고는 301(같은 내용이 남은 쪽) 또는 410(내용째 뺀 쪽). 규칙은 lib/focus.ts routeOf 한 곳
+  const r = routeOf(req.nextUrl.pathname);
+  if (r.kind === 'move') return NextResponse.redirect(new URL(r.to, req.nextUrl.origin), 301);
+  if (r.kind === 'gone') return new NextResponse(GONE_HTML, { status: 410, headers: { 'content-type': 'text/html; charset=utf-8', 'x-robots-tag': 'noindex' } });
   return NextResponse.next();
 }
+
+const GONE_HTML = '<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="robots" content="noindex"><meta name="viewport" content="width=device-width,initial-scale=1"><title>정리된 안내입니다 | 동그라미치과의원</title></head><body style="font-family:sans-serif;max-width:560px;margin:15vh auto;padding:0 24px;line-height:1.7;color:#1f2a3a"><h1 style="font-size:22px">이 안내는 정리했습니다</h1><p>동그라미치과의원 안내는 이제 몇 쪽으로 모았습니다. 진료시간과 오시는 길은 첫 화면에서 보실 수 있습니다.</p><p><a href="/">화정치과 동그라미치과의원 첫 화면</a> · <a href="tel:0319722875">031-972-2875</a></p></body></html>';
 
 // ★ _next/static 만 뺀다 — 카드 사진(/img/sq)·공유 사진(/img/og)도 봇이 가져가면 남겨야 한다.
 export const config = { matcher: ['/((?!_next/static|favicon.ico).*)'] };

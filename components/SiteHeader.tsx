@@ -3,14 +3,13 @@ import { CLINIC } from '@/lib/clinic';
 import { IMG } from '@/lib/assets';
 import { Icon } from './ui';
 
+// ★ 2026-10-08 네 검색어 집중판(lib/focus.ts) — 메뉴도 남긴 쪽 여섯 개만
 export const NAV = [
-  { label: '진료', href: '/treatment', desc: '자연치아·임플란트·신경치료' },
-  { label: '증상', href: '/symptom', desc: '지금 느끼는 불편으로 찾기' },
-  { label: '질환', href: '/condition', desc: '병명으로 이해하기' },
-  { label: '문답', href: '/qa', desc: '진료실에서 받는 질문' },
-  { label: '칼럼', href: '/blog', desc: '원장이 쓰는 글' },
-  { label: '지역', href: '/area', desc: '동네별 오시는 길' },
-  { label: '병원 소개', href: '/about', desc: '의료진·장비·원칙' },
+  { label: '화정역 치과', href: '/area/hwajeong-station', desc: '3호선 화정역에서 오시는 길' },
+  { label: '화정동 치과', href: '/area/hwajeong-1', desc: '화정1동·화정2동 단지에서' },
+  { label: '덕양구 치과', href: '/area/deogyang', desc: '덕양구 동네별 거리' },
+  { label: '진료 안내', href: '/treatment', desc: '자연치아·임플란트·신경치료' },
+  { label: '의료진', href: '/about', desc: '통합치의학과 전문의 3인' },
   { label: '오시는 길', href: '/visit', desc: '진료시간·주차·예약' },
 ];
 

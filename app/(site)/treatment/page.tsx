@@ -1,59 +1,74 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
-import { CtaBlock, HubHead, JsonLd, LinkList } from '@/components/ui';
-import { docByPathStrict, treatmentImage } from '@/lib/catalog';
+import { CtaBlock, Faq, HubHead, JsonLd, MedicalNotice } from '@/components/ui';
+import { docByPathStrict } from '@/lib/catalog';
 import { metaFor } from '@/lib/meta';
-import { breadcrumbNode, webPageNode, cardListNode } from '@/lib/schema';
-import { pathCards } from '@/lib/carousel';
+import { breadcrumbNode, webPageNode, itemListNode } from '@/lib/schema';
+import { focusCards } from '@/lib/focus';
 import { CardRow } from '@/components/CardRow';
 import { TREATMENTS } from '@/lib/treatments';
-import { IMPLANT_TOPICS } from '@/lib/implantTopics';
-import { JOURNEYS, COST_TOPICS } from '@/lib/insight';
+import { sentences } from '@/lib/text';
 
 export const revalidate = 3600;
 const doc = docByPathStrict('/treatment');
 export const metadata: Metadata = metaFor(doc);
 
-export default function TreatmentHub() {
+/*
+ * 진료 안내 — 한 쪽에 진료 열 가지 (2026-10-08 네 검색어 집중판, lib/focus.ts).
+ * 진료별 쪽(/treatment/<진료>)·임플란트 세부·기간·비용 쪽은 지웠다(middleware 가 이 쪽으로 301).
+ * ★ 소제목은 진료 이름 그대로 — '화정 임플란트' 같은 진료 검색어는 이제 노리지 않는다(오너: 네 검색어만).
+ * ★ 사진은 싣지 않는다 — 진료별 사진 중 시술 장면이 섞여 있어서(의료광고 기준, carousel-studio 와 같은 판단).
+ */
+export default function TreatmentPage() {
   const crumbs = [
     { name: '홈', path: '/' },
     { name: '진료 안내', path: '/treatment' },
   ];
-  // 사진 카드 6장 = 화면 카드 = ItemList(사진 포함). 예전 목록은 사진이 0장이라 카드 재료가 못 됐다 (2026-09-28 네이버 캐러셀)
-  const cards = pathCards(TREATMENTS.map((t) => `/treatment/${t.slug}`), []);
+  const cards = focusCards('treat');
   return (
     <>
-      <HubHead crumbs={crumbs} eyebrow="진료 안내" title={doc.title} lead="진료 이름만 나열하지 않았습니다. 각 진료에서 검사로 먼저 확인하는 것, 살릴 수 있는 조건과 없는 조건, 자주 받는 질문까지 페이지마다 적었습니다." />
-      <div className="wrap" style={{ paddingBottom: 88, display: 'grid', gap: 56 }}>
-        <div className="grid grid--3">
-          {TREATMENTS.map((t) => {
-            const img = treatmentImage(t);
-            return (
-              <Link key={t.slug} href={`/treatment/${t.slug}`} className="t-card">
-                <img src={img.src} alt={img.alt} loading="lazy" decoding="async" />
-                <div className="t-card-in">
-                  <span className="card-tag">{t.whoFor[0]}</span>
-                  <h3>{t.name}</h3>
-                  <p>{t.summary}</p>
+      <HubHead crumbs={crumbs} eyebrow="화정 치과 진료 안내" title={doc.title} lead="화정 치과 동그라미치과의원에서 하는 진료 열 가지입니다. 진료 이름만 늘어놓지 않고, 진료마다 검사로 먼저 확인하는 것과 살릴 수 있는 조건을 적었습니다." />
+      <div className="wrap" style={{ paddingBottom: 88 }}>
+        <nav className="fc-toc fc-toc--grid" aria-label="진료 차례">
+          <b>진료 열 가지</b>
+          <ol>
+            {TREATMENTS.map((t) => (
+              <li key={t.slug}><a href={`#${t.slug}`}>{t.name}</a></li>
+            ))}
+          </ol>
+        </nav>
+
+        <div className="fc-tx">
+          {TREATMENTS.map((t, i) => (
+            <section key={t.slug} id={t.slug} className="fc-tx-item" aria-labelledby={`h-${t.slug}`}>
+              <div className="fc-tx-head">
+                <span className="fc-tx-no">{String(i + 1).padStart(2, '0')}</span>
+                <div>
+                  <span className="eyebrow">{t.whoFor[0]}</span>
+                  <h2 id={`h-${t.slug}`}>{t.name}</h2>
                 </div>
-              </Link>
-            );
-          })}
+              </div>
+              <div className="fc-tx-body">
+                <p className="fc-tx-lead">{t.summary}</p>
+                <p>{sentences(t.intro).join(' ')}</p>
+                <div className="fc-tx-who">
+                  <b>이럴 때 봅니다</b>
+                  <ul>
+                    {t.whoFor.map((w) => (
+                      <li key={w}>{w}</li>
+                    ))}
+                  </ul>
+                </div>
+                <Faq openFirst={false} items={t.qa.slice(0, 2).map((q) => ({ q: q.q, a: q.a }))} />
+              </div>
+            </section>
+          ))}
         </div>
-        <div className="two">
-          <section>
-            <h2 style={{ fontSize: 22, marginBottom: 14 }}>임플란트 세부 안내</h2>
-            <LinkList items={IMPLANT_TOPICS.map((t) => ({ label: t.name, href: `/treatment/implant/${t.slug}`, meta: t.tagline }))} />
-          </section>
-          <section>
-            <h2 style={{ fontSize: 22, marginBottom: 14 }}>기간과 비용</h2>
-            <LinkList items={[...JOURNEYS.slice(0, 4).map((j) => ({ label: j.question, href: `/journey/${j.slug}`, meta: j.duration })), ...COST_TOPICS.slice(0, 3).map((c) => ({ label: c.title, href: `/cost/${c.slug}`, meta: '비용' }))]} />
-          </section>
-        </div>
-        <CardRow title="진료 과목" cards={cards} />
+
+        <CardRow title="화정 치과 동그라미치과의원 안내" cards={cards} />
         <CtaBlock />
+        <MedicalNotice />
       </div>
-      <JsonLd nodes={[webPageNode(doc, { medical: true }), breadcrumbNode('/treatment', crumbs), ...cardListNode('진료 안내', cards)]} />
+      <JsonLd nodes={[webPageNode(doc, { medical: true }), breadcrumbNode('/treatment', crumbs), itemListNode('화정 치과 진료 안내', cards.map((c) => ({ name: c.name, path: c.path, image: c.image })))]} />
     </>
   );
 }

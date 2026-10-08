@@ -118,7 +118,7 @@ export function DoctorStrip() {
   return (
     <div className="lp-docs">
       {DOCTORS.map((d) => (
-        <Link key={d.slug} href={`/about/doctors/${d.slug}`} className="lp-doc">
+        <Link key={d.slug} href="/about" className="lp-doc">
           <span className="lp-doc-ph"><img src={d.photo} alt={`${d.name} ${d.role}`} loading="lazy" decoding="async" width={625} height={670} /></span>
           <b>{d.name} <small>{d.role}</small></b>
         </Link>

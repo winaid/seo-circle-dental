@@ -23,6 +23,7 @@ import { isPublished, scheduleDate, stableHash } from './publish';
 import { clampText, stripTags } from './text';
 import { fmtDistance } from './site';
 import { generatedImageFor } from './generatedImages';
+import { KEEP_PATHS, isKeptHref } from './focus';
 
 export type DocKind =
   | 'home'
@@ -330,7 +331,59 @@ function fmtDistanceLabel(r: Region) {
   return m === null ? '3호선 화정역 인근' : `직선거리 ${fmtDistance(m)}`;
 }
 
-export const DOCS: Doc[] = buildDocs();
+/*
+ * ★★ 2026-10-08 네 검색어 집중판(lib/focus.ts) — 위 buildDocs 는 예전 412쪽 목록 그대로 두고, 남기는 여덟 쪽만 걸러 낸다.
+ *   사이트맵·RSS·llms·카탈로그가 전부 DOCS 를 읽으므로 여기서 거르면 함께 줄어든다. 지운 주소는 middleware 가 301·410.
+ *   제목·설명은 아래 표가 덮는다 — 쪽마다 노리는 검색어 하나를 큰 제목(h1) 맨 앞에.
+ */
+const FOCUS_UPDATED = '2026-10-08';
+const FOCUS_OVERRIDE: Record<string, Partial<Doc>> = {
+  '/': {
+    title: '화정치과 동그라미치과의원 — 뽑기 전에 살릴 수 있는지 먼저 보는 화정 치과',
+    keywords: ['화정치과', '화정 치과', '동그라미치과의원'],
+  },
+  '/area/hwajeong-station': {
+    title: '화정역 치과 — 3호선 화정역 덕양구청 방면, 동그라미치과의원',
+    description: desc('화정역 치과 동그라미치과의원. 3호선 화정역에서 덕양구청 방면, 화·목은 저녁 8시 30분까지 진료합니다.'),
+    keywords: ['화정역 치과', '화정역치과', '동그라미치과의원'],
+    image: { src: '/img/20210923_43d85ec16a0eb.jpg', alt: '진료실로 이어지는 복도 — 양옆이 유리 파티션으로 나뉘어 있다' },
+  },
+  '/area/hwajeong-1': {
+    title: '화정동 치과 — 화정2동 화신로260번길, 동그라미치과의원',
+    seoTitle: '화정동 치과 | 동그라미치과의원 · 화정역 3호선 야간진료',
+    description: desc('화정동 치과 동그라미치과의원. 화정2동 화신로260번길 현창빌딩 3층, 화정동 단지에서 걸어서 오실 수 있습니다.'),
+    keywords: ['화정동 치과', '화정동치과', '동그라미치과의원'],
+    excerpt: '화정2동 화신로260번길 현창빌딩 3층. 화정1동과 화정2동 단지에서 오시는 길.',
+    image: { src: '/img/20210902_c9d4c8d8ff172.jpg', alt: '접수 데스크와 대기 공간 — 좌석과 벽면 로고' },
+  },
+  '/area/deogyang': {
+    title: '덕양구 치과 — 덕양구청 옆 화정동, 동그라미치과의원',
+    description: desc('덕양구 치과 동그라미치과의원. 덕양구청 옆 화정동에서 통합치의학과 전문의 세 명이 진료합니다. 화·목 야간 진료.'),
+    keywords: ['덕양구 치과', '덕양구치과', '고양 덕양구 치과', '동그라미치과의원'],
+    image: { src: '/img/20210923_6b7e0b66df9e0.jpg', alt: '창가 진료실의 진료 의자와 벽걸이 모니터' },
+  },
+  '/treatment': {
+    title: '화정 치과 진료 안내 — 자연치아 살리기부터 임플란트까지',
+    seoTitle: '화정 치과 진료 안내 | 화정치과 동그라미치과의원',
+    description: desc('화정 치과 동그라미치과의원의 진료 열 가지. 진료마다 먼저 확인하는 것과 살릴 수 있는 조건을 적었습니다.'),
+    keywords: ['화정 치과 진료', '동그라미치과의원 진료'],
+  },
+  '/about': {
+    title: '화정치과 의료진 — 통합치의학과 전문의 세 명과 진료 원칙',
+    seoTitle: '의료진 · 병원 소개 | 화정치과 동그라미치과의원',
+    description: desc('화정치과 동그라미치과의원 의료진. 보건복지부인증 통합치의학과 전문의 세 명과 진료 원칙, 장비, 위생 관리.'),
+    keywords: ['화정치과 의료진', '동그라미치과의원 원장'],
+  },
+  '/visit': {
+    title: '진료시간과 오시는 길 — 예약 방법까지',
+    seoTitle: '진료시간 · 오시는 길 · 예약 | 화정치과 동그라미치과의원',
+    keywords: ['동그라미치과의원 진료시간', '동그라미치과의원 위치'],
+  },
+};
+
+export const DOCS: Doc[] = buildDocs()
+  .filter((d) => KEEP_PATHS.has(d.path))
+  .map((d) => ({ ...d, ...FOCUS_OVERRIDE[d.path], publishAt: LAUNCH_DATE, updated: d.path === '/privacy' ? d.updated : FOCUS_UPDATED, googleIndex: d.path !== '/privacy', core: true }));
 
 const byPath = new Map(DOCS.map((d) => [d.path, d]));
 export const docByPath = (path: string) => byPath.get(path);
@@ -367,7 +420,7 @@ export function isLivePath(href: string): boolean {
   if (!href.startsWith('/')) return true;
   const path = href.split('#')[0].split('?')[0].replace(/\/+$/, '') || '/';
   const d = byPath.get(path);
-  return !d || isDocPublished(d);
+  return d ? isDocPublished(d) : isKeptHref(path); // 카탈로그 밖 = 지운 주소면 false (2026-10-08)
 }
 export const docsOfKind = (...kinds: DocKind[]) => publishedDocs().filter((d) => kinds.includes(d.kind));
 
