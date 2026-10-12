@@ -12,8 +12,12 @@ import { DOCTORS } from '@/lib/doctors';
 import { CLINIC_QA } from '@/lib/faq';
 import { docByPathStrict } from '@/lib/catalog';
 import { metaFor } from '@/lib/meta';
-import { webPageNode, breadcrumbNode, imageGalleryNode } from '@/lib/schema';
+import { webPageNode, breadcrumbNode, itemListNode, imageGalleryNode } from '@/lib/schema';
+import { focusCards } from '@/lib/focusCards';
 import { publishedPosts } from '@/lib/posts';
+import { HOME_GALLERY } from '@/lib/homeGallery';
+import { IMPLANT_STEPS } from '@/lib/implantPage';
+import { COMPARISONS } from '@/lib/comparisons';
 import { SITE_URL, STATION_DISTANCE_M, fmtDistance } from '@/lib/site';
 import { sentences } from '@/lib/text';
 
@@ -60,14 +64,25 @@ const FEATURES = [
 
 const walk = fmtDistance(STATION_DISTANCE_M);
 
+/* 홈 카드 아래 한 줄 = 병원 정보(위치·진료시간·의료진) — 카드 순서대로.
+   ★ 2026-10-08 실측: 이 여섯 줄이 있던 홈(11:50 재독)은 '화정치과' 웹 9~10위·통합 3위, 글 요약으로 바꾼 홈(14:13 재독)은 13→16위·통합 빠짐.
+   병원을 찾는 검색어라 위치·시간 문장을 홈에 둔다(오너 GO "고쳐봐"). 카드가 가리키는 글은 그대로 */
+const HOME_CAPTIONS = [
+  '세 명 모두 보건복지부인증 통합치의학과 전문의입니다.',
+  '월·수·금 18:30, 화·목 20:30, 토요일 14:00까지입니다.',
+  '진료 열 가지와 진료마다 먼저 확인하는 것을 적었습니다.',
+  `3호선 화정역에서 덕양구청 방면으로 직선거리 ${walk}입니다.`,
+  '화정2동 현창빌딩 3층, 화정동 단지에서 걸어서 오실 수 있습니다.',
+  '원당과 원흥, 삼송에서도 3호선 한 노선으로 오십니다.',
+];
+
 /*
- * ★★ 2026-10-12 카드 뺌(오너: "shop 은 캐러셀을 빼도 되니깐 무조건 순위 올리는 목적으로 보완해봐").
- *   오너 관찰 + 기록(watch.jsonl): '화정치과' 통합에 든 세 번(10-06 오전·10-08 13:26·17:53) 모두 카드가 붙거나 카드 판이 읽힌 뒤 밀려났다.
- *   그래서 첫 화면 카드 6장(사진 링크)·ItemList 를 빼고, 같은 자리에 사진·링크 없는 글 6칸을 둔다.
- *   ★ 글자는 빼지 않는다 — 10-02 홈 글자 52개를 뺐을 때 '화정 치과' 15위 → 75위 밖(naver-web-ranking-study).
- *     칸 이름 6개도 예전 카드 이름처럼 '화정치과·화정 치과'로 시작(화정치과 4 · 화정 치과 2), 한 줄 = 병원 정보
- *     (10-08 실측: 카드 밑이 위치·진료시간·전문의 문장일 때 통합 3~4위, 글 요약일 때 빠짐).
- *   되돌리기 = git revert(카드 판은 4fe0777).
+ * ★★ 2026-10-12 오후 — 카드 다시 + 사진·글 크게 늘림(오너: "사진 … 전부 넣어서 완전 많이 넣고 다시 만들어봐. 그리고 카드 다시 달아봐",
+ *   "내용 완전 많이 추가해봐").
+ *   앞서 같은 날 14:05 카드를 뺀 판(54f351f, 사진 18 → 12장)은 14:06 재독 뒤 '화정치과·화정 치과' 웹 15 → 20위(14:57, 앞뒤 사이트 그대로 우리만).
+ *   그래서 카드 6장·ItemList 를 4fe0777 그대로 되살리고, 카드 아래에 실제 병원 사진 27장(lib/homeGallery.ts)·진료 열 가지 자세한 글·
+ *   임플란트 네 단계·비교표·자주 묻는 질문 전부를 더했다. 글은 모두 예전 진료 쪽(lib/treatments 등)에 있던 것 — 새로 지어낸 사실 없음.
+ *   아래 여섯 칸(HOME_INFO)은 카드를 뺐을 때 그 자리에 두었던 글 — 글자를 줄이지 않도록 '화정치과 한눈에' 구획으로 옮겼다.
  */
 const HOME_INFO = [
   { h3: '화정치과 의료진', p: '변석호 대표원장, 김동주 원장, 김인진 원장 세 명 모두 보건복지부인증 통합치의학과 전문의입니다.' },
@@ -82,6 +97,10 @@ export default function HomePage() {
   // 홈 끝 '화정치과 이야기 새 글' 5편 — 날마다 새 글이 열리면 홈 내용도 바뀐다(10-12 실측: 내용이 그대로인 홈은 다시 읽혀도 순위가 그대로,
   // 내용이 바뀐 홈이 읽혔을 때만 올랐다). 홈 주소는 매일 IndexNow 에도 함께 보낸다(app/api/indexnow).
   const latest = publishedPosts().slice(0, 5);
+  // ★ 2026-10-08 홈 카드 6장 = '화정치과…' 블로그 글 여섯 편(lib/focusCards.ts v2 — 메뉴형 쪽을 가리키면 카드가 빠졌다). 이름 앞은 늘 '지역+치과'(10-06 홈 카드 조건)
+  const carousel = focusCards('home').map((c, i) => ({ ...c, caption: HOME_CAPTIONS[i] ?? c.caption }));
+  // 진료 열 가지 자세한 글 — 위 '진료별 안내(긴 글)' 넷은 도입 문단이 이미 나오므로 여기서는 묻고 답하기부터
+  const featured = new Set(FEATURES.map((f) => f.slug));
 
   return (
     <>
@@ -125,15 +144,24 @@ export default function HomePage() {
                 </em>
               </h1>
             </div>
-            {/* 10-12: 카드 6장 자리 = 사진·링크 없는 글 6칸(파일 위 HOME_INFO 주석) */}
             <div className="grid grid--3 home-cards-grid">
-              {HOME_INFO.map((c) => (
-                <div key={c.h3} className="h-card h-card--text">
-                  <span className="h-card-in">
-                    <h3>{c.h3}</h3>
-                    <p>{c.p}</p>
+              {/* ★ 카드 6장은 content/focus-cards.json(lib/focus.ts) 한 곳에서 나온다 — 화면 <h3> 와 ItemList.name 이 글자까지 같아야 검색 결과 카드 줄이 붙는다
+                  ★★ 사진도 ItemList 와 **같은 URL(정사각 800×800)** 을 써야 한다. 2026-09-14 실측:
+                     레퍼런스(1dentalsolution)는 ItemList 의 640×640 6장이 화면 <img> 에도 그대로 있어(겹침 6/6)
+                     검색 결과 블록에 카드 줄이 붙었고, 우리는 화면이 3:2 webp·구조화 데이터가 정사각 jpg 라
+                     겹침 0/6 이라 안 붙었다(네이버가 고른 썸네일도 화면에 있는 사진이었다). */}
+              {/* 그림 속에 제목 글자가 이미 있어(scripts/focus-card-art.mjs) 이름·설명은 그림 아래에 — 겹쳐 올리면 글자가 이중으로 보인다 */}
+              {carousel.map((c, i) => (
+                <Link key={c.path} href={c.path} className="h-card">
+                  <span className="h-card-img">
+                    <img src={c.image} alt={c.alt} width={800} height={800} loading={i < 3 ? 'eager' : 'lazy'} decoding="async" />
                   </span>
-                </div>
+                  <span className="h-card-in">
+                    <span className="card-tag">{c.tag}</span>
+                    <h3>{c.name}</h3>
+                    <p>{c.caption}</p>
+                  </span>
+                </Link>
               ))}
             </div>
             <div className="sec-head home-cards-head">
@@ -196,6 +224,26 @@ export default function HomePage() {
             </span>
           </div>
         </div>
+
+        {/* ───── 화정치과 한눈에 (10-12 — 카드를 뺐을 때 그 자리에 두었던 여섯 칸) ───── */}
+        <section className="sec sec--alt" aria-labelledby="h-glance">
+          <div className="wrap">
+            <div className="sec-head">
+              <span className="eyebrow">화정치과 한눈에</span>
+              <h2 id="h-glance">화정치과 동그라미치과의원 의료진·진료시간·위치·주차</h2>
+            </div>
+            <div className="grid grid--3">
+              {HOME_INFO.map((c) => (
+                <div key={c.h3} className="h-card h-card--text">
+                  <span className="h-card-in">
+                    <h3>{c.h3}</h3>
+                    <p>{c.p}</p>
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
 
         {/* ───── 화정동 ─────
             ★ 2026-10-08 한 쪽 판: '화정동 치과'를 받던 /area/hwajeong-1 을 홈으로 합쳤다(301). 그 쪽 글(위치·단지에서 오는 길)을 여기로 옮긴다.
@@ -286,6 +334,126 @@ export default function HomePage() {
                 </div>
               ))}
             </dl>
+          </div>
+        </section>
+
+        {/* ───── 화정치과 둘러보기 — 실제 병원 사진 27장(lib/homeGallery.ts). 링크 없음(첫 사진 링크 6개 = 카드) ───── */}
+        <section className="sec" aria-labelledby="h-gallery">
+          <div className="wrap">
+            <div className="sec-head">
+              <span className="eyebrow">화정치과 둘러보기</span>
+              <h2 id="h-gallery">화정치과 동그라미치과의원 진료실·상담실·진료 장면 사진</h2>
+              <p>화정 치과 동그라미치과의원이 직접 찍어 올린 병원 사진입니다. 사진 아래 설명은 사진에 보이는 것만 적었습니다.</p>
+            </div>
+            {HOME_GALLERY.map((g) => (
+              <div key={g.key} className="home-gallery-group">
+                <h3>{g.h3}</h3>
+                <div className={`home-gallery${g.key === 'cred' ? ' home-gallery--small' : ''}`}>
+                  {g.items.map((p) => (
+                    <figure key={p.src}>
+                      <img src={p.src} alt={p.alt} width={p.w} height={p.h} loading="lazy" decoding="async" />
+                      <figcaption>{p.alt}</figcaption>
+                    </figure>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* ───── 진료 열 가지 자세한 글 — lib/treatments.ts(예전 진료 쪽 본문) 그대로. 전후 그림은 홈에 두지 않는다 ───── */}
+        <section className="sec sec--alt" aria-labelledby="h-detail">
+          <div className="wrap">
+            <div className="sec-head">
+              <span className="eyebrow">진료별 자세한 안내</span>
+              <h2 id="h-detail">화정 치과 동그라미치과의원 진료 열 가지, 진료마다 자주 물으시는 것</h2>
+              <p>진료마다 어떤 경우에 찾으시는지, 진료 전에 무엇을 확인하는지, 상담에서 자주 나오는 질문과 답을 진료별로 모았습니다.</p>
+            </div>
+            <div className="home-tx">
+              {TREATMENTS.map((t, i) => (
+                <article key={t.slug} className="home-tx-item">
+                  <h3>{i % 2 ? '화정 치과' : '화정치과'} {t.name}</h3>
+                  {featured.has(t.slug) ? <p>{t.summary}</p> : <p>{t.intro}</p>}
+                  <p className="home-tx-who"><b>이런 경우에 찾으십니다</b> {t.whoFor.join(' · ')}</p>
+                  {t.qa.map((q) => (
+                    <div key={q.q} className="home-tx-qa">
+                      <h4>{q.q}</h4>
+                      <p>{q.a}</p>
+                    </div>
+                  ))}
+                  {t.figures?.length ? (
+                    <div className="home-tx-figs">
+                      {t.figures.filter((f) => !/before-after/.test(f.src)).map((f) => (
+                        <figure key={f.src}>
+                          <img src={f.src} alt={f.alt} loading="lazy" decoding="async" />
+                          <figcaption>{f.caption}</figcaption>
+                        </figure>
+                      ))}
+                    </div>
+                  ) : null}
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ───── 임플란트 네 단계 — lib/implantPage.ts(사진은 기존 홈페이지의 실제 진료 사진) ───── */}
+        <section className="sec" aria-labelledby="h-implant-steps">
+          <div className="wrap">
+            <div className="sec-head">
+              <span className="eyebrow">화정치과 임플란트</span>
+              <h2 id="h-implant-steps">화정치과 임플란트, 심기 전에 정해 두는 네 단계</h2>
+              <p>수술 중에 정할 것을 수술 전에 정해 두는 순서입니다. 뼈의 양과 신경 위치를 먼저 보고, 화면에서 심을 자리를 정한 뒤 그대로 옮깁니다.</p>
+            </div>
+            <ol className="home-steps">
+              {IMPLANT_STEPS.map((s) => (
+                <li key={s.step}>
+                  <img src={s.image} alt={s.alt} loading="lazy" decoding="async" />
+                  <span className="eyebrow">STEP {s.step}</span>
+                  <h3>{s.title}</h3>
+                  <p>{s.body}</p>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+
+        {/* ───── 비교표 — lib/comparisons.ts(판단을 대신하지 않는다는 주의까지 그대로) ───── */}
+        <section className="sec sec--alt" aria-labelledby="h-compare">
+          <div className="wrap">
+            <div className="sec-head">
+              <span className="eyebrow">고르기 전에</span>
+              <h2 id="h-compare">화정 치과에서 빠진 치아·흔들리는 치아를 두고 자주 비교하시는 것</h2>
+            </div>
+            {COMPARISONS.map((c) => (
+              <div key={c.id} className="prose home-compare">
+                <h3>{c.title}</h3>
+                <p>{c.lead}</p>
+                <div className="home-compare-scroll">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th scope="col"></th>
+                        {c.columns.map((col) => (
+                          <th key={col} scope="col">{col}</th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {c.rows.map((r) => (
+                        <tr key={r.label}>
+                          <th scope="row">{r.label}</th>
+                          {r.cells.map((cell, k) => (
+                            <td key={k}>{cell}</td>
+                          ))}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+                <p className="small muted">{c.note}</p>
+              </div>
+            ))}
           </div>
         </section>
 
@@ -400,7 +568,7 @@ export default function HomePage() {
               <h2 id="h-faq">화정치과 내원 전에 자주 물으시는 것</h2>
               <p>진료시간·예약·주차·비용처럼 오시기 전에 궁금한 것부터 답합니다. 진료 내용은 진료 안내 쪽에 진료마다 적었습니다.</p>
             </div>
-            <Faq items={CLINIC_QA.slice(0, 6).map((q) => ({ q: q.q, a: q.a }))} />
+            <Faq items={CLINIC_QA.map((q) => ({ q: q.q, a: q.a }))} />
           </div>
         </section>
 
@@ -428,9 +596,12 @@ export default function HomePage() {
         nodes={[
           webPageNode(doc),
           breadcrumbNode('/', [{ name: '홈', path: '/' }]),
+          itemListNode('화정치과 동그라미치과의원 안내', carousel.map((c) => ({ name: c.name, path: c.path, image: c.image }))),
           imageGalleryNode('동그라미치과의원 화정동 진료실과 진료 안내', [
             { src: HERO.src, name: '동그라미치과의원 진료실', caption: HERO.alt },
             { src: IMG.interior[3].src, name: '검사 결과 설명', caption: IMG.interior[3].alt },
+            ...carousel.map((c) => ({ src: c.image, name: c.name, caption: c.caption })),
+            ...HOME_GALLERY.flatMap((g) => g.items.map((p) => ({ src: p.src, name: g.h3, caption: p.alt }))),
           ]),
         ]}
       />

@@ -179,6 +179,36 @@ button { font: inherit; }
 .home-latest li { display: grid; gap: 4px; padding: 14px 0; border-bottom: 1px solid var(--line); }
 .home-latest a { font-weight: 700; color: var(--ink); }
 .home-latest span { font-size: 14.5px; color: var(--mute); line-height: 1.6; }
+/* 10-12 오후: 홈 사진 27장·진료 열 가지 자세한 글·임플란트 네 단계·비교표 */
+.home-gallery-group + .home-gallery-group { margin-top: 40px; }
+.home-gallery-group h3 { font-size: 19px; margin-bottom: 14px; }
+.home-gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 18px; }
+.home-gallery figure { margin: 0; }
+.home-gallery img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; border-radius: var(--r-sm); background: var(--paper-2); }
+.home-gallery figcaption { font-size: 13.5px; color: var(--mute); line-height: 1.55; margin-top: 8px; }
+.home-gallery--small { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); }
+.home-gallery--small img { aspect-ratio: auto; object-fit: contain; max-height: 240px; }
+.home-tx { display: grid; gap: 28px; }
+.home-tx-item { background: #fff; border: 1px solid var(--line); border-radius: var(--r-sm); padding: 28px 30px; }
+.home-tx-item h3 { font-size: 22px; margin-bottom: 12px; }
+.home-tx-item > p { font-size: 16px; line-height: 1.8; color: var(--ink-2); }
+.home-tx-who { margin-top: 12px; font-size: 15px !important; }
+.home-tx-who b { color: var(--ink); margin-right: 8px; }
+.home-tx-qa { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--line); }
+.home-tx-qa h4 { font-size: 16.5px; color: var(--ink); margin-bottom: 6px; }
+.home-tx-qa p { font-size: 15.5px; line-height: 1.8; color: var(--ink-2); }
+.home-tx-figs { margin-top: 20px; display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
+.home-tx-figs figure { margin: 0; }
+.home-tx-figs img { width: 100%; border-radius: var(--r-sm); }
+.home-tx-figs figcaption { font-size: 13.5px; color: var(--mute); line-height: 1.6; margin-top: 8px; }
+.home-steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 22px; }
+.home-steps img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--r-sm); margin-bottom: 12px; }
+.home-steps h3 { font-size: 18px; margin: 6px 0 6px; }
+.home-steps p { font-size: 15px; line-height: 1.75; color: var(--ink-2); }
+.home-compare + .home-compare { margin-top: 36px; }
+.home-compare-scroll { overflow-x: auto; }
+.home-compare table { min-width: 560px; }
+@media (max-width: 640px) { .home-tx-item { padding: 22px 18px; } .home-tx-item h3 { font-size: 19px; } }
 .h-card-in p { font-size: 14px; line-height: 1.6; color: var(--mute); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .hero--after { min-height: 0; }
 .hero--after .hero-in { padding-top: 96px; }
