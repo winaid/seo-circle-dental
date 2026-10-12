@@ -61,6 +61,8 @@ export async function GET(request: NextRequest) {
   const urls = DOCS
     .filter((d) => d.publishAt === today || d.publishAt === yesterday)
     .map((d) => abs(d.path));
+  // 10-12: 홈 끝 '새 글 5편'이 날마다 바뀌므로 홈도 매일 함께 알린다(내용이 바뀐 홈이 읽혀야 순위가 움직였다 — 10-12 실측)
+  if (urls.length) urls.unshift(`${SITE_URL}/`);
 
   if (urls.length === 0) {
     lastRunDay = today;

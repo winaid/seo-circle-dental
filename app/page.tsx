@@ -12,8 +12,8 @@ import { DOCTORS } from '@/lib/doctors';
 import { CLINIC_QA } from '@/lib/faq';
 import { docByPathStrict } from '@/lib/catalog';
 import { metaFor } from '@/lib/meta';
-import { webPageNode, breadcrumbNode, itemListNode, imageGalleryNode } from '@/lib/schema';
-import { focusCards } from '@/lib/focusCards';
+import { webPageNode, breadcrumbNode, imageGalleryNode } from '@/lib/schema';
+import { publishedPosts } from '@/lib/posts';
 import { SITE_URL, STATION_DISTANCE_M, fmtDistance } from '@/lib/site';
 import { sentences } from '@/lib/text';
 
@@ -60,21 +60,28 @@ const FEATURES = [
 
 const walk = fmtDistance(STATION_DISTANCE_M);
 
-/* 홈 카드 아래 한 줄 = 병원 정보(위치·진료시간·의료진) — 카드 순서대로.
-   ★ 2026-10-08 실측: 이 여섯 줄이 있던 홈(11:50 재독)은 '화정치과' 웹 9~10위·통합 3위, 글 요약으로 바꾼 홈(14:13 재독)은 13→16위·통합 빠짐.
-   병원을 찾는 검색어라 위치·시간 문장을 홈에 둔다(오너 GO "고쳐봐"). 카드가 가리키는 글은 그대로 */
-const HOME_CAPTIONS = [
-  '세 명 모두 보건복지부인증 통합치의학과 전문의입니다.',
-  '월·수·금 18:30, 화·목 20:30, 토요일 14:00까지입니다.',
-  '진료 열 가지와 진료마다 먼저 확인하는 것을 적었습니다.',
-  `3호선 화정역에서 덕양구청 방면으로 직선거리 ${walk}입니다.`,
-  '화정2동 현창빌딩 3층, 화정동 단지에서 걸어서 오실 수 있습니다.',
-  '원당과 원흥, 삼송에서도 3호선 한 노선으로 오십니다.',
+/*
+ * ★★ 2026-10-12 카드 뺌(오너: "shop 은 캐러셀을 빼도 되니깐 무조건 순위 올리는 목적으로 보완해봐").
+ *   오너 관찰 + 기록(watch.jsonl): '화정치과' 통합에 든 세 번(10-06 오전·10-08 13:26·17:53) 모두 카드가 붙거나 카드 판이 읽힌 뒤 밀려났다.
+ *   그래서 첫 화면 카드 6장(사진 링크)·ItemList 를 빼고, 같은 자리에 사진·링크 없는 글 6칸을 둔다.
+ *   ★ 글자는 빼지 않는다 — 10-02 홈 글자 52개를 뺐을 때 '화정 치과' 15위 → 75위 밖(naver-web-ranking-study).
+ *     칸 이름 6개도 예전 카드 이름처럼 '화정치과·화정 치과'로 시작(화정치과 4 · 화정 치과 2), 한 줄 = 병원 정보
+ *     (10-08 실측: 카드 밑이 위치·진료시간·전문의 문장일 때 통합 3~4위, 글 요약일 때 빠짐).
+ *   되돌리기 = git revert(카드 판은 4fe0777).
+ */
+const HOME_INFO = [
+  { h3: '화정치과 의료진', p: '변석호 대표원장, 김동주 원장, 김인진 원장 세 명 모두 보건복지부인증 통합치의학과 전문의입니다.' },
+  { h3: '화정치과 진료시간', p: '월·수·금 18:30, 화·목 20:30, 토요일 14:00까지 진료하고 일요일과 공휴일은 쉽니다.' },
+  { h3: '화정 치과 진료 열 가지', p: '자연치아 살리기와 신경치료, 임플란트, 사랑니 발치, 잇몸치료, 충치치료를 진료마다 먼저 확인하는 순서와 함께 아래에 적었습니다.' },
+  { h3: '화정치과 오시는 길', p: `3호선 화정역에서 덕양구청 방면으로 직선거리 ${walk}입니다.` },
+  { h3: '화정 치과 위치', p: '고양시 덕양구 화신로260번길 51, 화정2동 현창빌딩 3층에 있어 화정동 단지에서 걸어서 오실 수 있습니다.' },
+  { h3: '화정치과 주차', p: '건물 안 기계식 주차장을 무료로 쓰실 수 있습니다. 큰 차량은 미리 전화로 확인해 주세요.' },
 ];
 
 export default function HomePage() {
-  // ★ 2026-10-08 홈 카드 6장 = '화정치과…' 블로그 글 여섯 편(lib/focusCards.ts v2 — 메뉴형 쪽을 가리키면 카드가 빠졌다). 이름 앞은 늘 '지역+치과'(10-06 홈 카드 조건)
-  const carousel = focusCards('home').map((c, i) => ({ ...c, caption: HOME_CAPTIONS[i] ?? c.caption }));
+  // 홈 끝 '화정치과 이야기 새 글' 5편 — 날마다 새 글이 열리면 홈 내용도 바뀐다(10-12 실측: 내용이 그대로인 홈은 다시 읽혀도 순위가 그대로,
+  // 내용이 바뀐 홈이 읽혔을 때만 올랐다). 홈 주소는 매일 IndexNow 에도 함께 보낸다(app/api/indexnow).
+  const latest = publishedPosts().slice(0, 5);
 
   return (
     <>
@@ -118,24 +125,15 @@ export default function HomePage() {
                 </em>
               </h1>
             </div>
+            {/* 10-12: 카드 6장 자리 = 사진·링크 없는 글 6칸(파일 위 HOME_INFO 주석) */}
             <div className="grid grid--3 home-cards-grid">
-              {/* ★ 카드 6장은 content/focus-cards.json(lib/focus.ts) 한 곳에서 나온다 — 화면 <h3> 와 ItemList.name 이 글자까지 같아야 검색 결과 카드 줄이 붙는다
-                  ★★ 사진도 ItemList 와 **같은 URL(정사각 800×800)** 을 써야 한다. 2026-09-14 실측:
-                     레퍼런스(1dentalsolution)는 ItemList 의 640×640 6장이 화면 <img> 에도 그대로 있어(겹침 6/6)
-                     검색 결과 블록에 카드 줄이 붙었고, 우리는 화면이 3:2 webp·구조화 데이터가 정사각 jpg 라
-                     겹침 0/6 이라 안 붙었다(네이버가 고른 썸네일도 화면에 있는 사진이었다). */}
-              {/* 그림 속에 제목 글자가 이미 있어(scripts/focus-card-art.mjs) 이름·설명은 그림 아래에 — 겹쳐 올리면 글자가 이중으로 보인다 */}
-              {carousel.map((c, i) => (
-                <Link key={c.path} href={c.path} className="h-card">
-                  <span className="h-card-img">
-                    <img src={c.image} alt={c.alt} width={800} height={800} loading={i < 3 ? 'eager' : 'lazy'} decoding="async" />
-                  </span>
+              {HOME_INFO.map((c) => (
+                <div key={c.h3} className="h-card h-card--text">
                   <span className="h-card-in">
-                    <span className="card-tag">{c.tag}</span>
-                    <h3>{c.name}</h3>
-                    <p>{c.caption}</p>
+                    <h3>{c.h3}</h3>
+                    <p>{c.p}</p>
                   </span>
-                </Link>
+                </div>
               ))}
             </div>
             <div className="sec-head home-cards-head">
@@ -406,16 +404,33 @@ export default function HomePage() {
           </div>
         </section>
 
+        {latest.length ? (
+          <section className="sec sec--alt" aria-labelledby="h-latest">
+            <div className="wrap">
+              <span className="eyebrow">화정치과 이야기</span>
+              <h2 id="h-latest" style={{ fontSize: 'clamp(24px, 2.6vw, 32px)', marginTop: 14, marginBottom: 18 }}>
+                화정치과 이야기 새 글
+              </h2>
+              <ul className="home-latest">
+                {latest.map((p) => (
+                  <li key={p.slug}>
+                    <Link href={p.path}>{p.title}</Link>
+                    <span>{p.summary}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </section>
+        ) : null}
+
       </main>
       <JsonLd
         nodes={[
           webPageNode(doc),
           breadcrumbNode('/', [{ name: '홈', path: '/' }]),
-          itemListNode('화정치과 동그라미치과의원 안내', carousel.map((c) => ({ name: c.name, path: c.path, image: c.image }))),
           imageGalleryNode('동그라미치과의원 화정동 진료실과 진료 안내', [
             { src: HERO.src, name: '동그라미치과의원 진료실', caption: HERO.alt },
             { src: IMG.interior[3].src, name: '검사 결과 설명', caption: IMG.interior[3].alt },
-            ...carousel.map((c) => ({ src: c.image, name: c.name, caption: c.caption })),
           ]),
         ]}
       />
