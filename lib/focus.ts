@@ -1,29 +1,55 @@
 /**
- * 한 쪽 판 (2026-10-08 오후 오너: "광화문 업체는 모든 키워드에서 주소가 홈인데 우리는 지역별 안내 화정2동 치과 쪽이 뜬다.
- *   줄이고 한 페이지로 하라고 한 건데").
+ * 네 검색어 집중판 (2026-10-08 오너: "키워드 다 없애고 화정 치과·화정치과 / 화정역 치과 / 화정동 치과 / 덕양구 치과 만 노려서, 광화문 업체처럼").
  *
- * ★ 남기는 쪽 = 홈 하나 + 개인정보처리방침 + 화정치과 이야기(블로그 목록·한글 주소 글). 광화문 업체와 같은 짜임.
- *   네 검색어(화정 치과·화정치과 / 화정역 치과 / 화정동 치과 / 덕양구 치과)는 모두 홈이 받는다.
- * ★ 지역 쪽(화정역·화정동·덕양구, 예전 화정2동·행신 등 전부)·진료 안내·의료진·오시는 길·예약·문답 = 홈으로 301.
- *   301 은 예전 쪽이 받던 평가를 홈으로 넘긴다. 내용 자체를 뺀 증상·질환·용어·비용 등은 예전처럼 410.
- * ★ 같은 날 오전판(남긴 쪽 8개)은 git 12f7a58 을 보면 된다. middleware.ts 가 routeOf() 하나로 가른다.
+ * ★ 남기는 쪽은 여덟 개뿐이다 — 검색어 쪽 넷 + 받치는 쪽 셋 + 개인정보처리방침.
+ *     /                        화정 치과 · 화정치과
+ *     /area/hwajeong-station   화정역 치과
+ *     /area/hwajeong-1         화정동 치과 — 10-08 아침 '화정동 치과' 통합 3위·카드가 붙어 있던 주소라 그대로 쓴다(이름만 화정1동 → 화정동)
+ *     /area/deogyang           덕양구 치과
+ *     /treatment · /about · /visit  진료 안내 · 의료진 · 진료시간과 오시는 길
+ * ★ 나머지 400여 쪽은 지웠다. 같은 내용이 남은 쪽으로 옮겨 간 주소는 301, 내용 자체를 뺀 주소는 410(삭제됨).
+ *   middleware.ts 가 routeOf() 하나로 가른다. 되살리려면 git 에서 2026-10-08 이전 커밋을 보면 된다.
  * ★ 이 파일은 middleware(엣지)에서도 읽는다 — JSON 말고 다른 것을 import 하지 말 것.
- * ★ content/focus-cards.json 의 지역·진료 쪽 카드 목록은 지우지 않는다 — 그 목록의 글이 첫날 공개 순서(lib/posts.ts)를 정한다.
  */
-import table from '../content/focus-cards.json';
+// ★ 2026-10-12 오너 "그때처럼 바꿔봐": 10-08 13:26('화정 치과·화정치과' 통합 3·웹 9~10) 판 그대로 되살림 — 카드 표도 그때 것(v1).
+//   content/focus-cards.json(v2, 카드 → 블로그 글)은 lib/posts.ts 가 첫날 공개 글을 정하는 데 계속 쓴다(이미 공개된 글이 닫히지 않게).
+import table from '../content/focus-cards-v1.json';
 
 export type FocusKey = 'home' | 'station' | 'dong' | 'gu' | 'treat' | 'doctors' | 'visit';
 
-interface PageRow { path: string; tag: string }
+interface PageRow { path: string; tag: string; bg: string; pos: string }
+interface ListRow { to: FocusKey; name: string; bg?: string; pos?: string }
 
 const PAGES = table.pages as Record<FocusKey, PageRow>;
+const LISTS = table.lists as Record<FocusKey, ListRow[]>;
 
 export const FOCUS_PATH: Record<FocusKey, string> = Object.fromEntries(Object.entries(PAGES).map(([k, p]) => [k, p.path])) as Record<FocusKey, string>;
 
-/** 남기는 쪽 — 사이트맵·RSS·카탈로그가 이 집합만 낸다(블로그 글은 lib/posts.ts 가 따로 더한다). */
-export const KEEP_PATHS = new Set<string>(['/', '/privacy']);
+/** 남기는 쪽 — 사이트맵·RSS·카탈로그가 이 집합만 낸다. */
+export const KEEP_PATHS = new Set<string>([...Object.values(FOCUS_PATH), '/privacy']);
 
-// 카드 6장(focusCards)은 lib/focusCards.ts — 블로그 글을 읽어야 해서 여기(엣지 middleware 가 읽는 파일)에 두지 않는다
+export interface FocusCard {
+  name: string;
+  path: string;
+  /** 800×800 카드 그림 — 화면 <img> 와 ItemList.image 가 같은 파일 */
+  image: string;
+  alt: string;
+  tag: string;
+}
+
+/** 카드 그림 파일 — scripts/focus-card-art.mjs 가 같은 규칙으로 만든다 */
+export const focusCardImage = (list: FocusKey, to: FocusKey) => `/img/fc/v${table.v}-${list}-${to}.jpg`;
+
+/** 그 쪽에 싣는 카드 6장(자기 자신 빼고 나머지 여섯 쪽). 이름은 쪽마다 다르다 — 같은 덩어리가 여러 쪽에 되풀이되지 않게. */
+export function focusCards(list: FocusKey): FocusCard[] {
+  return LISTS[list].map((c) => ({
+    name: c.name,
+    path: FOCUS_PATH[c.to],
+    image: focusCardImage(list, c.to),
+    alt: c.name,
+    tag: PAGES[c.to].tag,
+  }));
+}
 
 /* ────────────────────────────────────────────── 지운 주소 가르기 */
 
@@ -43,10 +69,13 @@ export function routeOf(rawPath: string): Route {
     try { s = decodeURIComponent(s); } catch { /* 깨진 주소는 아래에서 410 */ }
     if (/[가-힣]/.test(s)) return { kind: 'keep' };
   }
-  // 지역·진료·의료진·내원 안내 쪽 → 모두 홈(301)
-  if (path === '/area' || path.startsWith('/area/')) return { kind: 'move', to: '/' };
-  if (/^\/(treatment|about)(\/|$)/.test(path)) return { kind: 'move', to: '/' };
-  if (['/visit', '/booking', '/faq', '/contact', '/location'].includes(path)) return { kind: 'move', to: '/' };
+  // 같은 내용이 남은 쪽에 있는 주소 → 301
+  if (path === '/area/hwajeong' || path === '/area/hwajeong-2') return { kind: 'move', to: FOCUS_PATH.dong };
+  if (/^\/area\/[^/]+$/.test(path)) return { kind: 'move', to: FOCUS_PATH.gu }; // 다른 동네 = 모두 덕양구·고양 안
+  if (path === '/area') return { kind: 'move', to: '/' };
+  if (path.startsWith('/treatment/')) return { kind: 'move', to: FOCUS_PATH.treat };
+  if (path.startsWith('/about/')) return { kind: 'move', to: FOCUS_PATH.doctors };
+  if (['/booking', '/faq', '/contact', '/location'].includes(path)) return { kind: 'move', to: FOCUS_PATH.visit };
   // 증상·질환·문답·용어·비용·여정·칼럼·응급·지역×진료 = 내용째 뺀 쪽 → 410
   return { kind: 'gone' };
 }
