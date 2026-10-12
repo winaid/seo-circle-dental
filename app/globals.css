@@ -143,6 +143,7 @@ button { font: inherit; }
 .hero-copy { max-width: 720px; }
 .hero h1 { color: #fff; font-size: clamp(34px, 5.2vw, 62px); line-height: 1.18; letter-spacing: -0.03em; margin-top: 18px; text-wrap: balance; }
 .hero h1 em { font-style: normal; color: #f3dfb0; }
+.hero h1 .h1-kw { display: block; font-size: 0.42em; font-weight: 700; color: #f1d6a8; letter-spacing: -0.01em; margin-bottom: 10px; }
 .hero-lead { margin-top: 22px; font-size: clamp(16px, 1.6vw, 19px); line-height: 1.7; color: rgba(255, 255, 255, 0.86); max-width: 600px; }
 .hero-cta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 30px; }
 .hero-facts { margin-top: 56px; border-top: 1px solid rgba(255, 255, 255, 0.22); display: grid; grid-template-columns: repeat(2, 1fr); }
