@@ -32,11 +32,17 @@ export const viewport: Viewport = { themeColor: '#0f2542', width: 'device-width'
 const GTM_ID = 'GTM-MR3G3HSR';
 const GTM_SCRIPT = `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${GTM_ID}');`;
 
+/** Google 태그(gtag.js, GA4) — 오너 요청 2026-10-14 */
+const GA_ID = 'G-8VBVRYV3B4';
+const GA_SCRIPT = `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GA_ID}');`;
+
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="ko">
       <head>
         <script dangerouslySetInnerHTML={{ __html: GTM_SCRIPT }} />
+        <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} />
+        <script dangerouslySetInnerHTML={{ __html: GA_SCRIPT }} />
         <link rel="preload" as="style" href="/fonts/pretendard/pretendard.css" />
         <link rel="stylesheet" href="/fonts/pretendard/pretendard.css" />
         <link rel="alternate" type="application/rss+xml" title={`${SITE_NAME} 새 글`} href="/feed" />
