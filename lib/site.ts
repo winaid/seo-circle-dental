@@ -63,7 +63,8 @@ export const NAVER_SITE_VERIFICATION = process.env.NAVER_SITE_VERIFICATION ?? 'd
  * 아래 값은 나중에 메타 태그 방식으로 바꿀 때를 위해 배선만 남겨 둔 것이다 — 지금은 비어 있다.
  */
 export const GOOGLE_SITE_VERIFICATION = process.env.GOOGLE_SITE_VERIFICATION ?? '';
-export const NAVER_ANALYTICS_ID = process.env.NAVER_ANALYTICS_ID ?? '';
+/** 네이버 애널리틱스 '동그라미SEO' 발급 ID — 오너 요청 2026-10-19 */
+export const NAVER_ANALYTICS_ID = process.env.NAVER_ANALYTICS_ID || '12971c722d8ac20';
 
 // ★ 홈은 끝에 '/' 를 붙인다(https://circle-dental.shop/) — 2026-10-02: 네이버에서 홈에 카드 줄이 붙은 홈 6곳은 모두 canonical 이 '…/' 꼴,
 //   우리 두 홈(shop·store)만 '/' 가 없었다. 네이버가 읽는 주소(…/)와 선언한 주소(…)가 달라 홈이 사본처럼 보였을 수 있다(하위 쪽은 원래 같음).
