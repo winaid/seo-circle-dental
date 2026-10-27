@@ -15,14 +15,14 @@ export const metadata: Metadata = metaFor(doc);
 export default function BlogHub() {
   const crumbs = [
     { name: '홈', path: '/' },
-    { name: '화정치과 이야기', path: '/blog' },
+    { name: '진료 이야기', path: '/blog' },
   ];
   const posts = publishedPosts();
   return (
     <>
       <HubHead
         crumbs={crumbs}
-        eyebrow="화정치과 이야기"
+        eyebrow="진료 이야기"
         title={doc.title}
         lead="진료 전에 알아 두면 좋은 것을 글로 정리했습니다. 증상이 있을 때 확인할 것, 진료가 어떻게 진행되는지, 집에서 하는 관리, 오시는 길까지 담았습니다."
       />

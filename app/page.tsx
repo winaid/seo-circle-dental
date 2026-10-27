@@ -103,7 +103,7 @@ export default function HomePage() {
             <div className="home-top">
               <span className="eyebrow">고양시 덕양구 화정동 · 3호선 화정역</span>
               <h1>
-                <span className="h1-kw">화정치과 동그라미치과의원</span>
+                <span className="h1-kw">동그라미치과의원</span>
                 뽑기 전에 살릴 수 있는지 먼저 보는{' '}
                 <em>
                   화정 치과
@@ -203,7 +203,7 @@ export default function HomePage() {
             <div>
               <span className="eyebrow">동그라미치과의원은 어떤 곳인가요</span>
               <h2 id="h-why" style={{ fontSize: 'clamp(26px, 3vw, 36px)', marginTop: 14, marginBottom: 14 }}>
-                화정치과 동그라미치과의원이 진료를 대하는 다섯 가지 기준
+                동그라미치과의원이 진료를 대하는 다섯 가지 기준
               </h2>
               <p className="muted" style={{ marginBottom: 28 }}>
                 병원이 스스로 밝히고 있는 내용 그대로입니다. 근거가 되는 자격·인증은 병원 소개 페이지에서 실물 사진으로 확인하실 수 있습니다.
@@ -367,7 +367,7 @@ export default function HomePage() {
             </div>
             <div className="fc-body">
               <p>화정 치과를 고르실 때는 집이나 회사에서 오가기 편한지, 저녁이나 토요일에 시간을 낼 수 있는지부터 보시게 됩니다. 동그라미치과의원은 3호선 화정역에서 덕양구청 방면으로 직선거리 {walk}이고, 화요일과 목요일은 저녁 8시 30분까지, 토요일은 오후 2시까지 진료합니다.</p>
-              <p>그다음은 누가 어떤 순서로 진단하는지입니다. 화정치과 동그라미치과의원은 보건복지부인증 통합치의학과 전문의 세 명이 진료하고, 저선량으로 촬영하는 CT와 구강스캐너로 찍은 사진을 함께 보며 지금 상태를 설명합니다.</p>
+              <p>그다음은 누가 어떤 순서로 진단하는지입니다. 동그라미치과의원은 보건복지부인증 통합치의학과 전문의 세 명이 진료하고, 저선량으로 촬영하는 CT와 구강스캐너로 찍은 사진을 함께 보며 지금 상태를 설명합니다.</p>
               <p>치료를 정할 때는 그 치아를 남길 수 있는지부터 확인하고, 남길 수 없을 때 임플란트를 말씀드립니다. 비용은 검사 뒤에 건강보험 적용 여부와 함께 설명합니다.</p>
             </div>
           </div>
@@ -390,7 +390,7 @@ export default function HomePage() {
         nodes={[
           webPageNode(doc),
           breadcrumbNode('/', [{ name: '홈', path: '/' }]),
-          itemListNode('화정치과 동그라미치과의원 안내', carousel.map((c) => ({ name: c.name, path: c.path, image: c.image }))),
+          itemListNode('동그라미치과의원 안내', carousel.map((c) => ({ name: c.name, path: c.path, image: c.image }))),
           imageGalleryNode('동그라미치과의원 화정동 진료실과 진료 안내', [
             { src: HERO.src, name: '동그라미치과의원 진료실', caption: HERO.alt },
             { src: IMG.interior[3].src, name: '검사 결과 설명', caption: IMG.interior[3].alt },

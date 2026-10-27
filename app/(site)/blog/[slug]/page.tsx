@@ -42,7 +42,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
   const doc = requireDoc(p.path);
   const crumbs = [
     { name: '홈', path: '/' },
-    { name: '화정치과 이야기', path: '/blog' },
+    { name: '진료 이야기', path: '/blog' },
     { name: p.title, path: p.path },
   ];
   const article = {
@@ -87,7 +87,8 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
           </div>
 
           <section className="post-cta" aria-labelledby="h-cta">
-            <h2 id="h-cta">{p.kw}에서 먼저 확인해 보세요</h2>
+            {/* 2026-10-27: kw 가 '화정치과'·'화정 치과'(98편)면 병원 이름 자리에 검색어가 들어가던 것 → 실제 이름 */}
+            <h2 id="h-cta">{/^화정\s?치과$/.test(p.kw) ? '동그라미치과의원' : p.kw}에서 먼저 확인해 보세요</h2>
             <p>글로 짐작하기 어려운 것은 검사로 확인합니다. 화요일과 목요일은 저녁 8시 30분까지, 토요일은 오후 2시까지 진료합니다.</p>
             <div className="post-cta-btns">
               <Btn href={CLINIC.phoneHref} kind="white">
@@ -100,9 +101,9 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
           </section>
 
           <nav className="post-back" aria-label="이어서 보기">
-            <Link href="/">← 화정치과 동그라미치과의원 첫 화면으로</Link>
+            <Link href="/">← 동그라미치과의원 첫 화면으로</Link>
             {p.area && <Link href={p.area.path}>{p.area.label} →</Link>}
-            <Link href="/blog">화정치과 이야기 전체 보기</Link>
+            <Link href="/blog">진료 이야기 전체 보기</Link>
           </nav>
           <MedicalNotice />
         </div>

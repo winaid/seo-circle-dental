@@ -26,7 +26,7 @@ export function SiteFooter() {
             <h4>안내</h4>
             <NotOnHome fallback={<ul>{NAV.map((n) => <li key={n.href}>{n.label}</li>)}</ul>}>
               <ul>
-                <li><Link href="/">화정치과 동그라미치과의원</Link></li>
+                <li><Link href="/">동그라미치과의원</Link></li>
                 {NAV.map((n) => (
                   <li key={n.href}><Link href={n.href}>{n.label}</Link></li>
                 ))}

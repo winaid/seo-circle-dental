@@ -81,11 +81,11 @@ export default function VisitPage() {
           <h2 style={{ fontSize: 24, marginBottom: 14 }}>내원 전에 자주 묻는 것</h2>
           <Faq items={CLINIC_QA.map((q) => ({ q: q.q, a: q.a }))} />
         </section>
-        <CardRow title="화정치과 동그라미치과의원 안내" cards={cards} />
+        <CardRow title="동그라미치과의원 안내" cards={cards} />
         <CtaBlock />
         <MedicalNotice />
       </div>
-      <JsonLd nodes={[webPageNode(doc), breadcrumbNode('/visit', crumbs), itemListNode('화정치과 동그라미치과의원 안내', cards.map((c) => ({ name: c.name, path: c.path, image: c.image })))]} />
+      <JsonLd nodes={[webPageNode(doc), breadcrumbNode('/visit', crumbs), itemListNode('동그라미치과의원 안내', cards.map((c) => ({ name: c.name, path: c.path, image: c.image })))]} />
     </>
   );
 }

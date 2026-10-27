@@ -44,7 +44,7 @@
       { "to": "visit", "name": "덕양구 치과 진료시간" }
     ],
     "treat": [
-      { "to": "home", "name": "화정치과 동그라미치과의원" },
+      { "to": "home", "name": "동그라미치과의원" },
       { "to": "station", "name": "화정역 치과 안내" },
       { "to": "dong", "name": "화정동 치과 안내" },
       { "to": "gu", "name": "덕양구 치과 안내" },

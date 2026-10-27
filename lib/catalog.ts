@@ -231,7 +231,7 @@ function buildDocs(): Doc[] {
     title: '뽑기 전에 살릴 수 있는지 먼저 보는 화정동 치과',
     seoTitle: HOME_TITLE,
     /* 80자 안에서 지역·역·야간진료·진료 네 가지만. 전화번호·전문의 수는 본문과 구조화 데이터에 있다. */
-    description: desc('화정치과 동그라미치과의원. 화정역 3호선 인근, 화·목 저녁 8시 30분까지 야간 진료. 자연치아 살리기·임플란트·사랑니 발치.'),
+    description: desc('동그라미치과의원. 화정역 3호선 인근, 화·목 저녁 8시 30분까지 야간 진료. 자연치아 살리기·임플란트·사랑니 발치.'),
     excerpt: CLINIC.description,
     image: { src: IMG.doctorsTeam, alt: '동그라미치과의원 의료진 세 명' },
     keywords: ['화정치과', '화정 치과', '화정동 치과', '화정역 치과', '덕양구 치과', '고양 치과', '동그라미치과의원'],
@@ -340,7 +340,7 @@ function fmtDistanceLabel(r: Region) {
 const FOCUS_UPDATED = '2026-10-08';
 const FOCUS_OVERRIDE: Record<string, Partial<Doc>> = {
   '/': {
-    title: '화정치과 동그라미치과의원 — 뽑기 전에 살릴 수 있는지 먼저 보는 화정 치과',
+    title: '동그라미치과의원 — 뽑기 전에 살릴 수 있는지 먼저 보는 화정 치과',
     keywords: ['화정치과', '화정 치과', '동그라미치과의원'],
   },
   '/area/hwajeong-station': {
@@ -365,27 +365,27 @@ const FOCUS_OVERRIDE: Record<string, Partial<Doc>> = {
   },
   '/treatment': {
     title: '화정 치과 진료 안내 — 자연치아 살리기부터 임플란트까지',
-    seoTitle: '화정 치과 진료 안내 | 화정치과 동그라미치과의원',
+    seoTitle: '화정 치과 진료 안내 | 동그라미치과의원',
     description: desc('화정 치과 동그라미치과의원의 진료 열 가지. 진료마다 먼저 확인하는 것과 살릴 수 있는 조건을 적었습니다.'),
     keywords: ['화정 치과 진료', '동그라미치과의원 진료'],
   },
   '/about': {
     title: '화정치과 의료진 — 통합치의학과 전문의 세 명과 진료 원칙',
-    seoTitle: '의료진 · 병원 소개 | 화정치과 동그라미치과의원',
-    description: desc('화정치과 동그라미치과의원 의료진. 보건복지부인증 통합치의학과 전문의 세 명과 진료 원칙, 장비, 위생 관리.'),
+    seoTitle: '의료진 · 병원 소개 | 동그라미치과의원',
+    description: desc('동그라미치과의원 의료진. 보건복지부인증 통합치의학과 전문의 세 명과 진료 원칙, 장비, 위생 관리.'),
     keywords: ['화정치과 의료진', '동그라미치과의원 원장'],
   },
   '/blog': {
-    title: '화정치과 이야기 — 진료 전에 읽어 보는 안내',
-    seoTitle: '화정치과 이야기 | 화정치과 동그라미치과의원',
-    description: desc('화정치과 동그라미치과의원이 진료 전에 알아 두면 좋은 것을 글로 정리했습니다. 증상과 진료, 관리 습관, 오시는 길.'),
+    title: '진료 이야기 — 오시기 전에 읽어 보는 안내',
+    seoTitle: '진료 이야기 | 동그라미치과의원',
+    description: desc('동그라미치과의원이 진료 전에 알아 두면 좋은 것을 글로 정리했습니다. 증상과 진료, 관리 습관, 오시는 길.'),
     excerpt: '진료 전에 알아 두면 좋은 것을 글로 정리했습니다.',
     keywords: ['화정치과', '화정 치과'],
-    category: '화정치과 이야기',
+    category: '진료 이야기',
   },
   '/visit': {
     title: '진료시간과 오시는 길 — 예약 방법까지',
-    seoTitle: '진료시간 · 오시는 길 · 예약 | 화정치과 동그라미치과의원',
+    seoTitle: '진료시간 · 오시는 길 · 예약 | 동그라미치과의원',
     keywords: ['동그라미치과의원 진료시간', '동그라미치과의원 위치'],
   },
 };
@@ -395,7 +395,7 @@ const esc = (t: string) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replac
 function postRss(p: Post) {
   const body = p.sections.map((x) => `<h2>${esc(x.h2)}</h2>${x.paras.map((t) => `<p>${esc(t)}</p>`).join('')}`).join('');
   const back = p.area ? `<p><a href="${SITE_URL}${p.area.path}">${esc(p.area.label)}</a></p>` : '';
-  return `<p><img src="${SITE_URL}${p.image.src}" alt="${esc(p.image.alt)}" /></p><p>${esc(p.summary)}</p>${body}${back}<p><a href="${SITE_URL}/">화정치과 동그라미치과의원</a> · ${esc(CLINIC.address.full)} · ${CLINIC.phone}</p>`;
+  return `<p><img src="${SITE_URL}${p.image.src}" alt="${esc(p.image.alt)}" /></p><p>${esc(p.summary)}</p>${body}${back}<p><a href="${SITE_URL}/">동그라미치과의원</a> · ${esc(CLINIC.address.full)} · ${CLINIC.phone}</p>`;
 }
 
 /** 화정치과 이야기 글(lib/posts.ts) — 공개일은 글마다(첫날 30편, 그 뒤 하루 6편) */
