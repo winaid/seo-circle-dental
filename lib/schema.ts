@@ -8,7 +8,7 @@
 import { CLINIC, UNVERIFIED } from './clinic';
 import { DOCTORS, type Doctor } from './doctors';
 import { IMG } from './assets';
-import { SITE_URL, MAIN_SITE_URL, abs, SITE_NAME, CLINIC_GEO, SITE_ALIASES } from './site';
+import { SITE_URL, MAIN_SITE_URL, abs, SITE_NAME, SEARCH_SITE_NAME, CLINIC_GEO, SITE_ALIASES } from './site';
 import type { Doc } from './catalog';
 import { probeCrumbs } from './crawlProbe';
 import type { Treatment } from './treatments';
@@ -82,8 +82,8 @@ export function websiteNode() {
     '@type': 'WebSite',
     '@id': ID.website,
     url: `${SITE_URL}/`,
-    name: `${SITE_NAME} — 화정 치과 · 화정역 치과`,
-    alternateName: [...SITE_ALIASES],
+    name: SEARCH_SITE_NAME, // 검색 결과 사이트 이름 줄(lib/site.ts)
+    alternateName: [SITE_NAME, ...SITE_ALIASES],
     inLanguage: 'ko-KR',
     publisher: { '@id': ID.clinic },
   };

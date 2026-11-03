@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { isSearchIndexed, type Doc } from './catalog';
-import { abs, SITE_NAME, SITE_URL } from './site';
+import { abs, SEARCH_SITE_NAME, SITE_URL } from './site';
 import { IMG } from './assets';
 import ogTable from '../content/og.json';
 
@@ -32,7 +32,7 @@ export function metaFor(doc: Doc, extra: Partial<Metadata> = {}): Metadata {
       ...(home ? {} : { url: abs(doc.path) }),
       title: doc.seoTitle,
       description: doc.description,
-      siteName: SITE_NAME,
+      siteName: SEARCH_SITE_NAME, // 검색 결과 사이트 이름 줄(lib/site.ts)
       locale: 'ko_KR',
       images: [{ ...og, alt: img.alt }],
       ...(doc.kind !== 'home' && doc.kind !== 'page' ? { publishedTime: doc.publishAt, modifiedTime: doc.updated } : {}),
