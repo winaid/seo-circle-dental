@@ -35,7 +35,17 @@ const GTM_SCRIPT = `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':ne
 
 /** Google 태그(gtag.js, GA4) — 오너 요청 2026-10-14 */
 const GA_ID = 'G-8VBVRYV3B4';
-const GA_SCRIPT = `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GA_ID}');`;
+/**
+ * 2026-11-17 오너 "유입·예약 전환 알 수 있게" — 같은 태그로 한 곳 더 보낸다: GA4 '동그라미치과(윈에이드세팅)' 속성의 shop 스트림.
+ * co.kr(G-MBGPLJCNR3)·store(G-100WH49LVP) 와 같은 속성이라 사이트별로 견주고, 로봇 계정이 읽는다(위 G-8VBVRYV3B4 는 로봇이 못 읽음).
+ */
+const GA_ID_SHARED = 'G-FEDTVKMBKB';
+const GA_SCRIPT = `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GA_ID}');gtag('config','${GA_ID_SHARED}');`;
+/**
+ * 예약·전화·카톡 버튼 누름 — 이벤트 이름은 옛 아임웹 co.kr 과 같다: btn_naver(네이버 예약)·btn_call(전화)·btn_kakao(카톡).
+ * 버튼마다 손대지 않고 문서 전체에서 한 번 듣는다(새 버튼이 생겨도 링크 주소로 저절로 잡힌다). 화면은 그대로.
+ */
+const CLICK_SCRIPT = `document.addEventListener('click',function(e){var t=e.target&&e.target.closest&&e.target.closest('a[href]');if(!t||typeof window.gtag!=='function')return;var h=t.getAttribute('href')||'';var n=/booking\\.naver\\.com/.test(h)?'btn_naver':/^tel:/i.test(h)?'btn_call':/(pf|open)\\.kakao\\.com/.test(h)?'btn_kakao':'';if(n)gtag('event',n,{link_url:h,page_path:location.pathname,transport_type:'beacon'});},true);`;
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
@@ -44,6 +54,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <script dangerouslySetInnerHTML={{ __html: GTM_SCRIPT }} />
         <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} />
         <script dangerouslySetInnerHTML={{ __html: GA_SCRIPT }} />
+        <script dangerouslySetInnerHTML={{ __html: CLICK_SCRIPT }} />
         <link rel="preload" as="style" href="/fonts/pretendard/pretendard.css" />
         <link rel="stylesheet" href="/fonts/pretendard/pretendard.css" />
         <link rel="alternate" type="application/rss+xml" title={`${SITE_NAME} 새 글`} href="/feed" />
