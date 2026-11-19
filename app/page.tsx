@@ -29,12 +29,21 @@ export const revalidate = 3600;
  *   카드 붙은 홈(목록 5+) 15곳 전부 카드 줄이 맨 위 33~383px·그 위 큰 사진 0. 이 홈은 히어로 사진 뒤 1,188px 이라 안 붙었고,
  *   같은 이름·그림인 store 홈(123px)은 붙었다. 그래서 헤더 바로 아래 카드 → 그 다음 히어로(제목·사진·연락). 글자는 빼지 않고 순서만.
  *   카드 위에 큰 사진·긴 글을 두지 말 것.
+ * ★★ 2026-11-17 오너 "이고운치과처럼 히어로 바꾸고, 숙면치과처럼 캐러셀 숨겨봐" — 히어로(사진 전체 배경·투명 머리말·큰 제목 두 줄·
+ *   예약/전화·사실 넷)를 맨 위로, 카드 6장은 히어로 바로 아래 '보이는' 가로형 3×2 로 줄였다.
+ * ★★ 2026-11-18 오너 "어차피 잃어도 되니깐 테스트 겸 해봐" — 숙면치과 식 숨긴 카드 묶음 시험(C:/tmp/sumyeon 조사:
+ *   숙면 계열은 카드 묶음을 쪽 맨 위 0px 에 position:absolute·z-index:-1 로 깔아 화면 뒤에 둔다).
+ *   main 첫 자식 .home-cards--behind = 카드 6장(ItemList 와 같은 이름·사진·순서)을 맨 위에 두고 히어로가 덮는다.
+ *   ⚠️ 사람에겐 안 보이고 로봇에게만 보이는 블록 = 네이버 어뷰징 정책의 숨긴 텍스트·링크 — 노출 제한 위험을 오너가 알고 고른 시험.
+ *   보이는 카드 줄(히어로 아래)은 그대로 — 홈엔 메뉴가 없어 사람이 하위 쪽으로 가는 길이 이 줄뿐이다.
+ *   되돌리기 = 아래 .home-cards--behind 구획과 globals.css '숨긴 카드 묶음' 블록만 지우면 11-17 판(히어로 + 보이는 카드)이 된다.
  */
 
 const doc = docByPathStrict('/');
 export const metadata: Metadata = metaFor(doc);
 
-const HERO = { src: '/img/20210923_ed347b4ffee21.jpg', alt: IMG.interior[8].alt };
+// 11-17 이고운 꼴 히어로 — 사람이 나오는 사진(이고운은 의료진 단체 사진). 진단부터 먼저 = 엑스레이를 보며 설명하는 장면
+const HERO = { src: IMG.interior[6].src, alt: IMG.interior[6].alt };
 const FEATURES = [
   {
     slug: 'implant',
@@ -54,7 +63,8 @@ const FEATURES = [
   {
     slug: 'wisdom-tooth',
     h2: '화정치과 사랑니 발치',
-    img: { src: '/img/20210923_956b5d44b57ef.jpg', alt: '상담실에서 파노라마 엑스레이 화면과 치아 모형으로 설명하는 모습' },
+    // 11-17 이 사진은 히어로로 올렸다 — 같은 쪽에 두 번 나오지 않게 파노라마 촬영 장면으로
+    img: { src: IMG.interior[10].src, alt: IMG.interior[10].alt },
   },
 ];
 
@@ -79,54 +89,119 @@ export default function HomePage() {
       {/* ★ 홈 정규 주소는 끝에 '/' — 네이버에서 홈에 카드가 붙은 홈 6곳 모두 이 꼴(2026-10-02). Next 메타데이터가 '/' 를 떼므로 직접 낸다 */}
       <link rel="canonical" href={`${SITE_URL}/`} />
       <meta property="og:url" content={`${SITE_URL}/`} />
-      <SiteHeader nav={false} />
-      <main id="main">
-        {/* ───── 진료 카드 6장 = 첫 화면 ─────
-            ★★★ 2026-10-01 실측(오너 캡처 gwanghwamundental.co.kr): 홈도 카드 줄을 받는다. 그 홈은 **첫 사진 링크 6개 =
-            ItemList 6개(주소·사진·순서 동일)**. 카드 앞에 다른 내부 링크를 두지 말 것.
-            ★★★★ 10-06: 카드 위에는 헤더만 — 히어로 사진·제목은 카드 아래(파일 위 주석). 제목 h2 도 카드 아래로 옮겼다(카드 위 글자 줄이기) */}
-        <section className="home-cards" aria-label="화정치과 진료 안내">
-          <div className="wrap">
-            {/* ★ 10-07 시험(오너 GO "shop 홈 시험해보자"): 큰 제목 한 줄만 카드 위로 — 문구는 그대로, 위치만.
-                10-06 22:58 '화정 치과' 통합에서 빠지고 웹탭 11→16. 첫 화면을 카드로 바꿀 때 h1 이 1,699px 로 내려간 것이 후보.
-                카드 조건(맨 위 400px 안·위에 큰 사진 0·위 글자 ≤103자 — 카드 붙은 홈 15곳 실측)은 지킨다
-                → 결과: 09:58 재독, 10:59 '화정동 치과' 홈 웹탭 45밖 → 11위(3회 같음). '화정 치과'는 17위 그대로(h1 에 그 꼴 없음).
-                ★ 10-07 2차 시험(cd9639c, 오너 GO "해보자"): h1 낱말을 '화정 치과'로, '화정동 치과'는 위 작은 줄로 → 11:24 재독,
-                12:20 '화정동 치과' 홈 11위 → 45밖(3회 같음), '화정 치과' 17 → 16(변화 없음). 실패 → 1차로 되돌림.
-                ⛔ 결론: 그 검색어 홈 순위는 '맨 위 h1 안의 그 낱말'이 정한다(맨 위 작은 줄로는 안 됨, h1 을 아래로 내려도 안 됨).
-                '화정 치과'는 h1 으로 움직이지 않는다 — 플랫폼·블로그 끼어듦과 위 병원 홈들이 막는 검색어
-                ★ 10-07 3차(오너 GO "광화문 선치과 그 업체처럼"): gwanghwamundental.co.kr 홈 = h1 이 검색어로 시작('광화문치과 찾으신다면…'),
-                h2 8개 중 6개·본문 44회, 플레이스 홈페이지 아님(플레이스는 dentalsun)인데 통합 1~4위·카드. 우리 홈은 플레이스 미연결이라 같은 길.
-                h1 맨 앞에 '화정치과 동그라미치과의원' 줄, '…화정동 치과'는 그대로 둔다(화정동 11위 유지). h2 2/10 → 7/10, 본문 10 → 20회 남짓
-                ★ 2026-10-08 네 검색어 집중판(오너 "다 없애고 네 개만"): '화정동 치과'는 /area/hwajeong-1 이 맡는다 → 홈 h1 끝 낱말을 '화정 치과'로.
-                홈 = 화정치과·화정 치과 둘(h1 두 줄에 하나씩). 제목(title)은 바꾸지 않았다 — 잦은 제목 변경은 네이버가 불이익을 준다고 적어 둔 것
-                ★ 2026-10-27 f7df14d 에서 '화정치과 동그라미치과의원'(검색어를 병원 이름처럼 붙인 꼴)을 '동그라미치과의원'으로 바꿨다가,
-                오너 "붙여쓴것도 넣긴 해야지" → 붙여 쓴 '화정치과'를 h1 맨 앞에 되살리되 가운뎃점으로 병원 이름과 떼어 둔다(이름 꼴 X). */}
-            <div className="home-top">
-              <span className="eyebrow">고양시 덕양구 화정동 · 3호선 화정역</span>
-              <h1>
+      <SiteHeader overlay nav={false} />
+      <main id="main" className="main--home">
+        {/* ───── 숨긴 카드 묶음 (2026-11-18 오너 시험 — 파일 위 주석) ─────
+            HTML·렌더 모두 쪽 맨 위(머리말 아래)에 카드 6장 = 첫 사진 링크 6개 = ItemList 6개. 히어로가 위에 그려져 화면엔 안 보인다.
+            키보드 이동만 건너뛰게 tabIndex -1(안 보이는 링크에 초점이 가지 않게). 글자·주소·사진은 보이는 카드 줄과 같다. */}
+        <section className="home-cards home-cards--behind" aria-label="화정치과 진료 안내">
+          <div className="wrap home-cards-grid home-cards-grid--row">
+            {carousel.map((c) => (
+              <Link key={c.path} href={c.path} className="h-card h-card--row" tabIndex={-1}>
+                <span className="h-card-img">
+                  <img src={c.image} alt={c.alt} width={800} height={800} decoding="async" />
+                </span>
+                <span className="h-card-in">
+                  <span className="card-tag">{c.tag}</span>
+                  <h3>{c.name}</h3>
+                  <p>{c.caption}</p>
+                </span>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        {/* ───── 히어로 = 첫 화면 (2026-11-17 오너 "이고운치과처럼") ─────
+            이고운 첫 화면 꼴: 사진 전체 배경 · 투명 머리말 · 위 영문 작은 줄 · 아래쪽에 큰 제목 두 줄 → 한 줄 소개 → 예약·전화 → 가는 선 → 사실 넷.
+            ★ h1 글자는 그대로(화정치과 · 동그라미치과의원 / 뽑기 전에 … 화정 치과) — 그 검색어 홈 순위는 h1 안 낱말이 정한다(아래 10-07 기록).
+              줄바꿈은 <br /> 앞에 띄어쓰기를 남겨 '있는지 먼저' 로 읽히게 한다.
+            ★ h1 에는 등장 효과를 걸지 않는다(검색 재료는 가리지 않는다 — components/Motion.tsx 원칙). */}
+        <section className="hero hero--ego" aria-labelledby="h-home">
+          <div className="hero-bg">
+            <img src={HERO.src} alt={HERO.alt} fetchPriority="high" decoding="async" width={1920} height={1330} />
+          </div>
+          <div className="hero-shade" aria-hidden="true" />
+          <div className="wrap hero-in">
+            <p className="hero-eyebrow enter">CIRCLE DENTAL CLINIC · 화정</p>
+            <div className="hero-copy">
+              {/* 아래 10-07~10-27 기록 = 이 h1 의 낱말·순서가 정해진 내력(예전엔 카드 위 .home-top 에 있었다)
+                  ★ 10-07 시험(오너 GO "shop 홈 시험해보자"): 큰 제목 한 줄만 카드 위로 — 문구는 그대로, 위치만.
+                  10-06 22:58 '화정 치과' 통합에서 빠지고 웹탭 11→16. 첫 화면을 카드로 바꿀 때 h1 이 1,699px 로 내려간 것이 후보.
+                  → 결과: 09:58 재독, 10:59 '화정동 치과' 홈 웹탭 45밖 → 11위(3회 같음). '화정 치과'는 17위 그대로(h1 에 그 꼴 없음).
+                  ★ 10-07 2차 시험(cd9639c): h1 낱말을 '화정 치과'로, '화정동 치과'는 위 작은 줄로 → '화정동 치과' 11위 → 45밖. 실패 → 1차로 되돌림.
+                  ⛔ 결론: 그 검색어 홈 순위는 '맨 위 h1 안의 그 낱말'이 정한다(맨 위 작은 줄로는 안 됨, h1 을 아래로 내려도 안 됨).
+                  ★ 10-07 3차(오너 GO "광화문 선치과 그 업체처럼"): h1 맨 앞에 '화정치과 동그라미치과의원' 줄.
+                  ★ 2026-10-08 네 검색어 집중판: '화정동 치과'는 /area/hwajeong-1 이 맡는다 → 홈 h1 끝 낱말을 '화정 치과'로.
+                  ★ 2026-10-27 f7df14d 에서 '화정치과 동그라미치과의원'(검색어를 병원 이름처럼 붙인 꼴)을 '동그라미치과의원'으로 바꿨다가,
+                  오너 "붙여쓴것도 넣긴 해야지" → 붙여 쓴 '화정치과'를 h1 맨 앞에 되살리되 가운뎃점으로 병원 이름과 떼어 둔다(이름 꼴 X). */}
+              <h1 id="h-home">
                 <span className="h1-kw">화정치과 · 동그라미치과의원</span>
-                뽑기 전에 살릴 수 있는지 먼저 보는{' '}
+                뽑기 전에 살릴 수 있는지{' '}
+                <br className="br-wide" />
+                먼저 보는{' '}
                 <em>
                   화정 치과
-                  {/* 병원 이름 '동그라미' — 손으로 그린 동그라미가 검색어를 감싼다(장식, 글자 아님). app/globals.css .home-top .circ */}
+                  {/* 병원 이름 '동그라미' — 손으로 그린 동그라미가 검색어를 감싼다(장식, 글자 아님). app/theme-warm.css .hero .circ */}
                   <svg className="circ" viewBox="0 0 300 100" preserveAspectRatio="none" aria-hidden="true" focusable="false">
                     <path pathLength={1} d="M252 16C198 2 78 4 30 30C-4 50 26 90 150 92C268 94 312 62 282 30C262 10 196 6 138 12" />
                   </svg>
                 </em>
               </h1>
+              <p className="hero-lead enter enter-2">
+                화정 치과 동그라미치과의원은 통합치의학과 전문의 세 명이 자연치아를 남길 수 있는지부터 확인합니다.
+              </p>
+              <div className="hero-cta enter enter-3">
+                <Btn href={CLINIC.booking.naver} kind="white" size="lg">
+                  {Icon.calendar} 네이버 예약
+                </Btn>
+                <Btn href={CLINIC.phoneHref} kind="ghost-light" size="lg">
+                  {Icon.phone} {CLINIC.phone}
+                </Btn>
+              </div>
             </div>
-            <div className="grid grid--3 home-cards-grid">
+            <dl className="hero-facts enter enter-4">
+              <div className="hero-fact">
+                <dt>가까운 역</dt>
+                <dd><b>화정역 {fmtDistance(STATION_DISTANCE_M)}</b><span>3호선 · 덕양구청 방면</span></dd>
+              </div>
+              <div className="hero-fact">
+                <dt>야간 진료</dt>
+                <dd><b>화·목 20:30까지</b><span>퇴근 후 진료 가능</span></dd>
+              </div>
+              <div className="hero-fact">
+                <dt>의료진</dt>
+                <dd><b>전문의 3인</b><span>보건복지부인증 통합치의학과</span></dd>
+              </div>
+              <div className="hero-fact">
+                <dt>주차</dt>
+                <dd><b>건물 내 주차 무료</b><span>기계식 · 큰 차량은 전화 문의</span></dd>
+              </div>
+            </dl>
+          </div>
+        </section>
+
+        {/* ───── 진료 카드 6장 (히어로 바로 아래, 2026-11-17) ─────
+            ★★★ 2026-10-01 실측(오너 캡처 gwanghwamundental.co.kr): 홈도 카드 줄을 받는다. 그 홈은 **첫 사진 링크 6개 =
+            ItemList 6개(주소·사진·순서 동일)**. 카드 앞에 다른 내부 링크를 두지 말 것(히어로의 예약·전화는 바깥 링크라 괜찮다).
+            ★ 11-17 큰 정사각 카드 두 줄(약 1,100px) → 작은 사진 + 이름 가로형 3×2. 글자·사진 주소·순서는 그대로, 전부 보이게(줄임표 없음).
+            11-18 맨 위 숨긴 묶음과 같은 카드 — 사람이 보는 쪽은 이 줄이다. */}
+        <section className="home-cards home-cards--after" aria-labelledby="h-treat">
+          <div className="wrap">
+            <div className="sec-head home-cards-head">
+              <span className="eyebrow">화정 치과 안내</span>
+              <h2 id="h-treat">화정치과를 알아보고 계신다면, 진료 이름보다 진단 순서를 먼저</h2>
+              <p>화정 치과 동그라미치과의원은 뽑을지 살릴지를 검사로 먼저 확인합니다. 살릴 수 있는 치아는 신경치료로, 그렇지 않은 치아는 임플란트로 — 어느 쪽이 맞는지 검사 뒤에 함께 정합니다. 오시는 길과 진료시간, 의료진, 진료마다 먼저 보는 것은 아래 여섯 쪽에 나눠 적었습니다.</p>
+            </div>
+            <div className="home-cards-grid home-cards-grid--row">
               {/* ★ 카드 6장은 content/focus-cards.json(lib/focus.ts) 한 곳에서 나온다 — 화면 <h3> 와 ItemList.name 이 글자까지 같아야 검색 결과 카드 줄이 붙는다
                   ★★ 사진도 ItemList 와 **같은 URL(정사각 800×800)** 을 써야 한다. 2026-09-14 실측:
                      레퍼런스(1dentalsolution)는 ItemList 의 640×640 6장이 화면 <img> 에도 그대로 있어(겹침 6/6)
                      검색 결과 블록에 카드 줄이 붙었고, 우리는 화면이 3:2 webp·구조화 데이터가 정사각 jpg 라
                      겹침 0/6 이라 안 붙었다(네이버가 고른 썸네일도 화면에 있는 사진이었다). */}
-              {/* 그림 속에 제목 글자가 이미 있어(scripts/focus-card-art.mjs) 이름·설명은 그림 아래에 — 겹쳐 올리면 글자가 이중으로 보인다 */}
-              {carousel.map((c, i) => (
-                <Link key={c.path} href={c.path} className="h-card">
+              {carousel.map((c) => (
+                <Link key={c.path} href={c.path} className="h-card h-card--row">
                   <span className="h-card-img">
-                    <img src={c.image} alt={c.alt} width={800} height={800} loading={i < 3 ? 'eager' : 'lazy'} decoding="async" />
+                    <img src={c.image} alt={c.alt} width={800} height={800} loading="lazy" decoding="async" />
                   </span>
                   <span className="h-card-in">
                     <span className="card-tag">{c.tag}</span>
@@ -136,54 +211,6 @@ export default function HomePage() {
                 </Link>
               ))}
             </div>
-            <div className="sec-head home-cards-head">
-              <span className="eyebrow">화정 치과 안내</span>
-              <h2 id="h-treat">화정치과를 알아보고 계신다면, 진료 이름보다 진단 순서를 먼저</h2>
-              <p>화정 치과 동그라미치과의원은 뽑을지 살릴지를 검사로 먼저 확인합니다. 오시는 길과 진료시간, 의료진, 진료마다 먼저 보는 것을 위 여섯 쪽에 나눠 적었습니다.</p>
-            </div>
-          </div>
-        </section>
-
-        {/* ───── 히어로 (카드 아래) ───── */}
-        <section className="hero hero--after" aria-label="소개">
-          <div className="hero-bg">
-            <img src={HERO.src} alt={HERO.alt} fetchPriority="high" decoding="async" width={1920} height={1280} />
-          </div>
-          <div className="hero-shade" aria-hidden="true" />
-          <div className="hero-ring" aria-hidden="true" />
-          <div className="wrap hero-in">
-            <div className="hero-copy">
-              {/* 10-07: 제목(h1)과 위 작은 줄은 카드 위(.home-top)로 옮겼다 — 같은 글자가 두 번 나오지 않게 여기서는 뺀다 */}
-              <p className="hero-lead enter enter-3">
-                화정 치과 동그라미치과의원은 통합치의학과 전문의 세 명이 자연치아를 남길 수 있는지부터 확인합니다. 살릴 수 있는 치아는 신경치료로, 그렇지 않은 치아는 임플란트로 — 어느 쪽이 맞는지 검사 뒤에 함께 정합니다.
-              </p>
-              <div className="hero-cta enter enter-4">
-                <Btn href={CLINIC.phoneHref} kind="white" size="lg">
-                  {Icon.phone} {CLINIC.phone}
-                </Btn>
-                <Btn href={CLINIC.booking.naver} kind="ghost-light" size="lg">
-                  {Icon.calendar} 네이버 예약
-                </Btn>
-              </div>
-            </div>
-            <dl className="hero-facts enter enter-4">
-              <div className="hero-fact">
-                <dt className="sr">가까운 역</dt>
-                <dd><b>화정역 {fmtDistance(STATION_DISTANCE_M)}</b><span>3호선 · 덕양구청 방면</span></dd>
-              </div>
-              <div className="hero-fact">
-                <dt className="sr">야간 진료</dt>
-                <dd><b>화·목 20:30까지</b><span>퇴근 후 진료 가능</span></dd>
-              </div>
-              <div className="hero-fact">
-                <dt className="sr">의료진</dt>
-                <dd><b>전문의 3인</b><span>보건복지부인증 통합치의학과</span></dd>
-              </div>
-              <div className="hero-fact">
-                <dt className="sr">주차</dt>
-                <dd><b>건물 내 주차 무료</b><span>기계식 · 큰 차량은 전화 문의</span></dd>
-              </div>
-            </dl>
           </div>
         </section>
 

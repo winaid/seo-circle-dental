@@ -28,7 +28,8 @@ const REVEAL = [
   '.lp-gallery',
   '.lp-visit',
 ].join(',');
-const SKIP = '.art-main, .card-row, .hero';
+// .home-cards = 홈 카드 6장(검색 결과 카드 줄 재료) — 11-17 히어로 아래로 내려가 첫 화면 밖이 됐어도 숨겼다 보여 주지 않는다
+const SKIP = '.art-main, .card-row, .hero, .home-cards';
 
 export function Motion() {
   const path = usePathname();
