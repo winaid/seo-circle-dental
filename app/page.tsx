@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import { SiteHeader } from '@/components/SiteHeader';
-import { Btn, DoctorCard, Faq, HoursTable, Icon, JsonLd } from '@/components/ui';
+import { Btn, HoursTable, Icon, JsonLd } from '@/components/ui';
 import { OpenNow } from '@/components/OpenNow';
 import { CLINIC, STRENGTHS, UNVERIFIED } from '@/lib/clinic';
 import { IMG } from '@/lib/assets';
@@ -16,6 +16,7 @@ import { webPageNode, breadcrumbNode, itemListNode, imageGalleryNode } from '@/l
 import { focusCards, type FocusKey } from '@/lib/focus';
 import { SITE_URL, STATION_DISTANCE_M, fmtDistance } from '@/lib/site';
 import { sentences } from '@/lib/text';
+import './home-ego.css'; // 11-19 홈 본문 이고운 꼴(이 쪽만 쓰는 꾸밈)
 
 export const revalidate = 3600;
 
@@ -33,10 +34,14 @@ export const revalidate = 3600;
  *   예약/전화·사실 넷)를 맨 위로, 카드 6장은 히어로 바로 아래 '보이는' 가로형 3×2 로 줄였다.
  * ★★ 2026-11-18 오너 "어차피 잃어도 되니깐 테스트 겸 해봐" — 숙면치과 식 숨긴 카드 묶음 시험(C:/tmp/sumyeon 조사:
  *   숙면 계열은 카드 묶음을 쪽 맨 위 0px 에 position:absolute·z-index:-1 로 깔아 화면 뒤에 둔다).
- *   main 첫 자식 .home-cards--behind = 카드 6장(ItemList 와 같은 이름·사진·순서)을 맨 위에 두고 히어로가 덮는다.
+ *   .home-cards--behind = 카드 6장(ItemList 와 같은 이름·사진·순서)을 쪽 맨 위에 두고 히어로 사진이 덮는다.
  *   ⚠️ 사람에겐 안 보이고 로봇에게만 보이는 블록 = 네이버 어뷰징 정책의 숨긴 텍스트·링크 — 노출 제한 위험을 오너가 알고 고른 시험.
- *   보이는 카드 줄(히어로 아래)은 그대로 — 홈엔 메뉴가 없어 사람이 하위 쪽으로 가는 길이 이 줄뿐이다.
- *   되돌리기 = 아래 .home-cards--behind 구획과 globals.css '숨긴 카드 묶음' 블록만 지우면 11-17 판(히어로 + 보이는 카드)이 된다.
+ * ★★ 2026-11-19 오너 "이것도 없애야지. 아예 숙면치과처럼 그냥 치과 홈페이지 모양으로, 카드 형태는 안 보이게" —
+ *   히어로 아래 보이는 카드 줄과 그 안내 구획(h2 '화정치과를 알아보고 계신다면, 진료 이름보다 진단 순서를 먼저')을 뺐다.
+ *   대신 홈에도 머리말 메뉴를 다시 둔다(그 줄이 사람이 하위 쪽으로 가던 유일한 길이었다) — 숙면치과 계열처럼 메뉴 링크에 rel="nosublink"
+ *   (네이버 서치어드바이저: 서브링크에서 빼 달라는 표시. 09-22 에 홈 메뉴 글자가 카드 대신 바로가기로 붙었던 일 → components/SiteHeader).
+ *   숨긴 묶음은 히어로 안 맨 앞(사진 아래 z-index:-3, 히어로 overflow:hidden 이 잘라 아래로 비치지 않음)으로 옮겼다.
+ *   되돌리기 = 11-17 판: git show 4219e55~1 은 숨김 전 / 4219e55 는 숨김 + 보이는 카드 줄.
  */
 
 const doc = docByPathStrict('/');
@@ -89,34 +94,36 @@ export default function HomePage() {
       {/* ★ 홈 정규 주소는 끝에 '/' — 네이버에서 홈에 카드가 붙은 홈 6곳 모두 이 꼴(2026-10-02). Next 메타데이터가 '/' 를 떼므로 직접 낸다 */}
       <link rel="canonical" href={`${SITE_URL}/`} />
       <meta property="og:url" content={`${SITE_URL}/`} />
-      <SiteHeader overlay nav={false} />
-      <main id="main" className="main--home">
-        {/* ───── 숨긴 카드 묶음 (2026-11-18 오너 시험 — 파일 위 주석) ─────
-            HTML·렌더 모두 쪽 맨 위(머리말 아래)에 카드 6장 = 첫 사진 링크 6개 = ItemList 6개. 히어로가 위에 그려져 화면엔 안 보인다.
-            키보드 이동만 건너뛰게 tabIndex -1(안 보이는 링크에 초점이 가지 않게). 글자·주소·사진은 보이는 카드 줄과 같다. */}
-        <section className="home-cards home-cards--behind" aria-label="화정치과 진료 안내">
-          <div className="wrap home-cards-grid home-cards-grid--row">
-            {carousel.map((c) => (
-              <Link key={c.path} href={c.path} className="h-card h-card--row" tabIndex={-1}>
-                <span className="h-card-img">
-                  <img src={c.image} alt={c.alt} width={800} height={800} decoding="async" />
-                </span>
-                <span className="h-card-in">
-                  <span className="card-tag">{c.tag}</span>
-                  <h3>{c.name}</h3>
-                  <p>{c.caption}</p>
-                </span>
-              </Link>
-            ))}
-          </div>
-        </section>
-
+      <SiteHeader overlay nosublink />
+      <main id="main">
         {/* ───── 히어로 = 첫 화면 (2026-11-17 오너 "이고운치과처럼") ─────
             이고운 첫 화면 꼴: 사진 전체 배경 · 투명 머리말 · 위 영문 작은 줄 · 아래쪽에 큰 제목 두 줄 → 한 줄 소개 → 예약·전화 → 가는 선 → 사실 넷.
             ★ h1 글자는 그대로(화정치과 · 동그라미치과의원 / 뽑기 전에 … 화정 치과) — 그 검색어 홈 순위는 h1 안 낱말이 정한다(아래 10-07 기록).
               줄바꿈은 <br /> 앞에 띄어쓰기를 남겨 '있는지 먼저' 로 읽히게 한다.
             ★ h1 에는 등장 효과를 걸지 않는다(검색 재료는 가리지 않는다 — components/Motion.tsx 원칙). */}
         <section className="hero hero--ego" aria-labelledby="h-home">
+          {/* ───── 숨긴 카드 묶음 (2026-11-18 오너 시험 — 파일 위 주석) ─────
+              HTML·렌더 모두 쪽 맨 위(머리말 아래)에 카드 6장 = 첫 사진 링크 6개 = ItemList 6개. 히어로 사진이 위에 그려져 화면엔 안 보인다.
+              11-19 히어로 안으로 옮김 — 히어로가 overflow:hidden 이라 폰에서 히어로보다 길어도 아래 구획으로 비치지 않는다.
+              키보드 이동만 건너뛰게 tabIndex -1(안 보이는 링크에 초점이 가지 않게).
+              ★ 카드 6장은 content/focus-cards-v1.json(lib/focus.ts) 한 곳에서 나온다 — <h3> 와 ItemList.name 이 글자까지 같아야 카드 줄이 붙는다.
+              ★★ 사진도 ItemList 와 같은 URL(정사각 800×800) — 2026-09-14 실측: 화면 <img> 와 ItemList 사진이 겹쳐야(6/6) 카드 줄이 붙었다. */}
+          <div className="home-cards home-cards--behind" role="presentation">
+            <div className="wrap home-cards-grid home-cards-grid--row">
+              {carousel.map((c) => (
+                <Link key={c.path} href={c.path} className="h-card h-card--row" tabIndex={-1}>
+                  <span className="h-card-img">
+                    <img src={c.image} alt={c.alt} width={800} height={800} decoding="async" />
+                  </span>
+                  <span className="h-card-in">
+                    <span className="card-tag">{c.tag}</span>
+                    <h3>{c.name}</h3>
+                    <p>{c.caption}</p>
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </div>
           <div className="hero-bg">
             <img src={HERO.src} alt={HERO.alt} fetchPriority="high" decoding="async" width={1920} height={1330} />
           </div>
@@ -180,139 +187,55 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* ───── 진료 카드 6장 (히어로 바로 아래, 2026-11-17) ─────
-            ★★★ 2026-10-01 실측(오너 캡처 gwanghwamundental.co.kr): 홈도 카드 줄을 받는다. 그 홈은 **첫 사진 링크 6개 =
-            ItemList 6개(주소·사진·순서 동일)**. 카드 앞에 다른 내부 링크를 두지 말 것(히어로의 예약·전화는 바깥 링크라 괜찮다).
-            ★ 11-17 큰 정사각 카드 두 줄(약 1,100px) → 작은 사진 + 이름 가로형 3×2. 글자·사진 주소·순서는 그대로, 전부 보이게(줄임표 없음).
-            11-18 맨 위 숨긴 묶음과 같은 카드 — 사람이 보는 쪽은 이 줄이다. */}
-        <section className="home-cards home-cards--after" aria-labelledby="h-treat">
-          <div className="wrap">
-            <div className="sec-head home-cards-head">
-              <span className="eyebrow">화정 치과 안내</span>
-              <h2 id="h-treat">화정치과를 알아보고 계신다면, 진료 이름보다 진단 순서를 먼저</h2>
-              <p>화정 치과 동그라미치과의원은 뽑을지 살릴지를 검사로 먼저 확인합니다. 살릴 수 있는 치아는 신경치료로, 그렇지 않은 치아는 임플란트로 — 어느 쪽이 맞는지 검사 뒤에 함께 정합니다. 오시는 길과 진료시간, 의료진, 진료마다 먼저 보는 것은 아래 여섯 쪽에 나눠 적었습니다.</p>
-            </div>
-            <div className="home-cards-grid home-cards-grid--row">
-              {/* ★ 카드 6장은 content/focus-cards.json(lib/focus.ts) 한 곳에서 나온다 — 화면 <h3> 와 ItemList.name 이 글자까지 같아야 검색 결과 카드 줄이 붙는다
-                  ★★ 사진도 ItemList 와 **같은 URL(정사각 800×800)** 을 써야 한다. 2026-09-14 실측:
-                     레퍼런스(1dentalsolution)는 ItemList 의 640×640 6장이 화면 <img> 에도 그대로 있어(겹침 6/6)
-                     검색 결과 블록에 카드 줄이 붙었고, 우리는 화면이 3:2 webp·구조화 데이터가 정사각 jpg 라
-                     겹침 0/6 이라 안 붙었다(네이버가 고른 썸네일도 화면에 있는 사진이었다). */}
-              {carousel.map((c) => (
-                <Link key={c.path} href={c.path} className="h-card h-card--row">
-                  <span className="h-card-img">
-                    <img src={c.image} alt={c.alt} width={800} height={800} loading="lazy" decoding="async" />
-                  </span>
-                  <span className="h-card-in">
-                    <span className="card-tag">{c.tag}</span>
-                    <h3>{c.name}</h3>
-                    <p>{c.caption}</p>
-                  </span>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </section>
+        {/* ═════ 2026-11-19 오너 "메인페이지를 이고운치과처럼 이쁘게" — 히어로 아래 구획을 이고운 홈 짜임으로(app/home-ego.css, 실측 C:/tmp/hero-ref/ego) ═════
+            이고운 결: 영문 작은 줄(가는 선) → 큰 제목 두 줄(강조 낱말만 색) → 왼쪽 제목·오른쪽 내용 / 01·02 번호 줄 / 가는 선으로 나눈 목록 /
+            구획마다 바탕 흰·살구·연회색 번갈아 / 맨 아래 색 띠 + 큰 예약 단추. 색은 병원 것(남색·꿀색) 그대로.
+            ★ 글·제목(h2) 문구는 그대로 — 순서와 모양만 바꿨다(새 글은 맨 아래 예약 띠 두 줄뿐, 제목 태그 아님).
+            ★ 제목 안 <br /> 앞에는 띄어쓰기를 남긴다(글자로 읽을 때 낱말이 붙지 않게). */}
 
-        {/* ───── 지금 진료 ───── */}
-        <div className="wrap">
-          <div className="now-bar">
-            <OpenNow withDot />
-            <span className="muted">
-              {UNVERIFIED.hours.display.map((d) => `${d.label} ${d.time}`).join(' · ')} · {UNVERIFIED.hours.closed}
-            </span>
-          </div>
-        </div>
-
-        {/* ★ 바로가기 타일 5장(lib/quicklinks)은 2026-10-01 홈에서 뺐다 — 검색 결과의 글자 바로가기가 이 5칸과 같았다.
-            레퍼런스(gwanghwamundental.co.kr) 홈은 메뉴성 링크 없이 카드 6장뿐이고 카드 줄을 받는다. 되살리지 말 것(결과 보고 판단) */}
-        {/* ───── 왜 ───── */}
-        <section className="sec sec--alt" aria-labelledby="h-why">
-          <div className="wrap why">
+        {/* ───── 고르실 때 — 이고운 'Our Mission' 자리(왼쪽 큰 제목 · 오른쪽 글) ───── */}
+        <section className="eg-sec eg-sec--paper" aria-labelledby="h-pick">
+          <div className="wrap eg-mission">
             <div>
-              <span className="eyebrow">동그라미치과의원은 어떤 곳인가요</span>
-              <h2 id="h-why" style={{ fontSize: 'clamp(26px, 3vw, 36px)', marginTop: 14, marginBottom: 14 }}>
-                동그라미치과의원이 진료를 대하는 다섯 가지 기준
+              <p className="eg-eyebrow">Before You Choose</p>
+              <h2 id="h-pick" className="eg-h2 eg-h2--xl">
+                <em>화정치과</em>를{' '}
+                <br className="br-wide" />
+                알아보고 계신다면
               </h2>
-              <p className="muted" style={{ marginBottom: 28 }}>
-                병원이 스스로 밝히고 있는 내용 그대로입니다. 근거가 되는 자격·인증은 병원 소개 페이지에서 실물 사진으로 확인하실 수 있습니다.
-              </p>
-              <div className="why-list">
-                {STRENGTHS.map((s) => (
-                  <div className="why-item" key={s.key}>
-                    <span className="ring">{s.key.slice(0, 1).toUpperCase()}</span>
-                    <div>
-                      <h3>{s.title}</h3>
-                      <p>{s.body}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
             </div>
-            <figure className="why-photo">
-              <img src={IMG.interior[3].src} alt={IMG.interior[3].alt} loading="lazy" decoding="async" />
-              <figcaption>{IMG.interior[3].alt}</figcaption>
-            </figure>
+            <div className="eg-mission-body">
+              <p>화정 치과를 고르실 때는 집이나 회사에서 오가기 편한지, 저녁이나 토요일에 시간을 낼 수 있는지부터 보시게 됩니다. 동그라미치과의원은 3호선 화정역에서 덕양구청 방면으로 직선거리 {walk}이고, 화요일과 목요일은 저녁 8시 30분까지, 토요일은 오후 2시까지 진료합니다.</p>
+              <p>그다음은 누가 어떤 순서로 진단하는지입니다. 동그라미치과의원은 보건복지부인증 통합치의학과 전문의 세 명이 진료하고, 저선량으로 촬영하는 CT와 구강스캐너로 찍은 사진을 함께 보며 지금 상태를 설명합니다.</p>
+              <p>치료를 정할 때는 그 치아를 남길 수 있는지부터 확인하고, 남길 수 없을 때 임플란트를 말씀드립니다. 비용은 검사 뒤에 건강보험 적용 여부와 함께 설명합니다.</p>
+            </div>
           </div>
         </section>
 
-        {/* ───── 진료별 안내(긴 글) ───── */}
-        <section className="sec" aria-label="진료별 안내">
-          <div className="wrap">
-            {FEATURES.map((f, i) => {
-              const t = treatmentBySlug(f.slug)!;
-              const intro = sentences(t.intro);
-              return (
-                <article key={f.slug} className={`feature${i % 2 ? ' feature--flip' : ''}`}>
-                  <div className="feature-media">
-                    <img src={f.img.src} alt={f.img.alt} loading="lazy" decoding="async" />
-                  </div>
-                  <div className="feature-copy">
-                    <span className="eyebrow">화정치과 · {t.name}</span>
-                    <h2>{f.h2}</h2>
-                    <p>{t.summary}</p>
-                    <p>{intro.slice(0, 3).join(' ')}</p>
-                  </div>
-                </article>
-              );
-            })}
-          </div>
-        </section>
-
-        {/* ───── 진료 열 가지 (2026-10-08 — 증상 구획 자리. 증상·질환 쪽은 지웠다) ───── */}
-        <section className="sec sec--alt" aria-labelledby="h-all">
-          <div className="wrap">
-            <div className="sec-head">
-              <span className="eyebrow">진료 과목</span>
-              <h2 id="h-all">화정 치과 동그라미치과의원에서 하는 진료 열 가지</h2>
-              <p>진료 이름만 늘어놓지 않고, 진료마다 무엇을 먼저 확인하는지 한 줄씩 적었습니다. 진료별 자세한 내용은 진료 안내 쪽에 있습니다.</p>
+        {/* ───── 진료 기준 다섯 가지 — 이고운 'Our Promise' 자리(왼쪽 제목·사진 고정 · 오른쪽 01~05) ───── */}
+        <section className="eg-sec eg-sec--peach" aria-labelledby="h-why">
+          <div className="wrap eg-split">
+            <div className="eg-split-side">
+              <p className="eg-eyebrow">Our Standard</p>
+              <h2 id="h-why" className="eg-h2">
+                동그라미치과의원이 진료를 대하는{' '}
+                <br className="br-wide" />
+                <em>다섯 가지 기준</em>
+              </h2>
+              <p className="eg-lead">병원이 스스로 밝히고 있는 내용 그대로입니다. 근거가 되는 자격·인증은 병원 소개 페이지에서 실물 사진으로 확인하실 수 있습니다.</p>
+              <figure className="eg-photo">
+                {/* 11-19 아래 진료 02(자연치아 살리기) 사진과 겹치지 않게 — 예전 히어로였던 창가 진료실 사진 */}
+                <img src={IMG.interior[8].src} alt={IMG.interior[8].alt} loading="lazy" decoding="async" />
+                <figcaption>{IMG.interior[8].alt}</figcaption>
+              </figure>
             </div>
-            {/* 홈에서는 링크 없이 글로만 — 홈 첫 링크 묶음은 카드 6장 */}
-            <dl className="home-sym home-all">
-              {TREATMENTS.map((t) => (
-                <div key={t.slug}>
-                  <dt>{t.name}</dt>
-                  <dd>{t.summary}</dd>
-                </div>
-              ))}
-            </dl>
-          </div>
-        </section>
-
-        {/* ───── 첫 진료 ───── */}
-        <section className="sec" aria-labelledby="h-first">
-          <div className="wrap two">
-            <div className="sec-head" style={{ marginBottom: 0 }}>
-              <span className="eyebrow">처음 오시면</span>
-              <h2 id="h-first">화정치과 첫 진료는 이렇게 진행됩니다</h2>
-              <p>처음 오신 날 바로 치료부터 하지 않습니다. 복용 중인 약을 확인하고 사진을 찍은 뒤, 그 사진을 함께 보면서 지금 상태와 선택지를 설명합니다.</p>
-            </div>
-            <ol className="steps">
-              {FIRST_VISIT_FLOW.map((x) => (
-                <li key={x.n}>
+            <ol className="eg-num">
+              {STRENGTHS.map((s, i) => (
+                <li key={s.key}>
+                  <span className="eg-n" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
                   <div>
-                    <b>{x.t}</b>
-                    <p>{x.d}</p>
+                    <h3>{s.title}</h3>
+                    <p>{s.body}</p>
                   </div>
                 </li>
               ))}
@@ -320,57 +243,186 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* ───── 의료진 ───── */}
-        <section className="sec sec--alt" aria-labelledby="h-team">
-          <div className="wrap team">
-            <div className="sec-head sec-head--row">
+        {/* ───── 진료 — 이고운 'Our Care' 자리(번호 줄) + 진료 열 가지(가는 선 두 칸 목록) ───── */}
+        <section className="eg-sec eg-sec--paper" aria-labelledby="h-all">
+          <div className="wrap">
+            <div className="eg-head-row">
               <div>
-                <span className="eyebrow">의료진</span>
-                <h2 id="h-team">화정치과 의료진, 세 명 모두 보건복지부인증 통합치의학과 전문의입니다</h2>
-                <p>학력·경력은 병원이 공개한 원문 그대로이며 요약하거나 고쳐 쓰지 않았습니다. 진단이 애매한 경우 원장들이 서로 의견을 나눕니다.</p>
+                <p className="eg-eyebrow">Our Care</p>
+                <h2 id="h-all" className="eg-h2">
+                  화정 치과 동그라미치과의원에서{' '}
+                  <br className="br-wide" />
+                  하는 <em>진료 열 가지</em>
+                </h2>
               </div>
+              <p className="eg-head-note">진료 이름만 늘어놓지 않고, 진료마다 무엇을 먼저 확인하는지 한 줄씩 적었습니다. 진료별 자세한 내용은 진료 안내 쪽에 있습니다.</p>
             </div>
-            <div className="team-photo">
-              <img src={IMG.doctorsTeam} alt="동그라미치과의원 의료진 — 김인진 원장, 변석호 대표원장, 김동주 원장" loading="lazy" decoding="async" width={1200} height={800} />
+            <div className="eg-rows">
+              {FEATURES.map((f, i) => {
+                const t = treatmentBySlug(f.slug)!;
+                const intro = sentences(t.intro);
+                return (
+                  <article key={f.slug} className="eg-row">
+                    <span className="eg-n" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+                    <figure className="eg-row-img">
+                      <img src={f.img.src} alt={f.img.alt} loading="lazy" decoding="async" />
+                    </figure>
+                    <div className="eg-row-copy">
+                      <p className="eg-kicker">화정치과 · {t.name}</p>
+                      <h2>{f.h2}</h2>
+                      <p className="eg-row-sum">{t.summary}</p>
+                      <p>{intro.slice(0, 3).join(' ')}</p>
+                    </div>
+                  </article>
+                );
+              })}
             </div>
-            <div className="team-cards">
-              {DOCTORS.map((d) => (
-                <DoctorCard key={d.slug} d={d} link={false} />
+            {/* 홈에서는 링크 없이 글로만 */}
+            <div className="eg-all">
+              <p className="eg-rule-head">All Treatments · 진료 열 가지</p>
+              <dl className="eg-all-list">
+                {TREATMENTS.map((t, i) => (
+                  <div key={t.slug}>
+                    <span className="eg-all-n" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+                    <dt>{t.name}</dt>
+                    <dd>{t.summary}</dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+          </div>
+        </section>
+
+        {/* ───── 첫 진료 — 단계 카드(사진·STEP 번호) ───── */}
+        <section className="eg-sec eg-sec--gray" aria-labelledby="h-first">
+          <div className="wrap">
+            <div className="eg-head-row">
+              <div>
+                <p className="eg-eyebrow">First Visit</p>
+                <h2 id="h-first" className="eg-h2">
+                  화정치과 첫 진료는{' '}
+                  <br className="br-wide" />
+                  <em>이렇게 진행됩니다</em>
+                </h2>
+              </div>
+              <p className="eg-head-note">처음 오신 날 바로 치료부터 하지 않습니다. 복용 중인 약을 확인하고 사진을 찍은 뒤, 그 사진을 함께 보면서 지금 상태와 선택지를 설명합니다.</p>
+            </div>
+            <ol className="eg-steps">
+              {FIRST_VISIT_FLOW.map((x) => (
+                <li key={x.n}>
+                  {x.image && <img src={x.image} alt={x.alt ?? ''} loading="lazy" decoding="async" width={1536} height={1024} />}
+                  <span className="eg-step-n">STEP {x.n}</span>
+                  <b>{x.t}</b>
+                  <p>{x.d}</p>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+
+        {/* ───── 의료진 — 이고운 'Our Doctors' 자리(대표원장 크게 · 아래 원장 두 분) ───── */}
+        <section className="eg-sec eg-sec--paper" aria-labelledby="h-team">
+          <div className="wrap">
+            <p className="eg-eyebrow">Our Doctors</p>
+            <h2 id="h-team" className="eg-h2">
+              화정치과 의료진, 세 명 모두{' '}
+              <br className="br-wide" />
+              <em>보건복지부인증 통합치의학과 전문의</em>입니다
+            </h2>
+            <p className="eg-lead eg-lead--under">학력·경력은 병원이 공개한 원문 그대로이며 요약하거나 고쳐 쓰지 않았습니다. 진단이 애매한 경우 원장들이 서로 의견을 나눕니다.</p>
+            {DOCTORS.slice(0, 1).map((d) => (
+              <div key={d.slug} className="eg-dir">
+                <figure className="eg-dir-photo">
+                  <img src={d.photo} alt={`${d.name} ${d.role}`} loading="lazy" decoding="async" width={625} height={670} />
+                  <span className="eg-dir-tag">DIRECTOR</span>
+                </figure>
+                <div className="eg-dir-copy">
+                  <p className="eg-kicker">{d.role} · {d.license}</p>
+                  <h3>{d.name}</h3>
+                  <ul>
+                    {d.keyCareer.map((k) => (
+                      <li key={k}>{k}</li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            ))}
+            <p className="eg-rule-head eg-rule-head--gap">Partners · 함께 진료하는 원장</p>
+            <div className="eg-partners">
+              {DOCTORS.slice(1).map((d) => (
+                <div key={d.slug} className="eg-partner">
+                  <img src={d.photo} alt={`${d.name} ${d.role}`} loading="lazy" decoding="async" width={625} height={670} />
+                  <div>
+                    <h3>
+                      {d.name} <span>{d.role}</span>
+                    </h3>
+                    <p className="eg-kicker">{d.license}</p>
+                    <ul>
+                      {d.keyCareer.map((k) => (
+                        <li key={k}>{k}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* ───── 오시는 길 ───── */}
-        <section className="sec" aria-labelledby="h-visit">
+        {/* ───── 오시는 길 — 이고운 'Visit' 자리(왼쪽 정보·진료시간 · 오른쪽 사진) ───── */}
+        <section className="eg-sec eg-sec--gray" aria-labelledby="h-visit">
           <div className="wrap">
-            <div className="sec-head">
-              <span className="eyebrow">오시는 길 · 진료시간</span>
-              <h2 id="h-visit">화정역 치과 동그라미치과의원 오시는 길</h2>
-            </div>
-            <div className="visit">
-              <div className="visit-box">
-                <h3>위치</h3>
-                <p className="visit-addr">{CLINIC.address.full}</p>
-                <div className="visit-meta">
-                  <div><b>지하철</b><span>3호선 화정역 · 직선거리 {fmtDistance(STATION_DISTANCE_M)} · 덕양구청 방면</span></div>
-                  <div><b>주차</b><span>{CLINIC.parking.type} {CLINIC.parking.fee}. {CLINIC.parking.note}</span></div>
-                  <div><b>전화</b><span>{CLINIC.phone}</span></div>
+            <p className="eg-eyebrow">Visit</p>
+            <h2 id="h-visit" className="eg-h2">
+              화정역 치과 동그라미치과의원{' '}
+              <br className="br-wide" />
+              <em>오시는 길</em>
+            </h2>
+            <div className="eg-visit">
+              <div className="eg-visit-info">
+                <dl>
+                  <div>
+                    <dt>위치</dt>
+                    <dd className="eg-visit-addr">{CLINIC.address.full}</dd>
+                  </div>
+                  <div>
+                    <dt>지하철</dt>
+                    <dd>3호선 화정역 · 직선거리 {fmtDistance(STATION_DISTANCE_M)} · 덕양구청 방면</dd>
+                  </div>
+                  <div>
+                    <dt>주차</dt>
+                    <dd>{CLINIC.parking.type} {CLINIC.parking.fee}. {CLINIC.parking.note}</dd>
+                  </div>
+                  <div>
+                    <dt>전화</dt>
+                    <dd>{CLINIC.phone}</dd>
+                  </div>
+                </dl>
+                <div className="eg-hours">
+                  <h3>
+                    진료시간 <OpenNow withDot />
+                  </h3>
+                  <HoursTable />
+                  <p className="eg-hours-note">점심시간 {UNVERIFIED.hours.lunch.start}–{UNVERIFIED.hours.lunch.end} (토요일 제외)</p>
                 </div>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
-                  <Btn href={`https://map.naver.com/p/search/${encodeURIComponent('동그라미치과의원 화정동')}`} kind="primary" size="sm">
+                <div className="eg-visit-btns">
+                  <a className="eg-pill eg-pill--naver" href={`https://map.naver.com/p/search/${encodeURIComponent('동그라미치과의원 화정동')}`} target="_blank" rel="noopener">
                     {Icon.pin} 네이버 지도
-                  </Btn>
+                  </a>
+                  <a className="eg-pill eg-pill--line" href={CLINIC.phoneHref}>
+                    {Icon.phone} 전화 {CLINIC.phone}
+                  </a>
                 </div>
               </div>
-              <div className="visit-box">
-                <h3>진료시간</h3>
-                <HoursTable />
-                <p className="small muted">점심시간 {UNVERIFIED.hours.lunch.start}–{UNVERIFIED.hours.lunch.end} (토요일 제외)</p>
-              </div>
+              <figure className="eg-visit-photo">
+                <img src={IMG.interior[11].src} alt={IMG.interior[11].alt} loading="lazy" decoding="async" />
+                <figcaption>
+                  <span>LOBBY</span> 접수 · 대기
+                </figcaption>
+              </figure>
             </div>
             {/* ★ 2026-10-08: 지역 칩 26개(다른 동네 검색어)는 뺐다 — 네 검색어만. 그 셋의 길은 글로 */}
-            <div className="home-ways">
+            <div className="eg-ways">
               <div>
                 <h3>화정역에서</h3>
                 <p>3호선 화정역에서 덕양구청 방면으로 나와 화중로를 따라 남쪽으로 내려오시면 됩니다. 역에서 직선거리 {walk}입니다.</p>
@@ -387,33 +439,61 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* ───── 고르실 때 (2026-10-08 — 광화문 업체 홈의 '광화문치과를 알아보고 계신다면' 구획과 같은 자리) ───── */}
-        <section className="sec sec--alt" aria-labelledby="h-pick">
-          <div className="wrap">
-            <div className="sec-head">
-              <span className="eyebrow">고르실 때</span>
-              <h2 id="h-pick">화정치과를 알아보고 계신다면</h2>
+        {/* ───── FAQ — 이고운 'FAQ' 자리(왼쪽 제목 · 오른쪽 Q 01 펼침) ───── */}
+        <section className="eg-sec eg-sec--paper" aria-labelledby="h-faq">
+          <div className="wrap eg-split">
+            <div className="eg-split-side">
+              <p className="eg-eyebrow">FAQ</p>
+              <h2 id="h-faq" className="eg-h2">
+                화정치과 내원 전에{' '}
+                <br className="br-wide" />
+                <em>자주 물으시는 것</em>
+              </h2>
+              <p className="eg-lead">진료시간·예약·주차·비용처럼 오시기 전에 궁금한 것부터 답합니다. 진료 내용은 진료 안내 쪽에 진료마다 적었습니다.</p>
             </div>
-            <div className="fc-body">
-              <p>화정 치과를 고르실 때는 집이나 회사에서 오가기 편한지, 저녁이나 토요일에 시간을 낼 수 있는지부터 보시게 됩니다. 동그라미치과의원은 3호선 화정역에서 덕양구청 방면으로 직선거리 {walk}이고, 화요일과 목요일은 저녁 8시 30분까지, 토요일은 오후 2시까지 진료합니다.</p>
-              <p>그다음은 누가 어떤 순서로 진단하는지입니다. 동그라미치과의원은 보건복지부인증 통합치의학과 전문의 세 명이 진료하고, 저선량으로 촬영하는 CT와 구강스캐너로 찍은 사진을 함께 보며 지금 상태를 설명합니다.</p>
-              <p>치료를 정할 때는 그 치아를 남길 수 있는지부터 확인하고, 남길 수 없을 때 임플란트를 말씀드립니다. 비용은 검사 뒤에 건강보험 적용 여부와 함께 설명합니다.</p>
+            <div className="eg-faq">
+              {CLINIC_QA.slice(0, 6).map((q, i) => (
+                <details key={q.q} open={i === 0}>
+                  <summary>
+                    <span className="eg-qn">Q {String(i + 1).padStart(2, '0')}</span>
+                    <span className="eg-qt">{q.q}</span>
+                    <span className="eg-qx" aria-hidden="true" />
+                  </summary>
+                  <div className="eg-qa">{q.a}</div>
+                </details>
+              ))}
             </div>
           </div>
         </section>
 
-        {/* ───── FAQ ───── */}
-        <section className="sec" aria-labelledby="h-faq">
-          <div className="wrap two">
-            <div className="sec-head" style={{ marginBottom: 0 }}>
-              <span className="eyebrow">자주 묻는 질문</span>
-              <h2 id="h-faq">화정치과 내원 전에 자주 물으시는 것</h2>
-              <p>진료시간·예약·주차·비용처럼 오시기 전에 궁금한 것부터 답합니다. 진료 내용은 진료 안내 쪽에 진료마다 적었습니다.</p>
+        {/* ───── 예약 띠 — 이고운 맨 아래 색 띠 자리(병원 남색). 새 글은 이 두 줄뿐 — 제목 태그는 쓰지 않는다 ───── */}
+        <section className="eg-cta" aria-label="예약 · 상담">
+          <div className="wrap eg-cta-in">
+            <div>
+              <p className="eg-eyebrow eg-eyebrow--light">Reservation</p>
+              <p className="eg-cta-t">
+                치료를 정하기 전에,{' '}
+                <br />
+                <em>지금 상태부터 함께 보겠습니다.</em>
+              </p>
+              <p className="eg-cta-s">전화나 네이버 예약으로 편한 시간을 잡아 주세요. 화요일과 목요일은 저녁 8시 30분까지 진료합니다.</p>
             </div>
-            <Faq items={CLINIC_QA.slice(0, 6).map((q) => ({ q: q.q, a: q.a }))} />
+            <div className="eg-cta-btns">
+              <a className="eg-cbtn eg-cbtn--white" href={CLINIC.phoneHref}>
+                <span>전화 {CLINIC.phone}</span>
+                {Icon.arrow}
+              </a>
+              <a className="eg-cbtn eg-cbtn--kakao" href={CLINIC.booking.kakao} target="_blank" rel="noopener">
+                <span>카카오톡 상담</span>
+                {Icon.arrow}
+              </a>
+              <a className="eg-cbtn eg-cbtn--naver" href={CLINIC.booking.naver} target="_blank" rel="noopener">
+                <span>네이버 예약</span>
+                {Icon.arrow}
+              </a>
+            </div>
           </div>
         </section>
-
       </main>
       <JsonLd
         nodes={[

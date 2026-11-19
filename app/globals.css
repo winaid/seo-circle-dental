@@ -568,8 +568,6 @@ button { font: inherit; }
 }
 
 /* 홈 카드 6장 — 히어로 바로 아래, 작은 사진 + 이름 가로형 3×2 (11-17). 글은 줄이지 않고 전부 보인다 */
-.home-cards.home-cards--after { padding: 72px 0 76px; }
-.home-cards--after .home-cards-head { margin: 0 0 28px; }
 .home-cards-grid--row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
 .h-card.h-card--row { flex-direction: row; align-items: flex-start; gap: 4px; padding: 12px; }
 .h-card--row .h-card-img { flex: 0 0 120px; width: 120px; border-radius: 12px; }
@@ -578,7 +576,6 @@ button { font: inherit; }
 .h-card--row .h-card-in p { display: block; -webkit-line-clamp: unset; font-size: 13.5px; line-height: 1.6; }
 @media (max-width: 1000px) { .home-cards-grid--row { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 640px) {
-  .home-cards.home-cards--after { padding: 48px 0 52px; }
   .home-cards-grid--row { grid-template-columns: minmax(0, 1fr); gap: 10px; }
   .h-card.h-card--row { padding: 10px; }
   .h-card--row .h-card-img { flex-basis: 92px; width: 92px; border-radius: 10px; }
@@ -590,7 +587,11 @@ button { font: inherit; }
 /* 숨긴 카드 묶음 — 2026-11-18 오너 시험(app/page.tsx 위 주석). 숙면치과 계열과 같은 꼴: 쪽 맨 위에 깔고(z-index:-1) 히어로가 덮는다.
    히어로(불투명 사진·바탕)보다 길어지면 아래로 비치므로 바로 다음 구획(보이는 카드 줄)에 같은 바탕색을 깐다.
    되돌리기 = 이 블록과 page.tsx 의 .home-cards--behind 구획을 지운다. */
-.main--home { position: relative; }
-.home-cards.home-cards--behind { position: absolute; top: 0; left: 0; right: 0; z-index: -1; padding: calc(var(--hd-h) + 40px) 0 0; pointer-events: none; }
-.home-cards.home-cards--after { background: var(--paper); }
-@media (max-width: 640px) { .home-cards.home-cards--behind { padding-top: calc(var(--hd-h) + 8px); } }
+/* 11-19 히어로 안 맨 앞으로 옮김 — 히어로가 isolation:isolate·overflow:hidden 이라 z-index:-3 은 사진(-2)·그늘(-1) 아래에 깔리고 히어로 밖으로 비치지 않는다 */
+.hero .home-cards.home-cards--behind { position: absolute; top: 0; left: 0; right: 0; z-index: -3; padding: calc(var(--hd-h) + 40px) 0 0; pointer-events: none; }
+@media (max-width: 640px) { .hero .home-cards.home-cards--behind { padding-top: calc(var(--hd-h) + 8px); } }
+
+/* 홈 머리말 메뉴(11-19) — 투명 머리말이 내려가며 밝은 유리로 바뀌면 메뉴 글자·햄버거도 어두운 색으로 */
+.hd--overlay.is-scrolled .hd-nav a { color: var(--ink-2); }
+.hd--overlay.is-scrolled .hd-nav a:hover { background: var(--paper-2); color: var(--brand-ink); }
+.hd--overlay.is-scrolled .hd-menu summary { color: var(--ink); border-color: var(--line-2); }
